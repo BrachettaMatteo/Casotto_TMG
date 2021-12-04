@@ -1,38 +1,56 @@
 public class Cliente {
 
-	private String nome;
-	private String cognome;
-	private int id;
+    private String nome;
+    private String cognome;
+    private int id;
 
-	public String getNome() {
-		return this.nome;
-	}
+    public Cliente(String nome, String cognome) {
 
-	public String getCognome() {
-		return this.cognome;
-	}
+        if (nome.length() <= 1)
+            throw new IllegalArgumentException("nome errato");
+        if (nome == null)
+            throw new NullPointerException("il nome è null");
 
-	public int getId() {
-		return this.id;
-	}
+        if (cognome.length() <= 1)
+            throw new IllegalArgumentException("cognome errato");
+        if (cognome == null)
+            throw new NullPointerException("il cognome è null");
+        this.nome = nome;
+        this.cognome = cognome;
+        //todo creare generatore id?
+    }
 
-	/**
-	 * richiesta prenotazione ombrellone, restituira true se è stata accettata altrimenti false.
-	 * @param ombrellone
-	 * @param durata indica la durat della prenotazione
-	 */
-	public boolean richiestaPrenotazioneOmbrellone(Ombrellone ombrellone, int durata) {
-		// TODO - implement Cliente.richiestaPrenotazioneOmbrellone
-		throw new UnsupportedOperationException();
-	}
+    public String getNome() {
+        return this.nome;
+    }
 
-	/**
-	 * richiesta prenotazione servizio, restituira true se è stata accettata altrimenti false.
-	 * @param comanda
-	 */
-	public boolean richiestaPrenotazioneServizio(Comanda comanda) {
-		// TODO - implement Cliente.richiestaPrenotazioneServizio
-		throw new UnsupportedOperationException();
-	}
+    public String getCognome() {
+        return this.cognome;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * richiesta prenotazione ombrellone, restituira true se è stata accettata altrimenti false.
+     *
+     * @param ombrellone
+     * @param durata     indica la durat della prenotazione
+     */
+    public boolean richiestaPrenotazioneOmbrellone(Ombrellone ombrellone, int durata) {
+        // TODO - Rivedere
+        return false;
+    }
+
+    /**
+     * richiesta prenotazione servizio, restituira true se è stata accettata altrimenti false.
+     *
+     * @param comanda
+     */
+    public boolean richiestaPrenotazioneServizio(Comanda comanda) {
+        // TODO - Rivedere
+        return false;
+    }
 
 }

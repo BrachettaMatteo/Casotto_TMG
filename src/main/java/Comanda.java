@@ -16,6 +16,8 @@ public class Comanda {
 	 * @param status
 	 */
 	public void setStatus(Status status) {
+		if(status == null)
+			throw new NullPointerException("status null");
 		this.status = status;
 	}
 

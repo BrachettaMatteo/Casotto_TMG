@@ -2,91 +2,126 @@ import java.util.ArrayList;
 
 public class Attivita {
 
-	private int idAttivita;
-	private String nome;
-	/**
-	 * numero che indentifica i componenti massimi
-	 */
-	private int postiMax;
-	/**
-	 * identifica i posti minimi per far cominciare l'attività
-	 */
-	private int postiMin;
-	/**
-	 * identifica i componenti inscritti all'attività
-	 */
-	private ArrayList<Cliente> componenti;
-	private float costo;
-	private String descrizione;
-	private int oraAttivita;
+    private int idAttivita;
+    private String nome;
+    /**
+     * numero che indentifica i componenti massimi
+     */
+    private int postiMax;
+    /**
+     * identifica i posti minimi per far cominciare l'attività
+     */
+    private int postiMin;
+    /**
+     * identifica i componenti inscritti all'attività
+     */
+    private ArrayList<Cliente> componenti;
+    private float costo;
+    private String descrizione;
+    private int oraAttivita;
 
-	public Attivita(int idAttivita, String nome, int postiMax, int postiMin, ArrayList<Cliente> componenti, float costo, String descrizione, int oraAttivita) {
-		//todo controllo eccezioni
-		this.idAttivita = idAttivita;
-		this.nome = nome;
-		this.postiMax = postiMax;
-		this.postiMin = postiMin;
-		this.componenti = componenti;
-		this.costo = costo;
-		this.descrizione = descrizione;
-		this.oraAttivita = oraAttivita;
-	}
+    public Attivita(int idAttivita, String nome, int postiMax, int postiMin, float costo, String descrizione, int oraAttivita) {
+        //controllo
+        if (idAttivita < 0)
+            throw new IllegalArgumentException("id non corretto");
+        if (nome.length() <= 1)
+            throw new IllegalArgumentException("nome errato");
+        if (nome == null)
+            throw new NullPointerException("il nome è null");
+        if (postiMax <= 0)
+            throw new IllegalArgumentException("posti Max errati");
+        if (postiMin <= 0)
+            throw new IllegalArgumentException("posti Max errati");
+        if (descrizione.length() <= 2)
+            throw new IllegalArgumentException("posti min errati");
+        if (costo < 0)
+            //<0 perchè un attività puo essere anche gratis
+            throw new IllegalArgumentException("costo errato");
+        if (descrizione == null)
+            throw new NullPointerException("escrizione null");
+        if (descrizione.length() <= 1)
+            throw new IllegalArgumentException("descrizione non corretta");
+        if (oraAttivita <= 0)
+            throw new IllegalArgumentException("orario attivita non corretta");
+        this.idAttivita = idAttivita;
+        this.nome = nome;
+        this.postiMax = postiMax;
+        this.postiMin = postiMin;
+        this.componenti = new ArrayList<Cliente>();
+        this.costo = costo;
+        this.descrizione = descrizione;
+        this.oraAttivita = oraAttivita;
+    }
 
-	public String getNome() {
-		return this.nome;
-	}
+    public String getNome() {
+        return this.nome;
+    }
 
-	/**
-	 * @param nome
-	 */
-	public void setNome(String nome) {
-		//todo controllo nome.empty nome.length <= 1
-		this.nome = nome;
-	}
+    /**
+     * @param nome
+     */
+    public void setNome(String nome) {
+        if (nome.length() <= 1)
+            throw new IllegalArgumentException("nome errato");
+        if (nome == null)
+            throw new NullPointerException("il nome è null");
+        this.nome = nome;
+    }
 
-	public int getPostiMax() {
-		return this.postiMax;
-	}
+    public int getPostiMax() {
+        return this.postiMax;
+    }
 
-	public int getPostiMin() {
-		return this.postiMin;
-	}
+    public int getPostiMin() {
+        return this.postiMin;
+    }
 
-	public float getCosto() {
-		return this.costo;
-	}
+    public float getCosto() {
+        return this.costo;
+    }
 
-	public String getDescrizione() {
-		return this.descrizione;
-	}
+    public String getDescrizione() {
+        return this.descrizione;
+    }
 
-	/**
-	 * 
-	 * @param descrizione
-	 */
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
+    /**
+     * @param descrizione;
+     */
+    public void setDescrizione(String descrizione) {
+        //controllo
+        if (descrizione == null)
+            throw new NullPointerException("escrizione null");
+        if (descrizione.length() <= 1)
+            throw new IllegalArgumentException("descrizione non corretta");
+        this.descrizione = descrizione;
+    }
 
-	public int getIdAttivita() {
-		return this.idAttivita;
-	}
+    public int getIdAttivita() {
+        return this.idAttivita;
+    }
 
-	public ArrayList<Cliente> getComponenti() {
-		return this.componenti;
-	}
+    /**
+     * @return null se non è presente neanche un componente altrimenti la lista dei componenti;
+     */
+    public ArrayList<Cliente> getComponenti() {
+        if (this.componenti.isEmpty())
+            return null;
+        return this.componenti;
+    }
 
-	/**
-	 * aggiunge un componente
-	 * @param cliente
-	 */
-	public boolean aggiungiComponente(Cliente cliente) {
-		if (cliente == null) throw new NullPointerException("il cliente inserito è nullo");
-		return this.componenti.add(cliente);
-	}
+    /**
+     * aggiunge un componente
+     *
+     * @param cliente
+     */
+    public boolean aggiungiComponente(Cliente cliente) {
+        //controllo
+        if (cliente == null) throw new NullPointerException("il cliente inserito è nullo");
+        return this.componenti.add(cliente);
+    }
 
-	public int getOraAttivita() {
-		return this.oraAttivita;
-	}
+    public int getOraAttivita() {
+        return this.oraAttivita;
+    }
 
 }
