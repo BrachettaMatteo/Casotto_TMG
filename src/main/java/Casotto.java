@@ -66,9 +66,13 @@ public class Casotto {
      * @param ombrellone
      * @param comanda
      */
-    private boolean prenotaOmbrellone(Cliente cliente, Ombrellone ombrellone, Comanda comanda) {
-        // TODO - implement Casotto.prenotaOmbrellone
-        throw new UnsupportedOperationException();
+    public boolean prenotaOmbrellone(Cliente c ,Ombrellone o, int durata) {
+        //controllo presenza ombrellon
+            Ombrellone a = o;
+             o.setDisponibilita(false);
+            this.ombrelloni.set(this.ombrelloni.indexOf(a),o);
+
+        return true;
     }
 
     /**
@@ -78,7 +82,7 @@ public class Casotto {
      * @param ombrellone
      * @param comanda
      */
-    private boolean prenotaServizio(Cliente cliente, Ombrellone ombrellone, Comanda comanda) {
+    public boolean prenotaServizio(Cliente cliente, Ombrellone ombrellone, Comanda comanda) {
         // TODO - implement Casotto.prenotaServizio
         throw new UnsupportedOperationException();
     }

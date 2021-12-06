@@ -1,5 +1,7 @@
 public class Cliente {
 
+    private Casotto c;
+
     private String nome;
     private String cognome;
     private int id;
@@ -39,7 +41,9 @@ public class Cliente {
      * @param durata     indica la durat della prenotazione
      */
     public boolean richiestaPrenotazioneOmbrellone(Ombrellone ombrellone, int durata) {
-        // TODO - Rivedere
+        if(ombrellone.getDisponibilita()){
+            this.c.prenotaOmbrellone(this, ombrellone, durata);
+        }
         return false;
     }
 

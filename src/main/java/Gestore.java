@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class Gestore extends Personale {
 
+	private Casotto c;
+
 	/**
 	 * lista degli chalet posseduti da un gestore
 	 */
@@ -38,7 +40,14 @@ public class Gestore extends Personale {
 	}
 
 	public void setTariffe(float tariffa, int fila) {
-		//todo controllo paramteri
+		
+		ArrayList<Ombrellone> o = new ArrayList<>(this.c.getOmbrelloni());
+
+		for(Ombrellone s : o){
+			if(s.getFila()== fila){
+				s.setTariffa(tariffa);
+			}
+		}
 
 
 	}

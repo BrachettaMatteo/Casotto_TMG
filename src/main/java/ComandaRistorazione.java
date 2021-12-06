@@ -2,6 +2,11 @@ import java.util.ArrayList;
 
 public class ComandaRistorazione extends Comanda {
 
+	public ComandaRistorazione(Cliente c, Ombrellone o, ArrayList<Prodotto> prodottiOrdinati) {
+		super(c, o);
+		this.prodottiOrdinati = prodottiOrdinati;
+	}
+
 	private ArrayList<Prodotto> prodottiOrdinati;
 
 	public ArrayList<Prodotto> getProdottiOrdinati() {
