@@ -4,10 +4,7 @@ public class Attivita {
 
     private int idAttivita;
     private String nome;
-    /**
-     * numero che indentifica i componenti massimi
-     */
-    private int postiMax;
+    private int postiMax; /** Numero che identifica i componenti massimi. */
     /**
      * identifica i posti minimi per far cominciare l'attività
      */
