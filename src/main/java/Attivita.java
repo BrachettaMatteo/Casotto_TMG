@@ -5,17 +5,11 @@ public class Attivita {
     private int idAttivita;
     private String nome;
     private int postiMax; /** Numero che identifica i componenti massimi. */
-    /**
-     * identifica i posti minimi per far cominciare l'attività
-     */
-    private int postiMin;
-    /**
-     * identifica i componenti inscritti all'attività
-     */
-    private ArrayList<Cliente> componenti;
-    private float costo;
-    private String descrizione;
-    private int oraAttivita;
+    private int postiMin; /** Numero che identifica i posti minimi per avviare l'attività. */
+    private ArrayList<Cliente> componenti; /** Identifica i componenti iscritti all'attività. */
+    private float costo; /** Costo dell'attività corrispondente. */
+    private String descrizione; /** Descrizione dell'attività. */
+    private int oraAttivita; /** Orario in cui è disponibile usufruire dell'attività. */
 
     public Attivita(int idAttivita, String nome, int postiMax, int postiMin, float costo, String descrizione, int oraAttivita) {
         //controllo
