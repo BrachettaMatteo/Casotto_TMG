@@ -15,7 +15,7 @@ public class ComandaRistorazione extends Comanda {
 
 	/**
 	 * 
-	 * @param prodottiOrdinati
+	 * @param prodottiOrdinati ...;
 	 */
 	public void setProdottiOrdinati(ArrayList<Prodotto> prodottiOrdinati) {
 		this.prodottiOrdinati = prodottiOrdinati;
@@ -23,20 +23,20 @@ public class ComandaRistorazione extends Comanda {
 
 	/**
 	 * aggiunge un prodotto alla lista dei prodotti ordinati
-	 * @param p
+	 * @param p ...;
 	 */
 	public boolean aggiungiProdotto(Prodotto p) {
-		// TODO - implement ComandaRistorazione.aggiungiProdotto
-		throw new UnsupportedOperationException();
+		// TODO - controllo prodotto
+		return this.prodottiOrdinati.add(p);
 	}
 
 	/**
 	 * 
-	 * @param p
+	 * @param p ...;
 	 */
 	public boolean rimuoviProdotto(Prodotto p) {
-		// TODO - implement ComandaRistorazione.rimuoviProdotto
-		throw new UnsupportedOperationException();
+		//todo controllo p
+		return this.prodottiOrdinati.remove(p);
 	}
 
 }

@@ -10,29 +10,29 @@ public class Menu {
 
 	/**
 	 * 
-	 * @param menu
+	 * @param menu ...;
 	 */
-	public boolean setMenu(ArrayList<Prodotto> menu) {
-		// TODO - implement Menu.setMenu
-		throw new UnsupportedOperationException();
+	public void setMenu(ArrayList<Prodotto> menu) {
+		// TODO controllo menu
+		this.menu = menu;
 	}
 
 	/**
 	 * 
-	 * @param prodotto
+	 * @param prodotto  ...;
 	 */
 	public boolean aggiungiProdotto(Prodotto prodotto) {
-		// TODO - implement Menu.aggiungiProdotto
-		throw new UnsupportedOperationException();
+		// TODO - controllo prodotto
+		return this.menu.add(prodotto);
 	}
 
 	/**
 	 * 
-	 * @param prodotto
+	 * @param prodotto ...;
 	 */
 	public boolean rimuoviProdotto(Prodotto prodotto) {
-		// TODO - implement Menu.rimuoviProdotto
-		throw new UnsupportedOperationException();
+		// TODO - controllo prodotto
+		return this.menu.remove(prodotto);
 	}
 
 }

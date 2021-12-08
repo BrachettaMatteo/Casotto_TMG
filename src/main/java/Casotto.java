@@ -1,27 +1,30 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Casotto {
-
-    private Gestore g;
 
     private ArrayList<Ombrellone> ombrelloni;
     private ArrayList<Cliente> clienti;
     private ArrayList<Prenotazione> prenotazioni;
 
-    public Casotto() {
-        this.g = new Gestore();
+    /**
+     * crea il casotto con i suoi ombrelloni
+     *
+     * @param file           ...;
+     * @param ombrelloniFile ...;
+     */
+    public Casotto(int file, int ombrelloniFile) {
+        //todo controllo parametri
+
+        this.ombrelloni = new ArrayList<>();
+        this.clienti = new ArrayList<>();
+        for (int f = 0; f <= file; f++) {
+            for (int o = 0; o <= ombrelloniFile; o++) {
+                this.ombrelloni.add(new Ombrellone(f, 0, o));
+            }
+        }
     }
 
-    /**
-     * permette di impostare le tariffe degli ombrelloni per fila.
-     *
-     * @param tariffa cifra che corrisponde al costo dell'ombrellone nella fila inserita.
-     * @param fila    numero che identifica la fila
-     */
-    public void setTariffe(float tariffa, int fila) {
-        //todo controlli tariffe
-        this.g.setTariffe(tariffa, fila);
-    }
 
     /**
      * restituisce il prezzo che corrisponde alla fila inserita
@@ -34,7 +37,7 @@ public class Casotto {
             if (o.getFila() == fila)
                 return o.getTariffa();
         }
-        return -1;
+        throw new IllegalArgumentException("la fila non esite");
     }
 
     public ArrayList<Ombrellone> getOmbrelloni() {
@@ -62,29 +65,29 @@ public class Casotto {
     /**
      * permette di accetare o meno la richiesta di prenotazione .
      *
-     * @param cliente
-     * @param ombrellone
-     * @param comanda
+     * @param c    ...;
+     * @param o    ...;
+     * @param fine ...;
      */
-    public boolean prenotaOmbrellone(Cliente c ,Ombrellone o, int durata) {
-        //controllo presenza ombrellon
-            Ombrellone a = o;
-             o.setDisponibilita(false);
-            this.ombrelloni.set(this.ombrelloni.indexOf(a),o);
+    public void prenotaOmbrellone(Cliente c, Ombrellone o, Date fine) {
+        //todo controllare parametri
 
-        return true;
+        Ombrellone a = o;
+        o.setDisponibilita(false);
+        o.setFine(fine);
+        this.ombrelloni.set(this.ombrelloni.indexOf(a), o);
+        //todo trovare un modo per memorizzare tutte le prenotazioni
     }
 
     /**
      * permette di accettare o meno la richiesta del servizio
      *
-     * @param cliente
-     * @param ombrellone
-     * @param comanda
+     * @param cliente    ...;
+     * @param ombrellone ...;
+     * @param comanda    ...;
      */
-    public boolean prenotaServizio(Cliente cliente, Ombrellone ombrellone, Comanda comanda) {
-        // TODO - implement Casotto.prenotaServizio
-        throw new UnsupportedOperationException();
+    public void prenotaServizio(Cliente cliente, Ombrellone ombrellone, Comanda comanda) {
+        // TODO implementare
     }
 
 }

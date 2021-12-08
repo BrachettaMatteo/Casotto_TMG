@@ -9,7 +9,7 @@ public class Prenotazione {
 
 	/**
 	 * 
-	 * @param comanda
+	 * @param comanda ...;
 	 */
 	public void setComanda(Comanda comanda) {
 		this.comanda = comanda;

@@ -4,12 +4,37 @@ public class Attivita {
 
     private int idAttivita;
     private String nome;
-    private int postiMax; /** Numero che identifica i componenti massimi. */
-    private int postiMin; /** Numero che identifica i posti minimi per avviare l'attività. */
-    private ArrayList<Cliente> componenti; /** Identifica i componenti iscritti all'attività. */
-    private float costo; /** Costo dell'attività corrispondente. */
-    private String descrizione; /** Descrizione dell'attività. */
-    private int oraAttivita; /** Orario in cui è disponibile usufruire dell'attività. */
+    /**
+     * Numero che identifica i componenti massimi.
+     */
+    private int postiMax;
+
+    /**
+     * Numero che identifica i posti minimi per avviare l'attività.
+     */
+    private int postiMin;
+
+    /**
+     * Identifica i componenti iscritti all'attività.
+     */
+    private ArrayList<Cliente> componenti;
+
+    /**
+     * Costo dell'attività corrispondente.
+     */
+    private float costo;
+
+    /**
+     * Descrizione dell'attività.
+     */
+    private String descrizione;
+
+    /**
+     * Orario in cui è disponibile usufruire dell'attività.
+     */
+//todo - QUESTION non sarebbe meglio impostare tipo date ed inserire la data di inzio?
+    private int oraAttivita;
+
 
     public Attivita(int idAttivita, String nome, int postiMax, int postiMin, float costo, String descrizione, int oraAttivita) {
         //controllo
@@ -49,7 +74,7 @@ public class Attivita {
     }
 
     /**
-     * @param nome
+     * @param nome ...;
      */
     public void setNome(String nome) {
         if (nome.length() <= 1)
@@ -76,7 +101,7 @@ public class Attivita {
     }
 
     /**
-     * @param descrizione;
+     * @param descrizione ...;
      */
     public void setDescrizione(String descrizione) {
         //controllo
@@ -103,7 +128,7 @@ public class Attivita {
     /**
      * aggiunge un componente
      *
-     * @param cliente
+     * @param cliente ...;
      */
     public boolean aggiungiComponente(Cliente cliente) {
         //controllo

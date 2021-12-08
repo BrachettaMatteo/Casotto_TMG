@@ -20,9 +20,10 @@ public class Personale {
 
 	/**
 	 * 
-	 * @param residenza
+	 * @param residenza ...;
 	 */
 	public void setResidenza(String residenza) {
+		//todo controllo residenza
 		this.residenza = residenza;
 	}
 
@@ -36,9 +37,10 @@ public class Personale {
 
 	/**
 	 * 
-	 * @param telefono
+	 * @param telefono ...;
 	 */
 	public void setTelefono(int telefono) {
+		//todo controllo telefono
 		this.telefono = telefono;
 	}
 

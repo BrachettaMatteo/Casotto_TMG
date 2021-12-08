@@ -10,9 +10,9 @@ public class ComandaBalneare extends Comanda {
 	 * aggiunge del materiale all'ombrellone, es. Lettino, sdraio ecc
 	 * @param materiale
 	 */
-	public boolean aggiungiMateriale(ArrayList<Materiale> materiale) {
-		// TODO - implement ComandaBalneare.aggiungiMateriale
-		throw new UnsupportedOperationException();
+	public void aggiungiMateriale(ArrayList<Materiale> materiale) {
+		// TODO - controllo materiale
+		super.getO().setComposizione(materiale);
 	}
 
 	/**

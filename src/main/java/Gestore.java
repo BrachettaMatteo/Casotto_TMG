@@ -2,8 +2,6 @@ import java.util.ArrayList;
 
 public class Gestore extends Personale {
 
-	private Casotto c;
-
 	/**
 	 * lista degli chalet posseduti da un gestore
 	 */
@@ -11,11 +9,11 @@ public class Gestore extends Personale {
 
 	/**
 	 * aggiunge uno chalet alla lista degli chalet posseduti dal gestore
-	 * @param c
+	 * @param c ...;
 	 */
 	public boolean aggiungChalet(Chalet c) {
-		// TODO - implement Gestore.aggiungChalet
-		throw new UnsupportedOperationException();
+		//todo inserire controlli Chalet
+		return this.listaChalet.remove(c);
 	}
 
 	public ArrayList<Chalet> getListaChalet() {
@@ -24,32 +22,36 @@ public class Gestore extends Personale {
 
 	/**
 	 * 
-	 * @param listaChalet
+	 * @param listaChalet ...;
 	 */
 	public void setListaChalet(ArrayList<Chalet> listaChalet) {
+		//todo inserire controlli listaChalet
 		this.listaChalet = listaChalet;
 	}
 
 	/**
 	 * rimuove uno chalet dalla lista
-	 * @param c
+	 * @param c ...;
 	 */
 	public boolean rimuoviChalet(Chalet c) {
-		// TODO - implement Gestore.rimuoviChalet
-		throw new UnsupportedOperationException();
+		//todo inserire controlli Chalet
+		return this.listaChalet.remove(c);
 	}
-
-	public void setTariffe(float tariffa, int fila) {
-		
-		ArrayList<Ombrellone> o = new ArrayList<>(this.c.getOmbrelloni());
-
-		for(Ombrellone s : o){
-			if(s.getFila()== fila){
-				s.setTariffa(tariffa);
+	/**
+	 * permette di impostare le tariffe degli ombrelloni per fila.
+	 *
+	 * @param tariffa cifra che corrisponde al costo dell'ombrellone nella fila inserita;
+	 * @param fila    numero che identifica la fila;
+	 * @param c ...;
+	 */
+	public void setTariffe(float tariffa, int fila, Casotto c){
+		//TODO controllare parametri
+		ArrayList<Ombrellone> ombrelloni = new ArrayList<>(c.getOmbrelloni());
+		for (Ombrellone ombrellone : ombrelloni){
+			if (ombrellone.getFila() == fila){
+				ombrellone.setTariffa(tariffa);
 			}
 		}
-
-
+		c.setOmbrelloni(ombrelloni);
 	}
-
 }

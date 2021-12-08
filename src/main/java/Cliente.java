@@ -1,6 +1,6 @@
-public class Cliente {
+import java.util.Date;
 
-    private Casotto c;
+public class Cliente {
 
     private String nome;
     private String cognome;
@@ -37,20 +37,17 @@ public class Cliente {
     /**
      * richiesta prenotazione ombrellone, restituira true se è stata accettata altrimenti false.
      *
-     * @param ombrellone
-     * @param durata     indica la durat della prenotazione
+     * @param ombrellone ...;
+     * @param fine     indica la durat della prenotazione
      */
-    public boolean richiestaPrenotazioneOmbrellone(Ombrellone ombrellone, int durata) {
-        if(ombrellone.getDisponibilita()){
-            this.c.prenotaOmbrellone(this, ombrellone, durata);
-        }
-        return false;
+    public void richiestaPrenotazioneOmbrellone(Ombrellone ombrellone, Date fine, Casotto c) {
+        c.prenotaOmbrellone(this,ombrellone,fine);
     }
 
     /**
      * richiesta prenotazione servizio, restituira true se è stata accettata altrimenti false.
      *
-     * @param comanda
+     * @param comanda ...;
      */
     public boolean richiestaPrenotazioneServizio(Comanda comanda) {
         // TODO - Rivedere

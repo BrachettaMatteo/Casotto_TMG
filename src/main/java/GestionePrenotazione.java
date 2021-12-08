@@ -1,47 +1,50 @@
 public class GestionePrenotazione {
 
-	private Cliente Cliente;
-	private Ombrellone ombrellone;
-	private Comanda Comanda;
+    private Cliente Cliente;
+    private Ombrellone ombrellone;
+    private Comanda Comanda;
 
-	public Cliente getCliente() {
-		// TODO - implement GestionePrenotazione.getCliente
-		throw new UnsupportedOperationException();
-	}
+    public GestionePrenotazione(Cliente cliente, Ombrellone ombrellone, Comanda comanda) {
+        //todo controllare parametri
+        Cliente = cliente;
+        this.ombrellone = ombrellone;
+        Comanda = comanda;
+    }
 
-	/**
-	 * 
-	 * @param Cliente
-	 */
-	public void setCliente(Cliente Cliente) {
-		// TODO - implement GestionePrenotazione.setCliente
-		throw new UnsupportedOperationException();
-	}
+    public Cliente getCliente() {
+        return this.Cliente;
+    }
 
-	public Ombrellone getOmbrellone() {
-		return this.ombrellone;
-	}
+    /**
+     * @param Cliente ...;
+     */
+    public void setCliente(Cliente Cliente) {
+		//todo controllo cliente
+       this.Comanda.setC(Cliente);
+    }
 
-	/**
-	 * 
-	 * @param ombrellone
-	 */
-	public void setOmbrellone(Ombrellone ombrellone) {
+    public Ombrellone getOmbrellone() {
+        return this.ombrellone;
+    }
+
+    /**
+     * @param ombrellone ...;
+     */
+    public void setOmbrellone(Ombrellone ombrellone) {
+        //controllo ombrelloni
 		this.ombrellone = ombrellone;
-	}
+    }
 
-	public Comanda getComanda() {
-		// TODO - implement GestionePrenotazione.getComanda
-		throw new UnsupportedOperationException();
-	}
+    public Comanda getComanda() {
+        return  this.Comanda;
+    }
 
-	/**
-	 * 
-	 * @param Comanda
-	 */
-	public void setComanda(Comanda Comanda) {
-		// TODO - implement GestionePrenotazione.setComanda
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * @param comanda ...;
+     */
+    public void setComanda(Comanda comanda) {
+		//todo controllo comanda
+		this.Comanda = comanda;
+    }
 
 }

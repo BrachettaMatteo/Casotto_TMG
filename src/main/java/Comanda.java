@@ -38,7 +38,7 @@ public class Comanda{
 
 	/**
 	 * 
-	 * @param status
+	 * @param status ...;
 	 */
 	public void setStatus(Status status) {
 		if(status == null)

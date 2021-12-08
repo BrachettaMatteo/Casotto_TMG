@@ -8,15 +8,23 @@ public class Prodotto {
 	 */
 	private int quantita;
 
+	public Prodotto(String nome, float prezzo, String descrizione) {
+		this.nome = nome;
+		this.prezzo = prezzo;
+		this.descrizione = descrizione;
+		this.quantita = 0;
+	}
+
 	public String getNome() {
 		return this.nome;
 	}
 
 	/**
 	 * 
-	 * @param nome
+	 * @param nome ...;
 	 */
 	public void setNome(String nome) {
+		//todo controllo nome
 		this.nome = nome;
 	}
 
@@ -26,9 +34,10 @@ public class Prodotto {
 
 	/**
 	 * 
-	 * @param prezzo
+	 * @param prezzo ...;
 	 */
 	public void setPrezzo(float prezzo) {
+		//todo controllo prezzo
 		this.prezzo = prezzo;
 	}
 
@@ -38,9 +47,10 @@ public class Prodotto {
 
 	/**
 	 * 
-	 * @param descrizione
+	 * @param descrizione ...;
 	 */
 	public void setDescrizione(String descrizione) {
+		//todo controllo descrizione
 		this.descrizione = descrizione;
 	}
 
@@ -50,9 +60,10 @@ public class Prodotto {
 
 	/**
 	 * 
-	 * @param quantita
+	 * @param quantita ...;
 	 */
 	public void setQuantita(int quantita) {
+		//todo controllo quantita
 		this.quantita = quantita;
 	}
 

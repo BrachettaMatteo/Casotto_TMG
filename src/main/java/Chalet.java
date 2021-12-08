@@ -33,7 +33,7 @@ public class Chalet {
     }
 
     /**
-     * @param nome
+     * @param nome ...;
      */
     public void setNome(String nome) {
         //controllo
@@ -49,7 +49,7 @@ public class Chalet {
     }
 
     /**
-     * @param indirizzo
+     * @param indirizzo ...;
      */
     public void setIndirizzo(String indirizzo) {
         //controllo
@@ -65,7 +65,7 @@ public class Chalet {
     }
 
     /**
-     * @param telefono
+     * @param telefono ...;
      */
     public void setTelefono(int telefono) {
         if (telefono < 1_000_000_000)
@@ -78,7 +78,7 @@ public class Chalet {
     }
 
     /**
-     * @param orarioApertura
+     * @param orarioApertura ...;
      */
     public void setOrarioApertura(Date orarioApertura) {
         //todo inserire controllo orarioApertura
