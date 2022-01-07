@@ -8,6 +8,15 @@ public class Casotto {
     private ArrayList<Prenotazione> prenotazioni;
 
     /**
+     * lista dei materiali presenti nel casotto
+     */
+    private ArrayList<Materiale> listaMateriali;
+    /**
+     * lista delle attivita presenti nel casotto
+     */
+    private ArrayList<Attivita> listaAttività;
+
+    /**
      * crea il casotto con i suoi ombrelloni
      *
      * @param file           ...;

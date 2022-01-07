@@ -1,13 +1,25 @@
+import java.awt.color.ProfileDataException;
 import java.util.ArrayList;
 
 public class ComandaRistorazione extends Comanda {
 
+	private Status status;
+	private ArrayList<Prodotto> prodottiOrdinati;
+
 	public ComandaRistorazione(Cliente c, Ombrellone o, ArrayList<Prodotto> prodottiOrdinati) {
+		//todo - controlo
 		super(c, o);
 		this.prodottiOrdinati = prodottiOrdinati;
 	}
 
-	private ArrayList<Prodotto> prodottiOrdinati;
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 	public ArrayList<Prodotto> getProdottiOrdinati() {
 		return this.prodottiOrdinati;
@@ -18,6 +30,7 @@ public class ComandaRistorazione extends Comanda {
 	 * @param prodottiOrdinati ...;
 	 */
 	public void setProdottiOrdinati(ArrayList<Prodotto> prodottiOrdinati) {
+		//todo - controlli
 		this.prodottiOrdinati = prodottiOrdinati;
 	}
 
