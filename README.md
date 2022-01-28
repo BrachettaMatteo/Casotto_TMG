@@ -22,7 +22,7 @@
 7. fare il commit `git commit -m "descrizione commit" `
 8. aggiornare il progetto su gitHub `git push -u otigin`
 
-:warning: se da problemi d'inteficazione inserire email di git hub e come password generare il token in profilo->
+:warning: se da problemi d'identificazione inserire email di gitHub e come password generare il token in profilo->
 setting->Developers Setting-> Personal acces token-> Generate new Token
 
    
