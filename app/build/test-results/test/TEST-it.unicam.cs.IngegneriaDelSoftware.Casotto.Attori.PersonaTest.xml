@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.PersonaTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-01-28T21:05:26" hostname="Air-di-Matteo.homenet.telecomitalia.it" time="0.004">
+  <properties/>
+  <testcase name="personaTest()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.PersonaTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

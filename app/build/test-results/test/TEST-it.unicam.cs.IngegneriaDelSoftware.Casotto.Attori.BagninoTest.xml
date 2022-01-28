@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.BagninoTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-01-28T21:05:26" hostname="Air-di-Matteo.homenet.telecomitalia.it" time="0.044">
+  <properties/>
+  <testcase name="aggiungiComanda()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.BagninoTest" time="0.012"/>
+  <testcase name="liberaOmbrellone()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.BagninoTest" time="0.004"/>
+  <testcase name="modificaAttivita()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.BagninoTest" time="0.005"/>
+  <testcase name="aggiungiAttivita()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.BagninoTest" time="0.02"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

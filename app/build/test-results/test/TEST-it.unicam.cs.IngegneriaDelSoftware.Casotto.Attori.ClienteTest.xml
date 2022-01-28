@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ClienteTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-01-28T21:05:26" hostname="Air-di-Matteo.homenet.telecomitalia.it" time="0.019">
+  <properties/>
+  <testcase name="ricarica()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ClienteTest" time="0.002"/>
+  <testcase name="prenotaAttivita()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ClienteTest" time="0.001"/>
+  <testcase name="prenotaServizioBalneare()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ClienteTest" time="0.007"/>
+  <testcase name="paga()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ClienteTest" time="0.002"/>
+  <testcase name="prenotaOmbrellone()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ClienteTest" time="0.001"/>
+  <testcase name="prenotaSeviziBalneare()" classname="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ClienteTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

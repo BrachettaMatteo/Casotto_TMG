@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori"},{"l":"it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare"},{"l":"it.unicam.cs.IngegneriaDelSoftware.Casotto.Service"},{"l":"it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi"}];updateSearchResults();
