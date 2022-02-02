@@ -17,7 +17,7 @@ public class Bagnino extends Dipendente {
     /**
      * crea un nuovo bagnino
      *
-     * @param nome       nome del bagnino
+     * @param nome       nome del bagnina
      * @param cognome    cognome del bagnino
      * @param residenza  residenza del bagnino
      * @param telefono   telefono del bagnino
