@@ -17,7 +17,11 @@ public class Cassiere extends Dipendente {
      * @param email      email del cassiere
      */
     public Cassiere(String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
-        super(nome, cognome, residenza, telefono, nomeUtente, email);
+        super(nome, cognome, residenza, telefono, nomeUtente, email,"Cassiere");
+    }
+
+    public Cassiere(String id, String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+        super(id, nome, cognome, residenza, telefono, nomeUtente, email,"Cassiere");
     }
 
     /**

@@ -35,6 +35,14 @@ public class Cliente extends Persona {
 
     }
 
+    public Cliente(String id,String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+        super(id,nome, cognome, residenza, telefono, nomeUtente, email);
+        c = Casotto.getInstance();
+        //aggiunge cliente al casotto
+        c.aggiungiCLiente(this);
+
+    }
+
     /**
      * prenotazione ombrellone
      *

@@ -17,12 +17,5 @@ public enum Formato {
      */
     grande;
 
-    int getFormato(Formato f) {
-        return switch (f) {
-            case piccola -> 33;
-            case media -> 55;
-            case grande -> 100;
-        };
-    }
 
 }

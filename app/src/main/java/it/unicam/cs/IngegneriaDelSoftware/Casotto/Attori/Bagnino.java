@@ -25,9 +25,13 @@ public class Bagnino extends Dipendente {
      * @param email      email del bagnino
      */
     public Bagnino(String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
-        super(nome, cognome, residenza, telefono, nomeUtente, email);
+        super(nome, cognome, residenza, telefono, nomeUtente, email,"Bagnino");
         this.listaOrdini = new ArrayList<>();
         getC().aggiungiDipendente(this);
+    }
+
+    public Bagnino(String id, String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+        super(id, nome, cognome, residenza, telefono, nomeUtente, email,"Bagnino");
     }
 
     /**

@@ -1,10 +1,13 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori;
 
+import java.util.UUID;
+
 /**
  * Rappresenta una Persona e le sue caratteristiche
  */
 public class Persona {
 
+    private UUID id;
     private String nome;
     private String cognome;
     private String residenza;
@@ -34,6 +37,7 @@ public class Persona {
         if (!email.contains("."))
             throw new IllegalArgumentException("email errata");
         //TODO - controllare nome utente.
+        this.id= UUID.randomUUID();
         this.nome = nome;
         this.cognome = cognome;
         this.residenza = residenza;
@@ -42,6 +46,27 @@ public class Persona {
         this.email = email;
     }
 
+    public Persona(String id, String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+        if (nome.isEmpty() || cognome.isEmpty())
+            throw new IllegalArgumentException("nominativo errato");
+        if (residenza.isEmpty())
+            throw new IllegalArgumentException("la residenza è vuota");
+        if (telefono < 1_000_000_000)
+            throw new IllegalArgumentException("numero inserito non valido");
+        if (!email.contains("@"))
+            throw new IllegalArgumentException("email errata");
+        if (!email.contains("."))
+            throw new IllegalArgumentException("email errata");
+        //TODO - controllare nome utente.
+        this.id = UUID.fromString(id);
+        this.nome = nome;
+        this.cognome = cognome;
+        this.residenza = residenza;
+        this.telefono = telefono;
+        this.nomeUtente = nomeUtente;
+        this.email = email;
+
+    }
     //!------------GET----------------!
 
     /**
@@ -125,5 +150,7 @@ public class Persona {
         this.telefono = telefono;
     }
 
-
+    public String getId() {
+        return id.toString();
+    }
 }

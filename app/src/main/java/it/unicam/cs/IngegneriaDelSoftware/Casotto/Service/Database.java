@@ -1,9 +1,19 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Service;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  * Gestisce il database
  */
 public class Database {
+
+    public static Connection getConnection() throws SQLException {
+
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Casotto?autoReconnect=true&useSSL=false", "User", "Casotto2022");
+        return connection;
+    }
 
     /**
      * Premtte di verificar en login

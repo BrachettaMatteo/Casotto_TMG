@@ -7,6 +7,7 @@ import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
  */
 public class Dipendente extends Persona {
     private static Casotto c;
+    String ruolo;
 
     /**
      * crea un nuovo dipendenre
@@ -18,9 +19,15 @@ public class Dipendente extends Persona {
      * @param nomeUtente nomeUtente del dipendente
      * @param email      email del dipendete
      */
-    public Dipendente(String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+    public Dipendente(String nome, String cognome, String residenza, int telefono, String nomeUtente, String email,String ruolo) {
         super(nome, cognome, residenza, telefono, nomeUtente, email);
         c = Casotto.getInstance();
+        this.ruolo=ruolo;
+    }
+
+    public Dipendente(String id, String nome, String cognome, String residenza, int telefono, String nomeUtente, String email,String ruolo) {
+        super(nome, cognome, residenza, telefono, nomeUtente, email);
+        this.ruolo=ruolo;
     }
 
     /**
@@ -29,5 +36,10 @@ public class Dipendente extends Persona {
     public Casotto getC() {
         return c;
     }
+
+    public String getRuolo(){
+        return ruolo;
+    }
+
 
 }

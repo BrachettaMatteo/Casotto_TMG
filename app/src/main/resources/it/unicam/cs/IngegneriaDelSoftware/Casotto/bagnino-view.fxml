@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.View.Bagnino.ControllerBagnino">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Ordini">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableOrdini" layoutX="14.0" layoutY="68.0" prefHeight="255.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                          <columns>
+                              <TableColumn fx:id="ordineId" prefWidth="270.0" text="Id" />
+                              <TableColumn fx:id="ombrelloneOrdine" prefWidth="75.0" text="numero Ombrellone" />
+                              <TableColumn fx:id="dettagliComanda" prefWidth="75.0" text="dettagli Comanda" />
+                          </columns>
+                        </TableView>
+                         <Button fx:id="btnEvadiComanda" layoutX="681.0" layoutY="282.0" mnemonicParsing="false" onAction="#evadiComanda" text="evadi comanda" />
+
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+
+            <Tab fx:id="tabMateriali" text="Materiali">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="tableMateriali" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                <columns>
+                                    <TableColumn fx:id="materialeId" prefWidth="270.0" text="Id" />
+                                    <TableColumn fx:id="materialeNome" prefWidth="75.0" text="Nome" />
+                                    <TableColumn fx:id="materialeCosto" prefWidth="75.0" text="Costo" />
+                                    <TableColumn fx:id="materialeQuantita" prefWidth="75.0" text="Quantità" />
+                                </columns>
+                            </TableView>
+                            <Button fx:id="btnRimuoviMateriale" layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#rimuoviMateriale" text="rimuovi materiale" />
+                            <VBox layoutX="516.0" layoutY="268.0" prefHeight="118.0" prefWidth="448.0">
+                                <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                        <children>
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:" />
+                                            <TextField fx:id="nomeNuovoMateriale" maxWidth="150.0" />
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Costo:" />
+                                            <Spinner fx:id="costoNuovoMateriale" />
+                                        </children>
+                                        <padding>
+                                            <Insets top="5.0" />
+                                        </padding>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                        <children>
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantità: " />
+                                            <Spinner fx:id="quantitaNuovoMateriale" />
+                                        <Button fx:id="btnAggiungiMateriale" mnemonicParsing="false" onAction="#aggiungiMateriale" text="aggiungi materiale" />
+                                        </children>
+                                        <padding>
+                                            <Insets top="5.0" />
+                                        </padding>
+                                    </HBox>
+                                </children>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab fx:id="tabOmbrelloni" text="Ombrelloni">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="tableOmbrelloni" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                <columns>
+                                    <TableColumn fx:id="ombrelloneID" prefWidth="270.0" text="Id" />
+                                    <TableColumn fx:id="ombrelloneNumero" prefWidth="40.0" text="N°" />
+                                    <TableColumn fx:id="ombrelloneFila" prefWidth="40.0" text="Fila" />
+                                    <TableColumn fx:id="ombrelloneTariffa" prefWidth="40.0" text="Tariffa" />
+                                    <TableColumn fx:id="ombrelloneDipso" text="Dispoinibilità" />
+                                    <TableColumn fx:id="ombrelloneFine" text="data-Fine" />
+                                </columns>
+                            </TableView>
+                            <Button fx:id="btAggiungiOmbrellone" layoutX="639.0" layoutY="293.0" mnemonicParsing="false" onAction="#aggiungiOmbrellone" text="aggiungi ombrellone" />
+                            <Button fx:id="btRimuoviOmbrellone" layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#rimuoviOmbrellone" text="rimuovi ombrellone" />
+                            <Button fx:id="btLiberaOmbrellone" layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#liberaOmbrellone" text="rimuovi ombrellone" />
+
+                            <HBox layoutX="319.0" layoutY="287.0" prefHeight="37.0" prefWidth="280.0" spacing="5.0">
+                                <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fila" />
+                                    <Spinner fx:id="FilaNuovoOmbrellone" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="numero" />
+                                    <Spinner fx:id="numeroNuovoOmbrellone" />
+                                </children>
+                                <padding>
+                                    <Insets top="5.0" />
+                                </padding>
+                            </HBox>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab fx:id="tabAttivita" text="attività">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="tableAttivita" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                                <columns>
+                                    <TableColumn fx:id="attivitaId" prefWidth="270.0" text="Id" />
+                                    <TableColumn fx:id="attivitaNome" prefWidth="75.0" text="Nome" />
+                                    <TableColumn fx:id="attivitaPostiMin" prefWidth="75.0" text="PostiMin" />
+                                    <TableColumn fx:id="attivitaPostiMax" prefWidth="75.0" text="PostiMax" />
+                                    <TableColumn fx:id="attivitaCosto" prefWidth="75.0" text="Costo" />
+                                    <TableColumn fx:id="attivitaPartecipanti" prefWidth="100.0" text="partecipanti" />
+                                    <TableColumn fx:id="attivitaOrario" prefWidth="60.0" text="Orario" />
+                                </columns>
+                            </TableView>
+                            <Button fx:id="btnAggiungiAttivita" layoutX="881.0" layoutY="314.0" mnemonicParsing="false" onAction="#aggiungiAttivita" text="aggiungi attività" />
+                            <Button fx:id="btnRimuoviAttivita" layoutX="25.0" layoutY="272.0" mnemonicParsing="false" onAction="#rimuoviAttivita" text="rimuovi attività" />
+
+                            <VBox layoutX="427.0" layoutY="255.0" prefHeight="118.0" prefWidth="448.0">
+                                <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                        <children>
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" />
+                                            <TextField fx:id="nomeNuovaAttvita" maxWidth="150.0" />
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="postiMin" />
+                                            <Spinner fx:id="postiMinNuovaAttivita" />
+                                        </children>
+                                        <padding>
+                                            <Insets top="5.0" />
+                                        </padding>
+                                    </HBox>
+                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                        <children>
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PostiMax" />
+                                            <Spinner fx:id="postiMaxNuovaAttivita" />
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Costo" />
+                                            <Spinner fx:id="costonuovaAttivita" layoutX="66.0" layoutY="15.0" />
+                                        </children>
+                                        <padding>
+                                            <Insets top="5.0" />
+                                        </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="31.0" prefWidth="448.0" spacing="5.0">
+                                        <children>
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data" />
+                                            <DatePicker fx:id="OrarioNuovaAttivita" showWeekNumbers="true" />
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="orario" />
+                                            <Spinner fx:id="hNuovaAttivita" maxWidth="80.0" />
+                                            <Spinner fx:id="mNuovaAttivita" maxWidth="80.0" />
+                                        </children>
+                                        <padding>
+                                            <Insets top="5.0" />
+                                        </padding>
+                                    </HBox>
+                                </children>
+                            </VBox>
+
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

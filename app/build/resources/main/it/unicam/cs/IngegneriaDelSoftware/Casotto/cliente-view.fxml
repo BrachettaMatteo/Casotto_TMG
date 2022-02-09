@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.View.Cliente.ControllerCliente">
+   <right>
+      <VBox fx:id="infoPane" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="173.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Azioni" />
+            <Button fx:id="btnprenotaOmbrellone" mnemonicParsing="false" onAction="#prenotaOmbrellone" text="Prenota ombrellone" />
+            <Button fx:id="btnPrenotaRistorazioen" mnemonicParsing="false" onAction="#prenotaRistorazione" text="Prenota ristorazione" />
+            <Button fx:id="btnPrenotaOmbrellone" mnemonicParsing="false" onAction="#prenotaombrellone" text="prenota servizi ombrellone" />
+            <Button fx:id="btnPrenotaAttivita" mnemonicParsing="false" onAction="#prenotaAttivita" text="Prenota attivita" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+   </right>
+   <left>
+      <VBox alignment="TOP_CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="infomrazioni CLiente" />
+            <HBox alignment="TOP_CENTER" prefHeight="20.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="nome:" />
+                  <Text fx:id="labelNomeUtente" strokeType="OUTSIDE" strokeWidth="0.0" text="nome Utente" />
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="28.0" prefHeight="19.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="nome:" />
+                  <Text fx:id="labelCognomeUtente" strokeType="OUTSIDE" strokeWidth="0.0" text="cognome Utente" />
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="146.0" prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="credito" />
+                  <Text fx:id="labelCreditoUtente" strokeType="OUTSIDE" strokeWidth="0.0" text="credito Utente" />
+               </children>
+            </HBox>
+            <Button fx:id="buttonRicarica" mnemonicParsing="false" onAction="#ricaricaConto" text="Ricarica" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+</BorderPane>

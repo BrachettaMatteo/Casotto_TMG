@@ -2,9 +2,9 @@ package it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi;
 
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -65,7 +65,20 @@ public class Attivita {
 
     }
 
-    //!----------------Get--------------!
+    public Attivita(String idAttivita, String nome, int postiMax, int postiMin, float costo, Timestamp orario) {
+        this.idAttivita = UUID.fromString(idAttivita);
+        this.nome = nome;
+        this.postiMax = postiMax;
+        this.postiMin = postiMin;
+        this.costo = costo;
+        if (orario != null)
+
+            this.Orario = orario.toLocalDateTime();
+        else
+            this.Orario = null;
+    }
+
+//!----------------Get--------------!
 
     /**
      * @return il nome della Attivit&agrave;
@@ -103,6 +116,7 @@ public class Attivita {
         return this.Orario;
     }
 
+
     /**
      * @return il costo dell'Attivit&agrave;
      */
@@ -114,9 +128,16 @@ public class Attivita {
      * @return null se non è presente neanche un componente altrimenti la lista dei componenti;
      */
     public ArrayList<Cliente> getComponenti() {
+        if (this.componenti == null)
+            return null;
         if (this.componenti.isEmpty())
             return null;
         return this.componenti;
+    }
+
+    public int getPartecipanti() {
+        return this.componenti == null ? 0 : this.componenti.size();
+
     }
 
     //!---------------------------Set-----------------------------!
@@ -171,8 +192,8 @@ public class Attivita {
      * aggiunge un componente
      *
      * @param cliente cliente da aggiungere
-     * @throws NullPointerException il cliente inserito &egrave; null
      * @return true se il componente &egrave; stato aggiunto altrimenti false.
+     * @throws NullPointerException il cliente inserito &egrave; null
      */
     public boolean aggiungiComponente(Cliente cliente) {
         //controllo
@@ -185,4 +206,19 @@ public class Attivita {
     }
 
 
+    public String getId() {
+        return this.idAttivita.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Attivita: \n" +
+                "idAttivita:" + idAttivita.toString() + "\n" +
+                "nome:" + nome + '\n' +
+                "postiMax:" + postiMax + '\n' +
+                "postiMin:" + postiMin + '\n' +
+                "componenti:" + componenti + '\n' +
+                "costo:" + costo + '\n' +
+                "Orario: " + Orario;
+    }
 }

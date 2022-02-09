@@ -2,6 +2,7 @@ package it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare;
 
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Materiale;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +43,19 @@ public class Ombrellone {
         this.fine = null;
     }
 
-    //!-----------------GET-------------------!
+    public Ombrellone(String id, int fila, float tariffa, int numero, String dispo, Timestamp fine) {
+        this.id = UUID.fromString(id);
+        this.fila = fila;
+        this.tariffa = tariffa;
+        this.numero = numero;
+        if (dispo.equals("Disponibile"))
+            this.disponibilita = true;
+        else this.disponibilita = false;
+        if (fine != null)
+            this.fine = LocalDateTime.parse(fine.toString());
+
+    }
+//!-----------------GET-------------------!
 
     /**
      * @return la fila dell'ombrellone
@@ -106,6 +119,8 @@ public class Ombrellone {
     public String getId() {
         return id.toString();
     }
+
+
     //!------------SET----------------!
 
     /**

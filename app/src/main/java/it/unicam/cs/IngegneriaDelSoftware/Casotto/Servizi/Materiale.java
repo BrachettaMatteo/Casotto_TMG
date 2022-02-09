@@ -11,6 +11,7 @@ public class Materiale {
     private String nome;
     private float costo;
     private String desc;
+    private int quantita;
 
     /**
      * permette di creare un nuovo materiale
@@ -34,10 +35,28 @@ public class Materiale {
 
         this.nome = nome;
         this.costo = costo;
+        this.quantita = 1;
         this.desc = desc;
     }
 
+    public Materiale(String idMateriale, String nome, float costo, int quantita) {
+        this.idMateriale = UUID.fromString(idMateriale);
+        this.nome = nome;
+        this.costo = costo;
+        this.quantita = quantita;
+    }
+
+    public Materiale(String nome, float costo, int quantita) {
+        this.idMateriale= UUID.randomUUID();
+        this.nome = nome;
+        this.costo = costo;
+        this.quantita = quantita;
+    }
     //!-----------------GET----------------
+
+    public int getQuantita(){
+        return quantita;
+    }
 
     /**
      * @return il nome del materiale
@@ -65,11 +84,14 @@ public class Materiale {
      * @return l'identificativo del materiale
      */
 
-    public String getIdMateriale() {
+    public String getId() {
         return this.idMateriale.toString();
     }
 
     //!--------------------SET--------------
+    public void aggiungiQuantit(int i) {
+        quantita += i;
+    }
 
     /**
      * @param nome nuovo nome del materiale
@@ -104,5 +126,13 @@ public class Materiale {
         this.desc = desc;
     }
 
-
+    @Override
+    public String toString() {
+        return "Materiale:\n" +
+                "id: " + idMateriale + "\n"+
+                "nome: " + nome + "\n" +
+                "costo: " + costo +"\n" +
+                "desc: " + desc + "\n" +
+                "quantita: " + quantita ;
+    }
 }
