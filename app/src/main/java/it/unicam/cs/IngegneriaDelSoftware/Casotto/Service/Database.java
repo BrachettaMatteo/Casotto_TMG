@@ -11,7 +11,7 @@ public class Database {
 
     public static Connection getConnection() throws SQLException {
 
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Casotto?autoReconnect=true&useSSL=false", "User", "Casotto2022");
+        Connection connection = DriverManager.getConnection("jdbc:sqlserver://casotto.database.windows.net:1433;database=Cassotto", "tommaso", "Eo6AD!93");
         return connection;
     }
 

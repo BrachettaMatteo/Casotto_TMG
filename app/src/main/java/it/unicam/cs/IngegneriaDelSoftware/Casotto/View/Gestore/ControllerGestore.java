@@ -545,7 +545,7 @@ public class ControllerGestore implements Initializable {
 
             Connection con = Database.getConnection();
             StringBuilder query = new StringBuilder();
-            query.append("INSERT INTO `Casotto`.`Dipendenti` (`Id`, `Nome`, `Cognome`, `Residenza`, `Telefono`, `Ruolo`, `Email`) VALUES (");
+            query.append("INSERT INTO Dipendenti (Id, Nome, Cognome, Residenza, Telefono, Ruolo, Email) VALUES (");
             query.append("'" + tb.getId() + "',");
             query.append("'" + tb.getNome() + "',");
             query.append("'" + tb.getCognome() + "',");
@@ -575,7 +575,7 @@ public class ControllerGestore implements Initializable {
             Connection con = Database.getConnection();
 
             StringBuilder query = new StringBuilder();
-            query.append(" DELETE FROM `Casotto`.`Dipendenti` WHERE (`Id` = '");
+            query.append(" DELETE FROM Casotto.Dipendenti WHERE (Id = '");
             query.append(i.getId() + "');");
             con.createStatement().executeUpdate(query.toString());
         }
@@ -600,7 +600,7 @@ public class ControllerGestore implements Initializable {
             StringBuilder subquery;
             for (Ombrellone t : ListaOmbrelloni) {
                 subquery = new StringBuilder();
-                subquery.append("INSERT INTO `Casotto`.`Ombrelloni` (`Id`, `Numero`, `Fila`, `Tariffa`, `Disponibilità`) VALUES (");
+                subquery.append("INSERT INTO Ombrelloni (Id, Numero, Fila, Tariffa, Disponibilità) VALUES (");
                 subquery.append("'" + t.getId() + "',");
                 subquery.append("'" + t.getNumero() + "',");
                 subquery.append("'" + t.getFila() + "',");
@@ -625,7 +625,7 @@ public class ControllerGestore implements Initializable {
         if (alert.getResult().equals(ButtonType.YES)) {
             Cliente cliente = new Cliente(nomeNuovoCliente.getText(), cognomeNuovoCliente.getText(), residenzaNuovoCliente.getText(), (telefonoNuovoCliente.getText()), emailNuovoCliente.getText(), emailNuovoCliente.getText());
             Connection con = Database.getConnection();
-            String query = "INSERT INTO `Casotto`.`Clienti` (`Id`, `Nome`, `Cognome`, `Residenza`, `Telefono`,`Email`) VALUES (" +
+            String query = "INSERT INTO Casotto.Clienti (Id, Nome, Cognome, Residenza, Telefono,Email) VALUES (" +
                     "'" + cliente.getId() + "',"
                     + "'" + cliente.getNome() + "',"
                     + "'" + cliente.getCognome() + "',"
@@ -646,7 +646,7 @@ public class ControllerGestore implements Initializable {
             listaCliente.remove(cliente);
             //rimuovo il cliente dal db
             Connection con = Database.getConnection();
-            String query = " DELETE FROM `Casotto`.`Clienti` WHERE (`Id` = '" + cliente.getId() + "');";
+            String query = " DELETE FROM Casotto.Clienti WHERE (Id = '" + cliente.getId() + "');";
             con.createStatement().executeUpdate(query);
         }
     }
@@ -668,7 +668,7 @@ public class ControllerGestore implements Initializable {
                 ombrellone = new Ombrellone(FilaNuovoOmbrellone.getValue(), 0.0f, numeroNuovoOmbrellone.getValue());
             }
 
-            String query = "INSERT INTO `Casotto`.`Ombrelloni` (`Id`, `Numero`, `Fila`, `Tariffa`,`Disponibilità`) VALUES (" +
+            String query = "INSERT INTO Casotto.Ombrelloni (Id, Numero, Fila, Tariffa,Disponibilità) VALUES (" +
                     "'" + ombrellone.getId() + "'," +
                     "'" + ombrellone.getNumero() + "'," +
                     "'" + ombrellone.getFila() + "'," +
@@ -693,7 +693,7 @@ public class ControllerGestore implements Initializable {
             //rimuovo il Dipendente dal db
             Connection con = Database.getConnection();
 
-            String Query = "DELETE FROM `Casotto`.`Ombrelloni` WHERE (`Id` = '" +
+            String Query = "DELETE FROM Casotto.Ombrelloni WHERE (Id = '" +
                     ombrellone.getId() + "');";
             con.createStatement().executeUpdate(Query);
         }
@@ -713,7 +713,7 @@ public class ControllerGestore implements Initializable {
 
             Connection con = Database.getConnection();
             int comp = a.getComponenti() != null ? a.getComponenti().size() : 0;
-            String Query = "INSERT INTO `Casotto`.`Attivita` (`Id`, `Nome`, `postiMax`, postiMin, `costo`, `orario`, `Componenti`) VALUES (" +
+            String Query = "INSERT INTO Casotto.Attivita (Id, Nome, postiMax, postiMin, costo, orario, Componenti) VALUES (" +
                     "'" + a.getIdAttivita() + "'," +
                     "'" + a.getNome() + "',"
                     + "'" + a.getPostiMax() + "'," +
@@ -736,7 +736,7 @@ public class ControllerGestore implements Initializable {
             //rimuovo l'attivita dal db
             Connection con = Database.getConnection();
 
-            String Query = "DELETE FROM `Casotto`.`Attivita` WHERE (`Id` = '" +
+            String Query = "DELETE FROM Casotto.Attivita WHERE (Id = '" +
                     attivita.getId() + "');";
             con.createStatement().executeUpdate(Query);
 
@@ -753,7 +753,7 @@ public class ControllerGestore implements Initializable {
         if (alert.getResult() == ButtonType.YES) {
             //rimuovo il maeriale dal db
             Connection con = Database.getConnection();
-            String Query = "DELETE FROM `Casotto`.`Materiali` WHERE (`Id` = '" +
+            String Query = "DELETE FROM Casotto.Materiali WHERE (Id = '" +
                     materiale.getId() + "');";
             con.createStatement().executeUpdate(Query);
 
@@ -773,7 +773,7 @@ public class ControllerGestore implements Initializable {
             Materiale materiale = new Materiale(nomeNuovoMateriale.getText(), costoNuovoMateriale.getValue().floatValue(), quantitaNuovoMateriale.getValue());
             Connection con = Database.getConnection();
 
-            String Query = "INSERT INTO `Casotto`.`Materiali` (`idMateriale`, `Nome`, `Quantità`, `costo`) VALUES (" +
+            String Query = "INSERT INTO Casotto.Materiali (idMateriale, Nome, Quantità, costo) VALUES (" +
                     "'" + materiale.getId() + "'," +
                     "'" + materiale.getNome() + "',"
                     + "'" + materiale.getQuantita() + "'," +

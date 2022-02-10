@@ -225,8 +225,8 @@ public class ControllerBagnino implements Initializable {
         if (alert.getResult() == ButtonType.YES) {
             //rimuovo il maeriale dal db
             Connection con = Database.getConnection();
-            String Query = "DELETE FROM `Casotto`.`Materiali` WHERE (`Id` = '" +
-                    materiale.getId() + "');";
+            String Query = "DELETE FROM Casotto.Materiali WHERE (Id = " +
+                    materiale.getId() + ");";
             con.createStatement().executeUpdate(Query);
 
             listaMateriali.remove(materiale);
@@ -245,11 +245,11 @@ public class ControllerBagnino implements Initializable {
             Materiale materiale = new Materiale(nomeNuovoMateriale.getText(), costoNuovoMateriale.getValue().floatValue(), quantitaNuovoMateriale.getValue());
             Connection con = Database.getConnection();
 
-            String Query = "INSERT INTO `Casotto`.`Materiali` (`idMateriale`, `Nome`, `Quantità`, `costo`) VALUES (" +
-                    "'" + materiale.getId() + "'," +
-                    "'" + materiale.getNome() + "',"
-                    + "'" + materiale.getQuantita() + "'," +
-                    "'" + materiale.getCosto() + "');";
+            String Query = "INSERT INTO Casotto.Materiali (idMateriale, Nome, Quantità, costo) VALUES (" +
+                     materiale.getId() + "," +
+                     materiale.getNome() + ","
+                    +  materiale.getQuantita() + "," +
+                     materiale.getCosto() + ");";
             con.createStatement().executeUpdate(Query);
             listaMateriali.add(materiale);
         }
@@ -269,14 +269,14 @@ public class ControllerBagnino implements Initializable {
 
             Connection con = Database.getConnection();
             int comp = a.getComponenti() != null ? a.getComponenti().size() : 0;
-            String Query = "INSERT INTO `Casotto`.`Attivita` (`Id`, `Nome`, `postiMax`, postiMin, `costo`, `orario`, `Componenti`) VALUES (" +
-                    "'" + a.getIdAttivita() + "'," +
-                    "'" + a.getNome() + "',"
-                    + "'" + a.getPostiMax() + "'," +
-                    "'" + a.getPostiMin() + "'," +
-                    "'" + a.getCosto() + "'," +
-                    "'" + a.getOrario() + "'," +
-                    "'" + comp + "');";
+            String Query = "INSERT INTO Casotto.Attivita (Id, Nome, postiMax, postiMin, costo, orario, Componenti) VALUES (" +
+                     a.getIdAttivita() + "," +
+                     a.getNome() + ","
+                    +  a.getPostiMax() + "," +
+                     a.getPostiMin() + "," +
+                     a.getCosto() + "," +
+                     a.getOrario() + "," +
+                     comp + ");";
 
             con.createStatement().executeUpdate(Query);
             listaAttivita.add(a);
@@ -292,8 +292,8 @@ public class ControllerBagnino implements Initializable {
             //rimuovo l'attivita dal db
             Connection con = Database.getConnection();
 
-            String Query = "DELETE FROM `Casotto`.`Attivita` WHERE (`Id` = '" +
-                    attivita.getId() + "');";
+            String Query = "DELETE FROM Casotto.Attivita WHERE (Id =" +
+                    attivita.getId() + ");";
             con.createStatement().executeUpdate(Query);
 
             listaAttivita.remove(attivita);
@@ -317,12 +317,12 @@ public class ControllerBagnino implements Initializable {
                 ombrellone = new Ombrellone(FilaNuovoOmbrellone.getValue(), 0.0f, numeroNuovoOmbrellone.getValue());
             }
 
-            String query = "INSERT INTO `Casotto`.`Ombrelloni` (`Id`, `Numero`, `Fila`, `Tariffa`,`Disponibilità`) VALUES (" +
-                    "'" + ombrellone.getId() + "'," +
-                    "'" + ombrellone.getNumero() + "'," +
-                    "'" + ombrellone.getFila() + "'," +
-                    "'" + ombrellone.getTariffa() + "'," +
-                    "'" + ombrellone.getDisponibilita() + "');";
+            String query = "INSERT INTO Casotto.Ombrelloni (Id, Numero, Fila, Tariffa,Disponibilità) VALUES (" +
+                      ombrellone.getId() + "," +
+                      ombrellone.getNumero() + "," +
+                      ombrellone.getFila() + "," +
+                      ombrellone.getTariffa() + "," +
+                      ombrellone.getDisponibilita() + ");";
             con.createStatement().executeUpdate(query);
 
             ListaOmbrelloni.add(ombrellone);
@@ -341,7 +341,7 @@ public class ControllerBagnino implements Initializable {
             //rimuovo il Dipendente dal db
             Connection con = Database.getConnection();
 
-            String Query = "DELETE FROM `Casotto`.`Ombrelloni` WHERE (`Id` = '" +
+            String Query = "DELETE FROM Casotto.Ombrelloni WHERE (Id = '" +
                     ombrellone.getId() + "');";
             con.createStatement().executeUpdate(Query);
         }
