@@ -26,7 +26,7 @@ public class Cliente extends Persona {
      * @param nomeUtente nomeutente del cliente
      * @param email      email del cliente
      */
-    public Cliente(String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+    public Cliente(String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
         super(nome, cognome, residenza, telefono, nomeUtente, email);
         this.credito = 0;
         c = Casotto.getInstance();
@@ -35,7 +35,7 @@ public class Cliente extends Persona {
 
     }
 
-    public Cliente(String id,String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+    public Cliente(String id,String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
         super(id,nome, cognome, residenza, telefono, nomeUtente, email);
         c = Casotto.getInstance();
         //aggiunge cliente al casotto
@@ -142,4 +142,5 @@ public class Cliente extends Persona {
     public void prenotaServizioRistorazione(ArrayList<Prodotto> p, Ombrellone o) {
         ComandaRistorazione cR = new ComandaRistorazione(o, this, p);
     }
+
 }

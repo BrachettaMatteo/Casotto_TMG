@@ -19,13 +19,13 @@ public class Dipendente extends Persona {
      * @param nomeUtente nomeUtente del dipendente
      * @param email      email del dipendete
      */
-    public Dipendente(String nome, String cognome, String residenza, int telefono, String nomeUtente, String email,String ruolo) {
+    public Dipendente(String nome, String cognome, String residenza, String telefono, String nomeUtente, String email,String ruolo) {
         super(nome, cognome, residenza, telefono, nomeUtente, email);
         c = Casotto.getInstance();
         this.ruolo=ruolo;
     }
 
-    public Dipendente(String id, String nome, String cognome, String residenza, int telefono, String nomeUtente, String email,String ruolo) {
+    public Dipendente(String id, String nome, String cognome, String residenza, String telefono, String nomeUtente, String email,String ruolo) {
         super(nome, cognome, residenza, telefono, nomeUtente, email);
         this.ruolo=ruolo;
     }

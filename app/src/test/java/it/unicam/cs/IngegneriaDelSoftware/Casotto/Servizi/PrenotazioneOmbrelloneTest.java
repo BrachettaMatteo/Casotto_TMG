@@ -14,10 +14,10 @@ class PrenotazioneOmbrelloneTest {
     @Test
     public void Prenotazione() {
         Casotto c = new Casotto();
-        Gestore G = new Gestore("GG", "GG", "GG", 1_234_567_890, "GG", "GG@GG.GG");
+        Gestore G = new Gestore("GG", "GG", "GG", "1234567890", "GG", "GG@GG.GG");
 
-        Cliente CL1 = new Cliente("uno", "uno", "Camerino", 1_234_567_890, "uno", "uno@uno.uno");
-        Cliente CL2 = new Cliente("due", "due", "Camerino", 1_234_567_890, "due", "due@due.due");
+        Cliente CL1 = new Cliente("uno", "uno", "Camerino", "1234567890", "uno", "uno@uno.uno");
+        Cliente CL2 = new Cliente("due", "due", "Camerino", "1234567890", "due", "due@due.due");
 
         Ombrellone O1 = new Ombrellone(1, 7.0f, 2);
         Ombrellone O2 = new Ombrellone(2, 7.0f, 1);

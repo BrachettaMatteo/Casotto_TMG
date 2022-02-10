@@ -385,7 +385,7 @@ public class ControllerGestore implements Initializable {
                         rs.getString("Nome"),
                         rs.getString("Cognome"),
                         rs.getString("Residenza"),
-                        rs.getInt("Telefono"),
+                        rs.getString("Telefono"),
                         rs.getString("Email"),
                         rs.getString("Email"),
                         rs.getString("Ruolo")));
@@ -397,7 +397,7 @@ public class ControllerGestore implements Initializable {
                                 rs.getString("Nome"),
                                 rs.getString("Cognome"),
                                 rs.getString("Residenza"),
-                                rs.getInt("Telefono"),
+                                rs.getString("Telefono"),
                                 //todo: nome utenete = email?
                                 rs.getString("Email"),
                                 rs.getString("Email")));
@@ -524,7 +524,7 @@ public class ControllerGestore implements Initializable {
             tb = new Bagnino(nomeNuovoDipendente.getText(),
                     cognomeNuovoDipendente.getText(),
                     residenzaNuovoDipendente.getText(),
-                    Integer.valueOf(telefonoNuovoDipendente.getText()),
+                    telefonoNuovoDipendente.getText(),
                     emailNuovoDipendente.getText(),
                     emailNuovoDipendente.getText());
 
@@ -532,7 +532,7 @@ public class ControllerGestore implements Initializable {
             tb = new Cassiere(nomeNuovoDipendente.getText(),
                     cognomeNuovoDipendente.getText(),
                     residenzaNuovoDipendente.getText(),
-                    Integer.parseInt(telefonoNuovoDipendente.getText()),
+                    telefonoNuovoDipendente.getText(),
                     emailNuovoDipendente.getText(),
                     emailNuovoDipendente.getText());
 
@@ -623,7 +623,7 @@ public class ControllerGestore implements Initializable {
         alert.setTitle("Creazione nuovo  Cliente");
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.YES)) {
-            Cliente cliente = new Cliente(nomeNuovoCliente.getText(), cognomeNuovoCliente.getText(), residenzaNuovoCliente.getText(), Integer.valueOf(telefonoNuovoCliente.getText()), emailNuovoCliente.getText(), emailNuovoCliente.getText());
+            Cliente cliente = new Cliente(nomeNuovoCliente.getText(), cognomeNuovoCliente.getText(), residenzaNuovoCliente.getText(), (telefonoNuovoCliente.getText()), emailNuovoCliente.getText(), emailNuovoCliente.getText());
             Connection con = Database.getConnection();
             String query = "INSERT INTO `Casotto`.`Clienti` (`Id`, `Nome`, `Cognome`, `Residenza`, `Telefono`,`Email`) VALUES (" +
                     "'" + cliente.getId() + "',"

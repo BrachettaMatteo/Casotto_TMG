@@ -11,7 +11,7 @@ public class Persona {
     private String nome;
     private String cognome;
     private String residenza;
-    private int telefono;
+    private String telefono;
     private String nomeUtente;
     private String email;
 
@@ -25,12 +25,12 @@ public class Persona {
      * @param nomeUtente nome utente della persona
      * @param email      email della persona
      */
-    public Persona(String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+    public Persona(String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
         if (nome.isEmpty() || cognome.isEmpty())
             throw new IllegalArgumentException("nominativo errato");
         if (residenza.isEmpty())
             throw new IllegalArgumentException("la residenza è vuota");
-        if (telefono < 1_000_000_000)
+        if (telefono.length() != 10)
             throw new IllegalArgumentException("numero inserito non valido");
         if (!email.contains("@"))
             throw new IllegalArgumentException("email errata");
@@ -46,12 +46,12 @@ public class Persona {
         this.email = email;
     }
 
-    public Persona(String id, String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+    public Persona(String id, String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
         if (nome.isEmpty() || cognome.isEmpty())
             throw new IllegalArgumentException("nominativo errato");
         if (residenza.isEmpty())
             throw new IllegalArgumentException("la residenza è vuota");
-        if (telefono < 1_000_000_000)
+        if (telefono.length() != 10)
             throw new IllegalArgumentException("numero inserito non valido");
         if (!email.contains("@"))
             throw new IllegalArgumentException("email errata");
@@ -93,7 +93,7 @@ public class Persona {
     /**
      * @return il telefono della persona
      */
-    public int getTelefono() {
+    public String getTelefono() {
         return this.telefono;
     }
 
@@ -144,8 +144,8 @@ public class Persona {
      * @param telefono nuovo numero di telefono
      * @throws IllegalArgumentException se il numero è errato.
      */
-    public void setTelefono(int telefono) {
-        if (telefono < 1_000_000_000)
+    public void setTelefono(String telefono) {
+        if (telefono.length() != 10)
             throw new IllegalArgumentException("nome inserito non valido");
         this.telefono = telefono;
     }

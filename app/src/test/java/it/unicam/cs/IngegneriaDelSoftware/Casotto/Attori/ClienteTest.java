@@ -18,10 +18,10 @@ class ClienteTest {
     @Test
     void prenotaOmbrellone() {
         Casotto c = new Casotto();
-        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", 1234567890, "Gestore", "Gestore@Gestore.Gestore");
+        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", "1234567890", "Gestore", "Gestore@Gestore.Gestore");
         G.creaSpiaggia(10, 10);
 
-        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", 1234567890, "Cliente", "Cliente@Cliente.Cliente");
+        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", "1234567890", "Cliente", "Cliente@Cliente.Cliente");
         CL1.ricarica(100f);
         CL1.prenotaOmbrellone(c.getOmbrelloni().get(1), LocalDateTime.of(2022, Month.APRIL, 4, 15, 00, 00));
 
@@ -33,10 +33,10 @@ class ClienteTest {
 
     @Test
     void prenotaServizioBalneare() {
-        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", 1234567890, "Gestore", "Gestore@Gestore.Gestore");
+        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", "1234567890", "Gestore", "Gestore@Gestore.Gestore");
         G.creaSpiaggia(10, 10);
-        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", 1234567890, "Bagnino", "bagnino@bagnino.bagnino");
-        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", 1234567890, "Cliente", "Cliente@Cliente.Cliente");
+        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", "1234567890", "Bagnino", "bagnino@bagnino.bagnino");
+        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", "1234567890", "Cliente", "Cliente@Cliente.Cliente");
         CL1.ricarica(1000f);
         CL1.prenotaOmbrellone(G.getC().getOmbrelloni().get(1), LocalDateTime.of(2022, Month.APRIL, 4, 15, 0, 0));
 
@@ -54,10 +54,10 @@ class ClienteTest {
     @Test
     void prenotaSeviziBalneare() {
         Casotto c = new Casotto();
-        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", 1234567890, "Gestore", "Gestore@Gestore.Gestore");
+        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", "1234567890", "Gestore", "Gestore@Gestore.Gestore");
         G.creaSpiaggia(10, 10);
-        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", 1234567890, "Bagnino", "bagnino@bagnino.bagnino");
-        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", 1234567890, "Cliente", "Cliente@Cliente.Cliente");
+        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", "1234567890", "Bagnino", "bagnino@bagnino.bagnino");
+        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", "1234567890", "Cliente", "Cliente@Cliente.Cliente");
         CL1.ricarica(1000f);
         CL1.prenotaOmbrellone(G.getC().getOmbrelloni().get(1), LocalDateTime.of(2022, Month.APRIL, 4, 15, 0, 0));
 
@@ -80,7 +80,7 @@ class ClienteTest {
 
     @Test
     void ricarica() {
-        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", 1234567890, "Cliente", "Cliente@Cliente.Cliente");
+        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", "1234567890", "Cliente", "Cliente@Cliente.Cliente");
         CL1.ricarica(100f);
 
         assertEquals(100f, CL1.getSaldo());
@@ -88,7 +88,7 @@ class ClienteTest {
 
     @Test
     void paga() {
-        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", 1234567890, "Cliente", "Cliente@Cliente.Cliente");
+        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", "1234567890", "Cliente", "Cliente@Cliente.Cliente");
         assertThrows(IllegalArgumentException.class, () -> CL1.paga(100f));
 
         CL1.ricarica(100f);
@@ -100,9 +100,9 @@ class ClienteTest {
     @Test
     void prenotaAttivita() {
         Casotto c = new Casotto();
-        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", 1234567890, "Gestore", "Gestore@Gestore.Gestore");
+        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", "1234567890", "Gestore", "Gestore@Gestore.Gestore");
         G.creaSpiaggia(10, 10);
-        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", 1234567890, "Cliente", "Cliente@Cliente.Cliente");
+        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", "1234567890", "Cliente", "Cliente@Cliente.Cliente");
         CL1.ricarica(10f);
         Attivita at = new Attivita("Saluto al sole", 1, 100, LocalDateTime.of(2022, Month.FEBRUARY, 25, 6, 0, 0), 1f);
         c.aggiungiAttivita(at);

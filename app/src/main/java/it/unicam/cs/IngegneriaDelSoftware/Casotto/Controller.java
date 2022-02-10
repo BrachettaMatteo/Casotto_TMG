@@ -34,7 +34,7 @@ public class Controller {
     @FXML
     protected void Login(ActionEvent event) throws IOException {
         if (Username.getText().equals("gestore")) {
-        gestore = new Gestore(Username.getText(), Username.getText(), "camerino", 1234567890, Username.getText(), "gestore@gestore.it");
+        gestore = new Gestore(Username.getText(), Username.getText(), "camerino", "1234567890", Username.getText(), "gestore@gestore.it");
         root = FXMLLoader.load(Chalet.class.getResource("gestore-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

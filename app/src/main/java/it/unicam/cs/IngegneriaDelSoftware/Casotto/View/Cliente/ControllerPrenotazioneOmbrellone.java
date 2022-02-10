@@ -3,12 +3,17 @@ package it.unicam.cs.IngegneriaDelSoftware.Casotto.View.Cliente;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Chalet;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.PrenotazioneOmbrellone;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.layout.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,9 +25,19 @@ import java.util.ResourceBundle;
 public class ControllerPrenotazioneOmbrellone implements Initializable {
     @FXML
     GridPane ListaOmbrelloni;
+    @FXML
+    Text FilaOmbrellone;
+    @FXML
+    Text numeroOmbrellone;
+    @FXML
+    Text costoOmbrelloe;
+    @FXML
+    ImageView imgOmbrellone;
+
+    Ombrellone OmbrelloneSelezionato;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources) {
         ListaOmbrelloni.autosize();
         Connection con = null;
         try {
@@ -30,8 +45,8 @@ public class ControllerPrenotazioneOmbrellone implements Initializable {
             ResultSet rs = con.createStatement().executeQuery("SELECT Fila,Numero,Tariffa FROM Ombrelloni order by Fila,Numero");
             int ro = -1;
             while (rs.next()) {
-                if (rs.getInt("Fila") != ro+1)
-                    ro=rs.getInt("Fila")-1;
+                if (rs.getInt("Fila") != ro + 1)
+                    ro = rs.getInt("Fila") - 1;
 
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(Chalet.class.getResource("ombrellone-view.fxml"));
@@ -39,7 +54,7 @@ public class ControllerPrenotazioneOmbrellone implements Initializable {
                 ControllerOmbrellone itemController = fxmlLoader.getController();
                 itemController.setPrezzo(rs.getFloat("Tariffa"));
 
-                ListaOmbrelloni.addRow(ro,ombrelloneView);
+                ListaOmbrelloni.addRow(ro, ombrelloneView);
 
                 //set grid width
                 ListaOmbrelloni.setMinWidth(Region.USE_COMPUTED_SIZE);
@@ -58,6 +73,17 @@ public class ControllerPrenotazioneOmbrellone implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    private void selezioneOmbrllone(Ombrellone o) {
+        FilaOmbrellone.setText(String.valueOf(o.getFila()));
+        numeroOmbrellone.setText(String.valueOf(o.getNumero()));
+        costoOmbrelloe.setText(String.valueOf(o.getTariffa() + "€"));
+
+    }
+
+    public void prenotaOmbrellone(ActionEvent event) {
 
     }
 }

@@ -12,7 +12,7 @@ class GestoreTest {
     @Test
     void creaSpiaggia() {
         Casotto c = new Casotto();
-        Gestore G = new Gestore("GG", "GG", "GG", 1234567890, "GG", "GG@GG.GG");
+        Gestore G = new Gestore("GG", "GG", "GG", "1234567890", "GG", "GG@GG.GG");
 
         assertThrows(IllegalArgumentException.class, () -> G.creaSpiaggia(-1, 9));
         assertThrows(IllegalArgumentException.class, () -> G.creaSpiaggia(9, -1));
@@ -38,7 +38,7 @@ class GestoreTest {
 
     @Test
     void setTariffe() {
-        Gestore G = new Gestore("GG", "GG", "GG", 1234567890, "GG", "GG@GG.GG");
+        Gestore G = new Gestore("GG", "GG", "GG", "1234567890", "GG", "GG@GG.GG");
         G.creaSpiaggia(10, 3);
         G.setTariffe(8, 7.0f);
         assertEquals(7.0f, G.getC().getTariffa(8));
@@ -48,7 +48,7 @@ class GestoreTest {
     void getC() {
         Casotto c = new Casotto();
         c.aggiungiOmbrellone(new Ombrellone(1, 2.0f, 2));
-        Gestore G = new Gestore("GG", "GG", "GG", 1234567890, "GG", "GG@GG.GG");
+        Gestore G = new Gestore("GG", "GG", "GG", "1234567890", "GG", "GG@GG.GG");
         assertEquals(c, G.getC());
     }
 }

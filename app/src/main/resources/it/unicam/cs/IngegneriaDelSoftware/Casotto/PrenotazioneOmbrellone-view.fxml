@@ -1,35 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.View.Cliente.ControllerPrenotazioneOmbrellone">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.View.Cliente.ControllerPrenotazioneOmbrellone">
     <center>
-        <GridPane fx:id="ListaOmbrelloni" BorderPane.alignment="CENTER">
+        <GridPane fx:id="ListaOmbrelloni" style="-fx-background-color: #fad2b0#fad2b0; -fx-border-color: black;" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
     </center>
+   <left>
+      <VBox prefHeight="400.0" prefWidth="191.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dettagli ombrellone" />
+            <ImageView fx:id="imgOmbrellone" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox prefHeight="19.0" prefWidth="191.0" spacing="3.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Posizione" />
+                  <Text fx:id="numeroOmbrellone" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="numero" />
+                  <Text layoutX="63.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fila " />
+                  <Text fx:id="FilaOmbrellone" layoutX="105.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NumeroFila" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="27.0" prefHeight="19.0" prefWidth="191.0" spacing="3.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="costo: " />
+                  <Text fx:id="costoOmbrelloe" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="€" />
+               </children>
+            </HBox>
+            <Button fx:id="btnPrenota" mnemonicParsing="false" onAction="#prenotaOmbrellone" text="Prenota" />
+         </children>
+      </VBox>
+   </left>
 </BorderPane>

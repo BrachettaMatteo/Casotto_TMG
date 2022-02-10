@@ -17,12 +17,12 @@ class BagninoTest {
     @Test
     void liberaOmbrellone() {
         Casotto casotto = new Casotto();
-        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", 1234567890, "Gestore", "Gestore@Gestore.Gestore");
+        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", "1234567890", "Gestore", "Gestore@Gestore.Gestore");
         G.creaSpiaggia(10, 10);
 
-        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", 1234567890, "Bagnino", "bagnino@bagnino.bagnino");
+        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", "1234567890", "Bagnino", "bagnino@bagnino.bagnino");
 
-        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", 1234567890, "Cliente", "Cliente@Cliente.Cliente");
+        Cliente CL1 = new Cliente("Cliente", "Cliente", "Camerino", "1234567890", "Cliente", "Cliente@Cliente.Cliente");
 
 
         CL1.prenotaOmbrellone(casotto.getOmbrelloni().get(1), LocalDateTime.of(2022, Month.APRIL, 4, 15, 00, 00));
@@ -36,10 +36,10 @@ class BagninoTest {
     @Test
     void aggiungiAttivita() {
         Casotto casotto = new Casotto();
-        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", 1234567890, "Gestore", "Gestore@Gestore.Gestore");
+        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", "1234567890", "Gestore", "Gestore@Gestore.Gestore");
         G.creaSpiaggia(10, 10);
 
-        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", 1234567890, "Bagnino", "bagnino@bagnino.bagnino");
+        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", "1234567890", "Bagnino", "bagnino@bagnino.bagnino");
 
         Attivita a = new Attivita("beachVolley", 20, 4, LocalDateTime.of(2022, Month.APRIL, 4, 15, 00, 00), 5.0f);
         bagnino.aggiungiAttivita(a);
@@ -51,10 +51,10 @@ class BagninoTest {
     void modificaAttivita() {
         Casotto casotto = new Casotto();
 
-        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", 1234567890, "Gestore", "Gestore@Gestore.Gestore");
+        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", "1234567890", "Gestore", "Gestore@Gestore.Gestore");
         G.creaSpiaggia(10, 10);
 
-        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", 1234567890, "Bagnino", "bagnino@bagnino.bagnino");
+        Bagnino bagnino = new Bagnino("Bagnino", "Bagnino", "Camerino", "1234567890", "Bagnino", "bagnino@bagnino.bagnino");
 
         Attivita a = new Attivita("beachVolley", 20, 4, LocalDateTime.of(2022, Month.APRIL, 4, 15, 00, 00), 5.0f);
         bagnino.aggiungiAttivita(a);
@@ -83,16 +83,16 @@ class BagninoTest {
     void aggiungiComanda() {
         Casotto c = new Casotto();
 
-        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", 1234567890, "Gestore", "Gestore@Gestore.Gestore");
+        Gestore G = new Gestore("Gestore", "Gestore", "Camerino", "1234567890", "Gestore", "Gestore@Gestore.Gestore");
         G.creaSpiaggia(10, 10);
 
-        Cliente CL = new Cliente("Cliente", "Cliente", "Camerino", 1234567890, "Cliente", "Cliente@Cliente.Cliente");
+        Cliente CL = new Cliente("Cliente", "Cliente", "Camerino", "1234567890", "Cliente", "Cliente@Cliente.Cliente");
 
         CL.prenotaOmbrellone(c.getOmbrelloni().get(1), LocalDateTime.of(2023, Month.JANUARY, 9, 15, 0, 0));
         CL.ricarica(100f);
 
         CL.prenotaOmbrellone(c.getOmbrelloni().get(1), LocalDateTime.of(2022, Month.FEBRUARY, 9, 15, 0, 0));
-        Bagnino bagnino = new Bagnino("bagnino", "bagnino", "Camerino", 1234567890, "bagnino", "bagnino@bagnino.it");
+        Bagnino bagnino = new Bagnino("bagnino", "bagnino", "Camerino", "1234567890", "bagnino", "bagnino@bagnino.it");
 
         Materiale m1 = new Materiale("Lettino", 7.0f, "lettino lunghezza X larghezza");
         Materiale m2 = new Materiale("Sdraio", 7.0f, "sdraio singolo");

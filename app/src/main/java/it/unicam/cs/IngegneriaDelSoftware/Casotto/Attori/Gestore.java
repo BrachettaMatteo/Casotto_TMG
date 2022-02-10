@@ -27,7 +27,7 @@ public class Gestore extends Persona {
      * @param nomeUtente nomeUtente del gestore
      * @param email      email del gestore
      */
-    public Gestore(String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+    public Gestore(String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
         super(nome, cognome, residenza, telefono, nomeUtente, email);
         this.listaChalet = new ArrayList<>();
         this.c = Casotto.getInstance();

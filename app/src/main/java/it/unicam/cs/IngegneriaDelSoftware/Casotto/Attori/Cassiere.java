@@ -16,11 +16,11 @@ public class Cassiere extends Dipendente {
      * @param nomeUtente moneUtente del cassiere
      * @param email      email del cassiere
      */
-    public Cassiere(String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+    public Cassiere(String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
         super(nome, cognome, residenza, telefono, nomeUtente, email,"Cassiere");
     }
 
-    public Cassiere(String id, String nome, String cognome, String residenza, int telefono, String nomeUtente, String email) {
+    public Cassiere(String id, String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
         super(id, nome, cognome, residenza, telefono, nomeUtente, email,"Cassiere");
     }
 
