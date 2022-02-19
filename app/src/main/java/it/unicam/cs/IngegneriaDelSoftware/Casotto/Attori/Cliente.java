@@ -2,8 +2,12 @@ package it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori;
 
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.*;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,11 +39,12 @@ public class Cliente extends Persona {
 
     }
 
-    public Cliente(String id,String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
-        super(id,nome, cognome, residenza, telefono, nomeUtente, email);
+    public Cliente(String id, String nome, String cognome, String residenza, String telefono, String nomeUtente, String email, float conto) {
+        super(id, nome, cognome, residenza, telefono, nomeUtente, email);
+        this.credito = conto;
         c = Casotto.getInstance();
         //aggiunge cliente al casotto
-        c.aggiungiCLiente(this);
+        //c.aggiungiCLiente(this);
 
     }
 
@@ -93,7 +98,15 @@ public class Cliente extends Persona {
     public void ricarica(Float f) {
         if (f <= 0)
             throw new IllegalArgumentException("valore insufficiente");
-        this.credito += f;
+
+        try {
+            Connection con=Database.getConnection();
+            con.createStatement().executeUpdate("UPDATE Clienti SET Conto= Conto+"+f+"Where Id='"+this.getId()+"'");
+            this.credito += f;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -104,12 +117,36 @@ public class Cliente extends Persona {
      * altrimenti <code>false</code>
      */
     public boolean paga(float importo) {
+        this.aggiornacredito();
         if (this.credito - importo > 0) {
             this.credito -= importo;
-            return true;
+            Connection connection = null;
+            try {
+                connection = Database.getConnection();
+                String query = "UPDATE Clienti SET Conto=" + this.credito + " WHERE Id='" + this.getId() + "';";
+                connection.createStatement().executeUpdate(query);
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
         } else
-            throw new IllegalArgumentException("credito insufficiente");
+            return false;
+    }
 
+    private void aggiornacredito() {
+        try {
+            Connection connection = Database.getConnection();
+            String query = "SELECT Conto FROM Clienti WHERE Id='"+this.getId()+"';";
+            ResultSet rs =connection.createStatement().executeQuery(query);
+            if(rs.next()){
+                this.credito = rs.getFloat("Conto");
+            }
+           else
+               throw new IllegalArgumentException("cliente inesistente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

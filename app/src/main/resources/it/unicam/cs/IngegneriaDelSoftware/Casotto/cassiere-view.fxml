@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.CassiereController">
+   <left>
+      <VBox prefHeight="400.0" prefWidth="146.0" BorderPane.alignment="CENTER" stylesheets="@style.css">
+         <children>
+            <Button id="int" fx:id="btnRicaricaConto" mnemonicParsing="false" onAction="#ricaricaConto" prefHeight="26.0" prefWidth="234.0" text="Ricarica Conto" />
+            <Button id="int" fx:id="btnGestioneComande" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#gestioneComande" prefHeight="26.0" prefWidth="234.0" text="Gestione Comande" />
+            <Button id="int" fx:id="btnGestioneClienti" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#gestioneClienti" prefHeight="26.0" prefWidth="234.0" text="Gestione Clienti" />
+            <Button id="int" fx:id="btnLogout" layoutX="10.0" layoutY="171.0" mnemonicParsing="false" onAction="#Logout" prefHeight="30.0" prefWidth="166.0"  text="Logout" />
+         </children>
+      </VBox>
+   </left>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab text="Prenotazioni">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-          <Tab text="Clienti">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+      <StackPane fx:id="board" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

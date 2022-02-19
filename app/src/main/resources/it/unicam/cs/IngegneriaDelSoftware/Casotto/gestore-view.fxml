@@ -1,407 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.View.Gestore.ControllerGestore">
-   <right>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-background-color: purple;" BorderPane.alignment="CENTER">
+<BorderPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.GestoreController">
+   <left>
+      <VBox prefHeight="400.0" prefWidth="142.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ombrelloni" />
-            <HBox layoutX="10.0" layoutY="42.0" prefHeight="15.0" prefWidth="200.0" spacing="5.0">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="disponibili" />
-                  <Text fx:id="ombrelloniDiponibili" fill="#2af207" strokeType="OUTSIDE" strokeWidth="0.0" />
-               </children>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="64.0" prefHeight="15.0" prefWidth="200.0" spacing="5.0">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="occupati" />
-                  <Text fx:id="ombrelloniOccupati" fill="#f80a0a" strokeType="OUTSIDE" strokeWidth="0.0" />
-               </children>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="15.0" prefWidth="200.0" spacing="5.0">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="totali" />
-                  <Text fx:id="ombrelloniTot" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" />
-               </children>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </HBox>
-            <Line startX="-100.0" stroke="#fcf7f7" />
-            <Text fill="WHITE" layoutX="31.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clienti" />
-            <HBox layoutX="10.0" layoutY="85.0" prefHeight="15.0" prefWidth="200.0" spacing="5.0">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="totali" />
-                  <Text fx:id="clientiTot" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" />
-               </children>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="42.0" prefHeight="15.0" prefWidth="200.0" spacing="5.0">
-               <children>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="prenotati" />
-                  <Text fx:id="ClientiPrenotati" strokeType="OUTSIDE" strokeWidth="0.0" />
-               </children>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </HBox>
-            <Line layoutX="111.0" layoutY="106.0" startX="-100.0" stroke="#fcf7f7" />
-            <PieChart fx:id="ombrelloni" prefHeight="150.0" prefWidth="117.0" />
+            <Button id="int" fx:id="btnHome" layoutX="10.0" layoutY="171.0" mnemonicParsing="false" onAction="#Home" prefHeight="30.0" prefWidth="210.0" text="Home" />
+            <Button id="int" fx:id="btnGestioneSpiaggia" mnemonicParsing="false" onAction="#gestioneSpiaggia" prefHeight="26.0" prefWidth="176.0" text="Gestione Spiaggia" />
+            <Button id="int" fx:id="btnGestioneMateriali" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#gestioneMateriali" prefHeight="26.0" prefWidth="176.0" text="Gestione Materiali" />
+            <Button id="int" fx:id="btnGestioneRistorazione" layoutX="10.0" layoutY="36.0" mnemonicParsing="false" onAction="#gestioneRistorazione" prefHeight="26.0" prefWidth="176.0" text="Gestione Ristorazione" />
+            <Button id="int" fx:id="btnGestioneDipendenti" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" onAction="#btnGestioneDipendenti" prefHeight="26.0" prefWidth="176.0" text="Gestione Dipendenti" />
+            <Button id="int" fx:id="btnGestioneClienti" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" onAction="#btnGestioneClienti" prefHeight="26.0" prefWidth="176.0" text="Gestione Clienti" />
+            <Button id="int" fx:id="btnGestionePrenotazioni" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" onAction="#btnGestionePrenotazioni" prefHeight="26.0" prefWidth="176.0" text="Gestione Prenotazioni" />
+            <Button id="int" fx:id="btnGestioneAttivita" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" onAction="#btnGestioneAttivita" prefHeight="26.0" prefWidth="176.0" text="Gestione Attività" />
+            <Button id="int" fx:id="btnLogout" layoutX="10.0" layoutY="171.0" mnemonicParsing="false" onAction="#Logout" prefHeight="30.0" prefWidth="210.0" text="Logout" />
+
          </children>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
       </VBox>
-   </right>
+   </left>
    <center>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
+      <StackPane fx:id="board" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="3.0" />
+         </BorderPane.margin>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CreaChalet" />
-            <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="numero file" />
-                  <Spinner fx:id="fileCreaChalet" maxWidth="70.0" />
-                  <Text layoutX="164.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="numero ombrelloni per fila" />
-                  <Spinner fx:id="ombrelloniCreaChalet" maxWidth="70.0" />
-                  <Button fx:id="btCreaSpiaggia" mnemonicParsing="false" onAction="#creaSpiaggia" text="crea Spiaggia" />
-               </children>
-            </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Modifica Tariffa" />
-            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="36.0" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="numero fila" />
-                  <Spinner fx:id="filaSetTariffa" prefWidth="70.0" />
-                  <Text layoutX="164.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="prezzo" />
-                  <Spinner fx:id="prezzoSetTariffa" prefWidth="70.0" />
-                  <Button fx:id="btSetTariffa" mnemonicParsing="false" onAction="#setTariffe" text="modifica prezzo" />
-               </children>
-            </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestione" />
-            <TabPane prefHeight="418.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab fx:id="tabDipendneti" text="Dipendenti">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="366.0" prefWidth="800.0">
-                           <children>
-                              <TableView fx:id="tableDipendenti" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                <columns>
-                                  <TableColumn fx:id="dipendenteID" prefWidth="270.0" text="ID" />
-                                  <TableColumn fx:id="dipendenteNome" prefWidth="100.0" text="Nome" />
-                                    <TableColumn fx:id="dipendenteCognome" prefWidth="100.0" text="Cognome" />
-                                    <TableColumn fx:id="dipendenteResidenza" prefWidth="100.0" text="Residenza" />
-                                    <TableColumn fx:id="dipendenteTelefono" prefWidth="100.0" text="Telefono" />
-                                    <TableColumn fx:id="dipendenteRuolo" prefWidth="70.0" text="Ruolo" />
-                                    <TableColumn fx:id="dipendenteEmail" prefWidth="120.0" text="Email" />
-                                </columns>
-                              </TableView>
-                              <Button fx:id="btAggiungiDipendente" layoutX="668.0" layoutY="289.0" mnemonicParsing="false" onAction="#aggiungiDipendente" text="aggiungi Dipendente" />
-                              <Button fx:id="btEliminaDipendente" layoutX="14.0" layoutY="251.0" mnemonicParsing="false" onAction="#eliminaDipendente" text="elimina Dipendente" />
-                              <VBox layoutX="212.0" layoutY="251.0" prefHeight="118.0" prefWidth="448.0">
-                                 <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" />
-                                          <TextField fx:id="nomeNuovoDipendente" maxWidth="150.0" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cognome" />
-                                          <TextField fx:id="cognomeNuovoDipendente" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Residenza" />
-                                          <TextField fx:id="residenzaNuovoDipendente" maxWidth="150.0" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono" />
-                                          <TextField fx:id="telefonoNuovoDipendente" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="60.0" prefHeight="31.0" prefWidth="448.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ruolo" />
-                                          <ComboBox fx:id="ruoloNuovoDipendente" prefWidth="150.0" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                                          <TextField fx:id="emailNuovoDipendente" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab fx:id="tabCliente" text="Cliente">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="tableClienti" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                <columns>
-                                  <TableColumn fx:id="clienteId" prefWidth="270.0" text="ID" />
-                                    <TableColumn fx:id="clienteNome" prefWidth="100.0" text="Nome" />
-                                    <TableColumn fx:id="clienteCognome" prefWidth="100.0" text="Cognome" />
-                                    <TableColumn fx:id="clienteResidenza" prefWidth="100.0" text="Residenza" />
-                                    <TableColumn fx:id="clienteTelefono" prefWidth="100.0" text="Telefono" />
-                                    <TableColumn fx:id="clienteEmail" prefWidth="120.0" text="Email" />
-                                </columns>
-                              </TableView>
-                              <VBox layoutX="227.0" layoutY="238.0" prefHeight="118.0" prefWidth="448.0">
-                                 <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" />
-                                          <TextField fx:id="nomeNuovoCliente" maxWidth="150.0" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cognome" />
-                                          <TextField fx:id="cognomeNuovoCliente" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Residenza" />
-                                          <TextField fx:id="residenzaNuovoCliente" maxWidth="150.0" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono" />
-                                          <TextField fx:id="telefonoNuovoCliente" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="31.0" prefWidth="448.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                                          <TextField fx:id="emailNuovoCliente" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button fx:id="aggiungiCliente" layoutX="681.0" layoutY="297.0" mnemonicParsing="false" onAction="#aggiungiCliente" text="aggiungi Cliente" />
-                              <Button layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#rimuoviCliente" text="rimuovi Cliente" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                  <Tab fx:id="tabOmbrelloni" text="Ombrelloni">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="tableOmbrelloni" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <columns>
-                                    <TableColumn fx:id="ombrelloneID" prefWidth="270.0" text="Id" />
-                                    <TableColumn fx:id="ombrelloneNumero" prefWidth="40.0" text="N°" />
-                                    <TableColumn fx:id="ombrelloneFila" prefWidth="40.0" text="Fila" />
-                                    <TableColumn fx:id="ombrelloneTariffa" prefWidth="40.0" text="Tariffa" />
-                                    <TableColumn fx:id="ombrelloneDipso" text="Dispoinibilità" />
-                                    <TableColumn fx:id="ombrelloneFine" text="data-Fine" />
-                                 </columns>
-                              </TableView>
-                              <Button fx:id="btAggiungiOmbrellone" layoutX="639.0" layoutY="293.0" mnemonicParsing="false" onAction="#aggiungiOmbrellone" text="aggiungi ombrellone" />
-                              <Button fx:id="btRimuoviOmbrellone" layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#rimuoviOmbrellone" text="rimuovi ombrellone" />
-                              <HBox layoutX="319.0" layoutY="287.0" prefHeight="37.0" prefWidth="280.0" spacing="5.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fila" />
-                                    <Spinner fx:id="FilaNuovoOmbrellone" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="numero" />
-                                    <Spinner fx:id="numeroNuovoOmbrellone" />
-                                 </children>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="tabAttivita" text="attività">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="tableAttivita" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <columns>
-                                    <TableColumn fx:id="attivitaId" prefWidth="270.0" text="Id" />
-                                    <TableColumn fx:id="attivitaNome" prefWidth="75.0" text="Nome" />
-                                    <TableColumn fx:id="attivitaPostiMin" prefWidth="75.0" text="PostiMin" />
-                                    <TableColumn fx:id="attivitaPostiMax" prefWidth="75.0" text="PostiMax" />
-                                    <TableColumn fx:id="attivitaCosto" prefWidth="75.0" text="Costo" />
-                                    <TableColumn fx:id="attivitaPartecipanti" prefWidth="100.0" text="partecipanti" />
-                                    <TableColumn fx:id="attivitaOrario" prefWidth="60.0" text="Orario" />
-                                 </columns>
-                              </TableView>
-                              <Button fx:id="btnAggiungiAttivita" layoutX="681.0" layoutY="282.0" mnemonicParsing="false" onAction="#aggiungiAttivita" text="aggiungi attività" />
-                              <Button fx:id="btnRimuoviAttivita" layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#rimuoviAttivita" text="rimuovi attività" />
-                              <VBox layoutX="219.0" layoutY="255.0" prefHeight="118.0" prefWidth="448.0">
-                                 <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" />
-                                          <TextField fx:id="nomeNuovaAttvita" maxWidth="150.0" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="postiMin" />
-                                          <Spinner fx:id="postiMinNuovaAttivita" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PostiMax" />
-                                          <Spinner fx:id="postiMaxNuovaAttivita" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Costo" />
-                                          <Spinner fx:id="costonuovaAttivita" layoutX="66.0" layoutY="15.0" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="31.0" prefWidth="448.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data" />
-                                          <DatePicker fx:id="OrarioNuovaAttivita" showWeekNumbers="true" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="orario" />
-                                          <Spinner fx:id="hNuovaAttivita" maxWidth="80.0" />
-                                          <Spinner fx:id="mNuovaAttivita" maxWidth="80.0" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="tabMenu" text="menù">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="tableMenu" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <columns>
-                                    <TableColumn fx:id="idProdotto" prefWidth="270.0" text="Id" />
-                                    <TableColumn fx:id="prodottoNome" prefWidth="75.0" text="Nome" />
-                                    <TableColumn fx:id="prodottoPrezzo" prefWidth="75.0" text="Prezzo" />
-                                    <TableColumn fx:id="prodottoDescrizione" prefWidth="75.0" text="Descrizione" />
-                                 </columns>
-                              </TableView>
-                              <Button fx:id="btnAggiungiProdotto" layoutX="541.0" layoutY="251.0" mnemonicParsing="false" onAction="#aggiungiProdotto" text="aggiungi prodotto" />
-                              <Button fx:id="btnRimuoviProdotto" layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#rimuoviPtrodotto" text="rimuovi prodotto" />
-                              <Button fx:id="btnNuovoMenu" layoutX="303.0" layoutY="251.0" mnemonicParsing="false" onAction="#nuovoMenu" text="nuovo menu" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="tabPrenotazione" text="Prenotazioni">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="tablePrenotazione" layoutX="138.0" layoutY="14.0" prefHeight="295.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <columns>
-                                    <TableColumn fx:id="prenotazioneId" prefWidth="270.0" text="Id" />
-                                    <TableColumn fx:id="prenotazioneCliente" prefWidth="120.0" text="id Cliente" />
-                                    <TableColumn fx:id="prenotazioneOmbrellone" prefWidth="120.0" text="id Ombrellone" />
-                                    <TableColumn fx:id="prenotazioneDataFine" prefWidth="120.0" text="data Fine" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="tabMateriali" text="Materiali">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="tableMateriali" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                                 <columns>
-                                    <TableColumn fx:id="materialeId" prefWidth="270.0" text="Id" />
-                                    <TableColumn fx:id="materialeNome" prefWidth="75.0" text="Nome" />
-                                    <TableColumn fx:id="materialeCosto" prefWidth="75.0" text="Costo" />
-                                    <TableColumn fx:id="materialeQuantita" prefWidth="75.0" text="Quantità" />
-                                 </columns>
-                              </TableView>
-                              <Button fx:id="btnAggiungiMateriale" layoutX="681.0" layoutY="282.0" mnemonicParsing="false" onAction="#aggiungiMateriale" text="aggiungi materiale" />
-                              <Button fx:id="btnRimuoviMateriale" layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#rimuoviMateriale" text="rimuovi materiale" />
-                              <VBox layoutX="219.0" layoutY="255.0" prefHeight="118.0" prefWidth="448.0">
-                                 <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:" />
-                                          <TextField fx:id="nomeNuovoMateriale" maxWidth="150.0" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Costo:" />
-                                          <Spinner fx:id="costoNuovoMateriale" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantità: " />
-                                          <Spinner fx:id="quantitaNuovoMateriale" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="5.0" />
-                                       </padding>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
-         </children>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
-      </VBox>
+
+         </children></StackPane>
    </center>
+   <top>
+      <Label fx:id="lbLocation" text="Home" textFill="PURPLE" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </top>
 </BorderPane>

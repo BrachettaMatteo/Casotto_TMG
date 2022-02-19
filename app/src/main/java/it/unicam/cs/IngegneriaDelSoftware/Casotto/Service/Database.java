@@ -1,8 +1,6 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Service;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Gestisce il database
@@ -11,19 +9,29 @@ public class Database {
 
     public static Connection getConnection() throws SQLException {
 
-        Connection connection = DriverManager.getConnection("jdbc:sqlserver://casotto.database.windows.net:1433;database=Cassotto", "tommaso", "Eo6AD!93");
-        return connection;
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Casotto?autoReconnect=true&useSSL=false", "User", "Casotto2022");        return connection;
     }
 
     /**
-     * Premtte di verificar en login
+     * Permette di verificare il login e restitutisce il ruolo dell'username
      *
+     * @return ruolo dell'username oppure una stringa vuota
      * @param nomeUtente nomeUtente da verificare
      * @param password   password da erificare
      */
-    public void login(String nomeUtente, String password) {
-        // TODO - implement Database.login
-        throw new UnsupportedOperationException();
+    public static String login(String nomeUtente, String password) {
+        try {
+            Connection connection= getConnection();
+            String query="Select Ruolo from Utenti Where Username='"+nomeUtente+"'&& Password = '"+password+"';";
+           ResultSet rs = connection.createStatement().executeQuery(query);
+            if(rs.next()){
+                return rs.getString("Ruolo");
+            }else
+                return "";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**

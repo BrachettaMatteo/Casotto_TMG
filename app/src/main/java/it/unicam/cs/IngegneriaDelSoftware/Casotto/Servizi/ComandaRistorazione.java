@@ -1,17 +1,23 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi;
 
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Rappresenta una Comanda ristorazione e le sue caratteristiche
  */
 public class ComandaRistorazione extends Comanda {
 
+    private  String listaProdotti;
     private ArrayList<Prodotto> prodottiOrdinati;
-    private Status Satus;
+    private Status status;
 
     /**
      * permette di creare una comanda ristorazione
@@ -31,7 +37,18 @@ public class ComandaRistorazione extends Comanda {
                 throw new IllegalArgumentException("prodotto null");
 
         this.prodottiOrdinati = prodottiOrdinati;
-        Satus = Status.daElaborare;
+        super.setStatus(Status.daElaborare);
+    }
+
+    public ComandaRistorazione(Ombrellone o, Cliente c) {
+        super(o, c);
+        super.setStatus(Status.daElaborare);
+    }
+
+    public ComandaRistorazione(String id, String idCliente, String idOmbrellone, String prodotti, String status) {
+        super(id, Casotto.getInstance().getOmbrellone(idOmbrellone), Casotto.getInstance().getCliente(idCliente));
+        this.listaProdotti = prodotti;
+        super.setStatus(Status.valueOf(status));
     }
 
     /**
@@ -51,10 +68,28 @@ public class ComandaRistorazione extends Comanda {
 
     @Override
     public void chiudiComanda() {
-        //chiedo pagamaneto al cliente
-        super.getC().paga(this.calcolaConto());
-        //invio la comnda al cassiere
-        // todo : a chi inviare la comanda
+        if (this.getC().paga(this.calcolaConto())) {
+            //creo comanda Lista prodotti
+            StringBuilder out = new StringBuilder();
+            for (Prodotto p : this.prodottiOrdinati) {
+                out.append(p.getNome()).append(" x").append(p.getQuantita()).append(" , ");
+            }
+            try {
+                Connection con = Database.getConnection();
+                String query = "insert into comandaRistorazione(id, idCliente, idOmbrellone, prodotti, Status) VALUES (" +
+                        "'" + this.getIdComanda() + "' ," +
+                        "'" + this.getC().getId() + "' ,"
+                        + "'" + this.getO().getId() + "' ,"
+                        + "'" + out.toString() + "' ," +
+                        "'daElaborare'"
+                        + ");";
+                con.createStatement().executeUpdate(query);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else
+            throw new IllegalArgumentException("errore credito");
     }
 
     /**
@@ -65,7 +100,15 @@ public class ComandaRistorazione extends Comanda {
      * altrimenti <code>False</code>
      */
     public boolean aggiungiProdotto(Prodotto p) {
+        if (this.prodottiOrdinati == null) {
+            this.prodottiOrdinati = new ArrayList<>();
+            return this.prodottiOrdinati.add(p);
+        }
         return this.prodottiOrdinati.add(p);
+    }
+
+    public String getListaProdotti() {
+        return listaProdotti;
     }
 
     /**
@@ -82,6 +125,39 @@ public class ComandaRistorazione extends Comanda {
             return this.prodottiOrdinati.remove(p);
         } else
             throw new IllegalArgumentException("il prodotto non è contenuto");
+    }
+
+    public String getProdotti() {
+        StringBuilder out = new StringBuilder();
+        System.out.println(prodottiOrdinati.toString());
+        for (Prodotto p : prodottiOrdinati) {
+            out.append(p.getNome()).append(" ").append(p.getQuantita()).append(" , ");
+        }
+        return out.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder out = new StringBuilder();
+        out.append("ComandaRistorazione:\n" + "Cliente: ")
+                .append(this.getC().getId()).append("\n")
+                .append("Ombrellone: "
+                ).append(this.getO().getNumero()).append("\n").append("Lista Prodotti: \n");
+        for (Prodotto p : prodottiOrdinati) {
+            out.append(p.getNome()).append(" x").append(p.getQuantita()).append("\n");
+        }
+        out.append("Status : ").append(this.getStatus());
+
+        return out.toString();
+    }
+    public void rimuoviProdotti() {
+        this.prodottiOrdinati.clear();
+    }
+    public String getId(){
+        return this.getIdComanda().toString();
+    }
+    public String getIdCliente(){
+        return super.getC().getId();
     }
 
 }

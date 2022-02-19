@@ -153,4 +153,8 @@ public class Persona {
     public String getId() {
         return id.toString();
     }
+
+    public String getNomeUtente() {
+        return nomeUtente;
+    }
 }

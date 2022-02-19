@@ -1,10 +1,14 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi;
 
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cassiere;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +18,8 @@ public class ComandaAttivita extends Comanda {
 
 
     private ArrayList<Attivita> attivita;
+    private Attivita a;
+    private int numeroPersone;
 
     /**
      * permette di creare una nuova comanda
@@ -27,26 +33,50 @@ public class ComandaAttivita extends Comanda {
         this.attivita = attivita;
     }
 
-    /**
-     * permette di aggiungere un'attivita alla lista da prenotare
-     *
-     * @param a attività da aggiungere alla comanda
-     */
-    public void aggiungiAttivita(Attivita a) {
-        if (!Casotto.getInstance().getAttivita().contains(a))
-            throw new IllegalArgumentException("attività non contenuta");
-        this.attivita.add(a);
+    public ComandaAttivita(String idOmbrellone, String idCliente, String idAttivita, int numeroPersone) {
+        super(idOmbrellone, idCliente);
+        a = Casotto.getInstance().getAttivitaSingola(idAttivita);
+        this.numeroPersone = numeroPersone;
     }
+
 
     @Override
     public float calcolaConto() {
-        float importo = 0;
-        for (Attivita a : attivita)
-            importo += a.getCosto();
-        return importo;
+        return a.getCosto() * numeroPersone;
     }
 
     @Override
     public void chiudiComanda() {
+        //salvo comanda nel db
+        Connection con = null;
+        Cliente cliente = Casotto.getInstance().getCliente(this.getIdCliente());
+            //pago conto
+            if (cliente.paga(this.calcolaConto())) {
+                try {
+                    con = Database.getConnection();
+                    String query = "INSERT INTO ComandeAttivita(id, idOmbrellone, idCliente, idAttivita) VALUES ('" +
+                            this.getIdComanda().toString() + "', '"
+                            + this.getIdOmbrellone() + "', '"
+                            + this.getIdCliente() + "', '"
+                            + this.a.getIdAttivita() + "');";
+                    con.createStatement().executeUpdate(query);
+                    //aggiungi partecipanti all'attivita
+                    Casotto.getInstance().aggiungiPertecipantiAttivita(a.getIdAttivita(), numeroPersone);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        //erorre
+        Alert alert = new Alert(Alert.AlertType.ERROR,"Credito insufficiente", ButtonType.OK);
+    }
+
+    @Override
+    public String toString() {
+        return "ComandaAttivita \n" +
+                "Attivita: " + a.getNome() + "\n" +
+                "Posti prenotati: " + numeroPersone + "\n" +
+                "Costo: " + a.getCosto()+ "\n" +
+                "Totale: "+this.calcolaConto();
     }
 }

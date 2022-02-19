@@ -129,10 +129,9 @@ public class Materiale {
     @Override
     public String toString() {
         return "Materiale:\n" +
-                "id: " + idMateriale + "\n"+
                 "nome: " + nome + "\n" +
                 "costo: " + costo +"\n" +
-                "desc: " + desc + "\n" +
                 "quantita: " + quantita ;
     }
+
 }

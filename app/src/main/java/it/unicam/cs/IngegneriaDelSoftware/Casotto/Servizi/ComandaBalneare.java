@@ -1,11 +1,14 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi;
 
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Bagnino;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendente;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
+import javafx.scene.control.Alert;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -17,6 +20,9 @@ import static java.time.temporal.ChronoUnit.HOURS;
 public class ComandaBalneare extends Comanda {
 
     private static Casotto casotto;
+    private String idmateriale;
+    private int quantita;
+    private Materiale materiale;
     private Map<Materiale, Integer> materiali;
     private LocalDateTime durata;
 
@@ -41,8 +47,64 @@ public class ComandaBalneare extends Comanda {
             this.durata = durata;
         }
 
+    }
+
+    public ComandaBalneare(String idOmbrellone, String idCliente, Materiale materiale, Timestamp durata, int quantita) {
+        super(idOmbrellone, idCliente);
+
+        if (durata.toLocalDateTime().isBefore(LocalDateTime.now()))
+            throw new IllegalArgumentException("la durata è errata");
+
+        if (Casotto.getInstance().getQuantitaMateriale(materiale.getNome())
+                        >= quantita) {
+            this.materiale = materiale;
+            this.durata = durata.toLocalDateTime();
+
+        } else {
+            throw new IllegalArgumentException("materiale insufficiente");
+        }
+        this.quantita = quantita;
 
     }
+
+    /**
+     * @param idOmbrellone identificativo dell'ombrellone
+     * @param idCliente    identificativo del cliente
+     * @param materiale    materiale della comanda
+     * @param durata       durata della comanda
+     * @param status       status della comanda
+     */
+    public ComandaBalneare(String idComanda, String idOmbrellone, String idCliente, Materiale materiale, Timestamp durata, String status) {
+        super(idComanda, idOmbrellone, idCliente, status);
+        casotto = getCasotto();
+        if (durata.toLocalDateTime().isBefore(LocalDateTime.now()))
+            throw new IllegalArgumentException("la durata è errata");
+
+        if (casotto.getMagazzino().contains(materiale) &&
+                casotto.getMagazzino().get(casotto.getMagazzino().indexOf(materiale)).getQuantita()
+                        >= materiale.getQuantita()) {
+            this.materiale = materiale;
+            this.durata = durata.toLocalDateTime();
+
+        }
+
+    }
+
+    public ComandaBalneare(String idComanda, String idOmbrellone, String idCliente, String materiale, Timestamp durata, String status, int quantita) {
+        super(idComanda, idOmbrellone, idCliente, status);
+        casotto = getCasotto();
+        if (durata != null)
+            if (durata.toLocalDateTime().isBefore(LocalDateTime.now()))
+                throw new IllegalArgumentException("la durata è errata");
+            else
+                this.durata = durata.toLocalDateTime();
+        this.idmateriale = materiale;
+
+
+        this.quantita = quantita;
+
+    }
+
 
     /**
      * permette di verificare se i materiali è disponibile nel Casotto.
@@ -53,8 +115,8 @@ public class ComandaBalneare extends Comanda {
     private boolean verificaMateriali(Map<Materiale, Integer> ordine) {
         //controllo materiali
         for (Materiale m : ordine.keySet())
-            if (casotto.getMagazzino().containsKey(m)) {
-                if (casotto.getMagazzino().get(m) >= ordine.get(m)) {
+            if (casotto.getMagazzino().contains(m)) {
+                if (casotto.getMagazzino().get(casotto.getMagazzino().indexOf(m)).getQuantita() >= ordine.get(m)) {
                     return true;
                 } else
                     throw new IllegalArgumentException("numero oggetti non disponibili");
@@ -67,10 +129,7 @@ public class ComandaBalneare extends Comanda {
 
     @Override
     public float calcolaConto() {
-        float importo = 0;
-        for (Materiale m : materiali.keySet())
-            importo += m.getCosto() * this.convertiOreGiorni(HOURS.between(LocalDateTime.now(), this.durata));
-        return importo;
+        return this.materiale.getCosto() * this.convertiOreGiorni(HOURS.between(LocalDateTime.now(), this.durata));
     }
 
     /**
@@ -87,20 +146,41 @@ public class ComandaBalneare extends Comanda {
             return (int) Math.ceil(ore / 24);
     }
 
+    public Integer getNumeroOmbrellone() {
+        return this.getO().getNumero();
+    }
+
     @Override
     public void chiudiComanda() {
-
-        //inoltro comanda al bagnino
-        for (Dipendente d : casotto.getPersonale())
-            if (d instanceof Bagnino) {
-                //consegno comanda al bagnino
-                ((Bagnino) d).aggiungiComanda(this);
-                //scalo soldi dal conto
-                this.getC().paga(this.calcolaConto());
-                super.getO().setComposizione(materiali);
-                Casotto.getInstance().aggiornaOmbrellone(super.getO());
-                return;
+        Alert alert;
+        if (Casotto.getInstance().getCliente(this.idCliente()).paga(this.calcolaConto())) {
+            try {
+                Connection con = Database.getConnection();
+                String query = "INSERT INTO comandeBalneare(id, idOmbrellone, idCliente, durata, idMateriali, Status, quantita) VALUES ('" +
+                        this.getId() + "', " +
+                        "'" + this.getIdOmbrellone() + "', " +
+                        "'" + this.getIdCliente() + "', " +
+                        "'" + Timestamp.valueOf(this.durata) + "', " +
+                        "'" + materiale.getId() + "', " +
+                        "'daElaborare', " +
+                        quantita +
+                        ");";
+                con.createStatement().executeUpdate(query);
+                alert = new Alert(Alert.AlertType.INFORMATION , "Prenotazione effettuata correttamente");
+            } catch (SQLException e) {
+                alert = new Alert(Alert.AlertType.ERROR, "Errore Sistema prenotazione comanda Balneare");
+                alert.show();
+                e.printStackTrace();
             }
+
+        } else {
+            alert = new Alert(Alert.AlertType.ERROR, "Credito insufficiente");
+            alert.show();
+        }
+    }
+
+    public Integer getNumeroMateriali() {
+        return this.materiale.getQuantita();
     }
     //!--------------DA-ELIMINARE------------!
 
@@ -121,8 +201,8 @@ public class ComandaBalneare extends Comanda {
             throw new NullPointerException("materiale null");
         if (quantita <= 0)
             throw new IllegalArgumentException("quantità minore di 1");
-        if (casotto.getMagazzino().containsKey(m)) {
-            if (casotto.getMagazzino().get(m) >= quantita) {
+        if (casotto.getMagazzino().contains(m)) {
+            if (casotto.getMagazzino().get(casotto.getMagazzino().indexOf(m)).getQuantita() >= quantita) {
                 this.materiali.put(m, quantita);
             } else
                 throw new IllegalArgumentException("numero oggetti non disponibili");
@@ -131,5 +211,38 @@ public class ComandaBalneare extends Comanda {
 
     }
 
+    public int getQuantita() {
+        return quantita;
+    }
 
+    public String getMateriale() {
+        return Casotto.getInstance().getNomeMateriale(idmateriale);
+
+    }
+
+    public Timestamp getData() {
+        if (durata == null)
+            return null;
+        return Timestamp.valueOf(durata);
+    }
+
+    public String getId() {
+        return super.getIdComanda().toString();
+    }
+
+    public String idCliente() {
+        return super.getIdCliente();
+    }
+
+    public int getOmbrellone() {
+        return super.getO().getNumero();
+    }
+
+    @Override
+    public String toString() {
+        return "ComandaBalneare:\n " +
+                "materiale: '" + materiale.getNome() + "\n" +
+                "quantita: " + quantita + "\n" +
+                "costo: " + this.materiale.getCosto();
+    }
 }

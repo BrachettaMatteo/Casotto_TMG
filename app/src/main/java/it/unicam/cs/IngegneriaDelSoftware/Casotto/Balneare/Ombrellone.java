@@ -52,7 +52,9 @@ public class Ombrellone {
             this.disponibilita = true;
         else this.disponibilita = false;
         if (fine != null)
-            this.fine = LocalDateTime.parse(fine.toString());
+            this.fine = fine.toLocalDateTime();
+        else
+            this.fine = null;
 
     }
 //!-----------------GET-------------------!
@@ -102,15 +104,25 @@ public class Ombrellone {
      * altrimenti <code>false</code>
      */
 
-    public boolean getDisponibilita() {
+    public boolean getIsDisponibile() {
         return this.disponibilita;
+    }
+
+    public String getDisponibilita() {
+        return this.disponibilita ? "Disponibile" : "Non Disponibile";
+    }
+
+    public Timestamp getScadenza() {
+        return this.fine != null ? Timestamp.valueOf(this.fine) : null;
     }
 
     /**
      * @return la data di fine della prenotazione dell'ombrellone
      */
     public LocalDateTime getFine() {
-        return this.fine;
+      //  return this.fine;
+        return this.fine ;
+
     }
 
     /**

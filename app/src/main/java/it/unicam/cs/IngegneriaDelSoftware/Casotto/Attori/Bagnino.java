@@ -1,37 +1,53 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori;
 
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Attivita;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.ComandaBalneare;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
- * Rappresenta un bagnino all'interno del casotto. Il suo ruolo: la gestione delle comande balneare.
+ * Rappresenta un bagninoController all'interno del casotto. Il suo ruolo: la gestione delle comande balneare.
  */
 public class Bagnino extends Dipendente {
+
+    @FXML
+    private TableView<Ombrellone> tabOm;
 
     private ArrayList<ComandaBalneare> listaOrdini;
 
     /**
-     * crea un nuovo bagnino
+     * crea un nuovo bagninoController
      *
      * @param nome       nome del bagnina
-     * @param cognome    cognome del bagnino
-     * @param residenza  residenza del bagnino
-     * @param telefono   telefono del bagnino
-     * @param nomeUtente nomeUtente del bagnino
-     * @param email      email del bagnino
+     * @param cognome    cognome del bagninoController
+     * @param residenza  residenza del bagninoController
+     * @param telefono   telefono del bagninoController
+     * @param nomeUtente nomeUtente del bagninoController
+     * @param email      email del bagninoController
      */
     public Bagnino(String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
-        super(nome, cognome, residenza, telefono, nomeUtente, email,"Bagnino");
+        super(nome, cognome, residenza, telefono, nomeUtente, email, "Bagnino");
         this.listaOrdini = new ArrayList<>();
-        getC().aggiungiDipendente(this);
+       // getC().aggiungiDipendente(this);
     }
 
     public Bagnino(String id, String nome, String cognome, String residenza, String telefono, String nomeUtente, String email) {
-        super(id, nome, cognome, residenza, telefono, nomeUtente, email,"Bagnino");
+        super(id, nome, cognome, residenza, telefono, nomeUtente, email, "Bagnino");
+        this.listaOrdini= new ArrayList<>();
     }
 
     /**
@@ -45,13 +61,15 @@ public class Bagnino extends Dipendente {
         if (this.getC().getOmbrelloni().contains(ombrellone)) {
             //controllo che l'ombrellone sia occupato
             int index = this.getC().getOmbrelloni().indexOf(ombrellone);
-            if (!this.getC().getOmbrelloni().get(index).getDisponibilita()) {
-               /* //libero ombrellone
-                ombrellone.setDisponibilita(true);
-                ombrellone.setFine(null);
-                ombrellone.setComposizione(new ArrayList<>());
-                this.getC().aggiornaOmbrellone(ombrellone);*/
+            if (!this.getC().getOmbrelloni().get(index).getIsDisponibile()) {
                 ombrellone.libera();
+                try {
+                    Connection con = Database.getConnection();
+                    con.createStatement().executeUpdate("Update Ombrelloni SET 'Dipsonibilità'='Disponibile' Where id='" + ombrellone.getId() + "'");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
                 this.getC().aggiungiOmbrellone(ombrellone);
             } else
                 throw new IllegalArgumentException("l'ombrellone è libero");
@@ -85,7 +103,7 @@ public class Bagnino extends Dipendente {
     }
 
     /**
-     * aggiunge una comanda balneare alla lista del bagnino
+     * aggiunge una comanda balneare alla lista del bagninoController
      *
      * @param c comanda da aggiungere
      * @throws IllegalArgumentException se la comanda non è contenuta.
@@ -97,10 +115,75 @@ public class Bagnino extends Dipendente {
             this.listaOrdini.add(c);
     }
 
+
     /**
-     * @return la lista degli ordini del bagnino
+     * @param idcomanda identificativo comanda da evadere
+     */
+    public void evadiComanda(String idcomanda) {
+        try {
+            Connection con = Database.getConnection();
+            con.createStatement().executeUpdate("Update comandeBalneare Set Status= 'Consegnato'" +
+                    "WHERE id='" + idcomanda + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /**
+     * @return la lista degli ordini del bagninoController
      */
     public ArrayList<ComandaBalneare> getListaOrdini() {
+        this.listaOrdini.clear();
+        try {
+            Connection con = Database.getConnection();
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM comandeBalneare WHERE NOT Status='Consegnato';");
+
+            while (rs.next()) {
+                ComandaBalneare cm = new ComandaBalneare(
+                        rs.getString("id"),
+                        rs.getString("idOmbrellone"),
+                        rs.getString("idCliente"),
+                        //ottieniMateriale(rs.getString("idMateriale")),
+                        rs.getString("idMateriali"),
+                        rs.getTimestamp("durata"),
+                        rs.getString("Status"),
+                        rs.getInt("quantita")
+                );
+                listaOrdini.add(cm);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return listaOrdini;
+    }
+
+   /* private Materiale ottieniMateriale(String idMateriale) {
+        try {
+            Connection con = Database.getConnection();
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM comandaBalneare WHERE  id='" + idMateriale + "'");
+            rs.next();
+            return new Materiale(rs.getString("idMateriale"), rs.getString("Nome"), rs.getFloat("costo"), rs.getInt("Quantità"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }*/
+
+    @FXML
+    public void gestioneOmbrelloni(ActionEvent event) {
+        TableColumn<Ombrellone, String> idOmbrellone = new TableColumn<>("id ");
+        TableColumn<Ombrellone, Integer> numeroOmbrellone = new TableColumn<>("id ");
+        TableColumn<Ombrellone, Integer> filaOmbrellone = new TableColumn<>("id ");
+        TableColumn<Ombrellone, Timestamp> fineOmbrellone = new TableColumn<>("id ");
+        TableColumn<Ombrellone, String> dipsonibilitaOmbrellone = new TableColumn<>("id ");
+        tabOm.getColumns().addAll(idOmbrellone, numeroOmbrellone, filaOmbrellone, fineOmbrellone, dipsonibilitaOmbrellone);
+        tabOm.setItems((ObservableList<Ombrellone>) Casotto.getInstance().getOmbrelloni());
+
+    }
+
+    public void evadiComanda(ActionEvent event) {
     }
 }

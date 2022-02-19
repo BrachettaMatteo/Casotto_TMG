@@ -1,0 +1,10 @@
+#int{
+    -fx-background-color: none;
+    -fx-border-width: 0;
+    -fx-alignment: center;
+    -fx-text-fill: purple;
+}
+
+#img{
+    -fx-border-radius: 20px;
+}

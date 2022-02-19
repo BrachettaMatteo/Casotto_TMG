@@ -1,5 +1,9 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi;
 
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.UUID;
 
 /**
@@ -12,6 +16,7 @@ public class Prodotto {
     private String descrizione;
 
     private UUID idProdotto;
+    private int quantita;
 
     /**
      * @param nome        nome del prodotto
@@ -34,6 +39,15 @@ public class Prodotto {
         this.descrizione = descrizione;
 
         this.idProdotto = UUID.randomUUID();
+    }
+
+    public Prodotto(String id, String nome, float prezzo, String descrizione) {
+
+        this.idProdotto = UUID.fromString(id);
+        this.nome = nome;
+        this.prezzo = prezzo;
+        this.descrizione = descrizione;
+
     }
 
     /**
@@ -93,5 +107,15 @@ public class Prodotto {
         this.descrizione = descrizione;
     }
 
+    public String getIdProdotto() {
+        return idProdotto.toString();
+    }
 
+    public void setQuantita(int quantita) {
+        this.quantita = quantita;
+    }
+
+    public int getQuantita() {
+    return this.quantita;
+    }
 }

@@ -10,10 +10,16 @@ import java.util.UUID;
  * rappresneta una comanda e le sue caratteristiche
  */
 public abstract class Comanda {
+
     private static Casotto casotto;
+
+    private String idOmbrellone;
+    private String idCliente;
+
     private Ombrellone o;
     private Cliente c;
     private UUID idComanda;
+    private Status status;
 
     /**
      * crea una nuova comanda
@@ -24,14 +30,35 @@ public abstract class Comanda {
     public Comanda(Ombrellone o, Cliente c) {
 
         casotto = Casotto.getInstance();
+        this.o = o;
+        this.c = c;
+        this.idOmbrellone=o.getId();
+        this.idCliente=c.getId();
+        this.idComanda = UUID.randomUUID();
+        this.status = Status.daElaborare;
+    }
 
-        if (casotto.verificaPrenotazione(o, c)) {
-            this.o = o;
-            this.c = c;
-            this.idComanda = UUID.randomUUID();
-        } else
-            throw new IllegalArgumentException("Prenotazione Ombrellone non eggettuata Errore");
+    public Comanda(String id, String Ombrellone, String Cliente,String status) {
+        this.idComanda = UUID.fromString(id);
+        this.o=Casotto.getInstance().getOmbrellone(Ombrellone);
+        this.idOmbrellone = Ombrellone;
+        this.idCliente = Cliente;
+        this.status= Status.valueOf(status);
+    }
 
+
+    public Comanda(String Ombrellone, String Cliente) {
+        this.idComanda = UUID.randomUUID();
+        this.idOmbrellone = Ombrellone;
+        this.idCliente = Cliente;
+    }
+
+    public Comanda(String id, Ombrellone ombrellone, Cliente cliente) {
+        this.idComanda=UUID.fromString(id);
+        this.o=ombrellone;
+        this.idOmbrellone=o.getId();
+        this.c=cliente;
+        this.idCliente=c.getId();
     }
 
     /**
@@ -47,6 +74,11 @@ public abstract class Comanda {
     public Ombrellone getO() {
         return o;
     }
+
+    public String getIdCliente() {
+        return idCliente;
+    }
+
 
     /**
      * @return il cliente della comanda
@@ -73,6 +105,27 @@ public abstract class Comanda {
      * peemette di chiudere una comanda
      */
     public abstract void chiudiComanda();
+
+    /**
+     * permette di aggiornare lo stato di una comanda
+     *
+     * @param s stato da aggiornare;
+     */
+    public void aggiornaComanda(Status s) {
+        this.status = s;
+    }
+
+    public String getStatus() {
+        return status.toString();
+    }
+
+    public String getIdOmbrellone() {
+        return idOmbrellone;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
 
 }

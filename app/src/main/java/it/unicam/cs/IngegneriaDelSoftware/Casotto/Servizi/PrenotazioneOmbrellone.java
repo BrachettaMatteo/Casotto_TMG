@@ -3,8 +3,14 @@ package it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
+import javafx.scene.control.Alert;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 /**
@@ -14,9 +20,12 @@ public class PrenotazioneOmbrellone {
 
     private static Casotto casotto;
     private final UUID idPrenotazione;
+    private String idCliente;
+    private String idOmbrellone;
     private Cliente c;
     private Ombrellone o;
     private LocalDateTime dataFine;
+    private LocalDateTime dataInizio;
 
     /**
      * permette di creare una nuova prenotazione
@@ -49,6 +58,22 @@ public class PrenotazioneOmbrellone {
         //aggiungo la prenotazione al casotto
         casotto.aggiungiPrenotazione(this);
 
+    }
+
+    public PrenotazioneOmbrellone(String idCliente, String idOmbrellone, LocalDateTime fine, LocalDateTime inizio) {
+        this.idPrenotazione = UUID.randomUUID();
+        this.idCliente = idCliente;
+        this.idOmbrellone = idOmbrellone;
+        this.dataFine = fine;
+        this.dataInizio = inizio;
+    }
+
+    public PrenotazioneOmbrellone(String id, String idCliente, String idOmbrellone, Timestamp fine,Timestamp inizio) {
+        this.idPrenotazione = UUID.fromString(id);
+        this.idCliente = idCliente;
+        this.idOmbrellone = idOmbrellone;
+        this.dataFine = fine.toLocalDateTime();
+        this.dataInizio=inizio.toLocalDateTime();
     }
 
     /**
@@ -96,6 +121,10 @@ public class PrenotazioneOmbrellone {
 
     }
 
+    public LocalDateTime getDataInizio() {
+        return dataInizio;
+    }
+
     //!----------SET------------!
 
     /**
@@ -113,13 +142,69 @@ public class PrenotazioneOmbrellone {
         throw new IllegalArgumentException("data erata");
     }
 
+    public float calcolaConto() {
+        float tariffa = Casotto.getInstance().getOmbrellone(idOmbrellone).getTariffa();
+        float conto = tariffa * (dataInizio.until(dataFine, ChronoUnit.DAYS) + 1);
+        if (dataInizio.getHour() != dataFine.getHour()) {
+            //c'è una mezza giornata, quindi aggiungo una mezza giornata al conto
+            conto += tariffa / 2;
+        }
+        return conto;
+
+    }
+
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public String getIdOmbrellone() {
+        return idOmbrellone;
+    }
+
     @Override
     public String toString() {
-        return "PrenotazioneOmbrellone{" +
-                "idPrenotazione=" + idPrenotazione +
-                ", Cliente=" + c +
-                ", Ombrellone=" + o +
-                ", dataFine=" + dataFine +
-                '}';
+        Cliente cliente = Casotto.getInstance().getCliente(this.idCliente);
+        Ombrellone o = Casotto.getInstance().getOmbrellone(this.idOmbrellone);
+        return "Cliente: " + cliente.getNome() + " " + cliente.getCognome() + '\n' +
+                "Ombrellone numero: " + o.getNumero() + " Fila: " + o.getFila() + '\n' +
+                "Inizio Prenotazione:" + dataInizio.toString() + "\n" +
+                "Fine Prenotazione=" + dataFine + "\n"+
+                "Totale:" +this.calcolaConto()+"€";
+    }
+
+    public void chiudiPrenotazione() {
+        Cliente cliente = Casotto.getInstance().getCliente(this.idCliente);
+        Alert alert;
+        if (cliente.paga(this.calcolaConto())) {
+            //aggiungo Comanda
+
+            try {
+                Connection connection = Database.getConnection();
+                String query = "INSERT INTO Prenotazioni(Id, idCliente, idOmbrellone, inizio, fine) VALUES ("
+                        + "'" + this.getIdComanda()+ "',"
+                        + "'" + this.getIdCliente() + "',"
+                        + "'" + this.getIdOmbrellone() + "',"
+
+                        + "'"+ Timestamp.valueOf(this.getDataInizio()) + "',"
+                        + "'"+ Timestamp.valueOf(this.getDataFine()) + "');";
+                connection.createStatement().executeUpdate(query);
+                //aggiorno ombrellone
+                 query = "UPDATE Ombrelloni SET Disponibilita='Non Disponibile' where Id='"+this.getIdOmbrellone()+"';";
+                connection.createStatement().executeUpdate(query);
+                query = "UPDATE Ombrelloni SET Fine='"+this.dataFine+"' where Id='"+this.getIdOmbrellone()+"';";
+                connection.createStatement().executeUpdate(query);
+                alert = new Alert(Alert.AlertType.CONFIRMATION, "Prenotazione effettuata correttamente");
+                alert.setTitle("Prenotazione Effettuata");
+                alert.setHeaderText("Prenotazione effettuata con successo");
+                alert.show();
+            } catch (SQLException e) {
+                alert = new Alert(Alert.AlertType.ERROR, "ErroreSistema: impossibile effettuare l'operazione");
+                alert.show();
+                e.printStackTrace();
+            }
+        } else {
+            alert = new Alert(Alert.AlertType.ERROR, "Errore: Credito insufficiente");
+            alert.show();
+        }
     }
 }

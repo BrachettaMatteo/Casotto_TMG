@@ -26,7 +26,7 @@ public class Dipendente extends Persona {
     }
 
     public Dipendente(String id, String nome, String cognome, String residenza, String telefono, String nomeUtente, String email,String ruolo) {
-        super(nome, cognome, residenza, telefono, nomeUtente, email);
+        super(id,nome, cognome, residenza, telefono, nomeUtente, email);
         this.ruolo=ruolo;
     }
 
@@ -39,6 +39,17 @@ public class Dipendente extends Persona {
 
     public String getRuolo(){
         return ruolo;
+    }
+
+    @Override
+    public String toString() {
+        return "Dipendente:\n" +
+                "nome: '" + getNome() + '\n' +
+                "Cognome: '" + getCognome() + '\n' +
+                "Residenza: "+getResidenza()+"\n"+
+                "Telefono: "+getTelefono()+"\n"+
+                "NomeUtente: "+getNomeUtente()+"\n"+
+                "ruolo: '" + ruolo + '\'';
     }
 
 

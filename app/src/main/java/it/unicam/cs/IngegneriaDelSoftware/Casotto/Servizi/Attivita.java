@@ -72,7 +72,6 @@ public class Attivita {
         this.postiMin = postiMin;
         this.costo = costo;
         if (orario != null)
-
             this.Orario = orario.toLocalDateTime();
         else
             this.Orario = null;

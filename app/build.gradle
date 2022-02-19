@@ -31,8 +31,8 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     //diependenza per mysql
-   // implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
-    implementation 'com.microsoft.sqlserver:mssql-jdbc:10.2.0.jre8'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+   // implementation 'com.microsoft.sqlserver:mssql-jdbc:10.2.0.jre8'
 }
 
 application {
