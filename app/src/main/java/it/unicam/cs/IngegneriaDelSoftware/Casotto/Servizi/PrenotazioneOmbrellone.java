@@ -68,12 +68,12 @@ public class PrenotazioneOmbrellone {
         this.dataInizio = inizio;
     }
 
-    public PrenotazioneOmbrellone(String id, String idCliente, String idOmbrellone, Timestamp fine,Timestamp inizio) {
+    public PrenotazioneOmbrellone(String id, String idCliente, String idOmbrellone, Timestamp fine, Timestamp inizio) {
         this.idPrenotazione = UUID.fromString(id);
         this.idCliente = idCliente;
         this.idOmbrellone = idOmbrellone;
         this.dataFine = fine.toLocalDateTime();
-        this.dataInizio=inizio.toLocalDateTime();
+        this.dataInizio = inizio.toLocalDateTime();
     }
 
     /**
@@ -135,16 +135,23 @@ public class PrenotazioneOmbrellone {
      */
 
     public void setDataFine(LocalDateTime dataFine) {
-        if (!dataFine.isBefore(LocalDateTime.now())) {
-            this.prenotaOmbrellone(dataFine);
-            this.dataFine = dataFine;
-        }
-        throw new IllegalArgumentException("data erata");
+        this.dataFine=dataFine;
     }
 
     public float calcolaConto() {
         float tariffa = Casotto.getInstance().getOmbrellone(idOmbrellone).getTariffa();
+        //mezza giornata
+        if (dataInizio.getYear() == dataFine.getYear() &&
+                dataInizio.getMonth() == dataFine.getMonth() &&
+                dataInizio.getDayOfMonth() == dataFine.getDayOfMonth() &&
+                dataInizio.getHour() != dataFine.getHour())
+            //controlle se e mezza giornata
+            if (dataFine.getHour()-dataInizio.getHour()  < 7)
+                return tariffa / 2;
+            else return tariffa;
+
         float conto = tariffa * (dataInizio.until(dataFine, ChronoUnit.DAYS) + 1);
+
         if (dataInizio.getHour() != dataFine.getHour()) {
             //c'è una mezza giornata, quindi aggiungo una mezza giornata al conto
             conto += tariffa / 2;
@@ -168,8 +175,8 @@ public class PrenotazioneOmbrellone {
         return "Cliente: " + cliente.getNome() + " " + cliente.getCognome() + '\n' +
                 "Ombrellone numero: " + o.getNumero() + " Fila: " + o.getFila() + '\n' +
                 "Inizio Prenotazione:" + dataInizio.toString() + "\n" +
-                "Fine Prenotazione=" + dataFine + "\n"+
-                "Totale:" +this.calcolaConto()+"€";
+                "Fine Prenotazione=" + dataFine + "\n" +
+                "Totale:" + this.calcolaConto() + "€";
     }
 
     public void chiudiPrenotazione() {
@@ -180,18 +187,18 @@ public class PrenotazioneOmbrellone {
 
             try {
                 Connection connection = Database.getConnection();
-                String query = "INSERT INTO Prenotazioni(Id, idCliente, idOmbrellone, inizio, fine) VALUES ("
-                        + "'" + this.getIdComanda()+ "',"
+                String query = "INSERT INTO Prenotazione(ID, idCliente, idOmbrellone, Inizio, Fine) VALUES ("
+                        + "'" + this.getIdComanda() + "',"
                         + "'" + this.getIdCliente() + "',"
                         + "'" + this.getIdOmbrellone() + "',"
 
-                        + "'"+ Timestamp.valueOf(this.getDataInizio()) + "',"
-                        + "'"+ Timestamp.valueOf(this.getDataFine()) + "');";
+                        + "'" + Timestamp.valueOf(this.getDataInizio()) + "',"
+                        + "'" + Timestamp.valueOf(this.getDataFine()) + "');";
                 connection.createStatement().executeUpdate(query);
                 //aggiorno ombrellone
-                 query = "UPDATE Ombrelloni SET Disponibilita='Non Disponibile' where Id='"+this.getIdOmbrellone()+"';";
+                query = "UPDATE Ombrellone SET Disponibilita = 'Non Disponibile' where ID='" + this.getIdOmbrellone() + "';";
                 connection.createStatement().executeUpdate(query);
-                query = "UPDATE Ombrelloni SET Fine='"+this.dataFine+"' where Id='"+this.getIdOmbrellone()+"';";
+                query = "UPDATE Ombrellone SET Fine='" + Timestamp.valueOf(this.dataFine)+ "' where ID ='" + this.getIdOmbrellone() + "';";
                 connection.createStatement().executeUpdate(query);
                 alert = new Alert(Alert.AlertType.CONFIRMATION, "Prenotazione effettuata correttamente");
                 alert.setTitle("Prenotazione Effettuata");
@@ -206,5 +213,9 @@ public class PrenotazioneOmbrellone {
             alert = new Alert(Alert.AlertType.ERROR, "Errore: Credito insufficiente");
             alert.show();
         }
+    }
+
+    public void setDataInizio(LocalDateTime inizio) {
+        this.dataInizio = inizio;
     }
 }

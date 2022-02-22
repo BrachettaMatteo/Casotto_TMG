@@ -6,7 +6,6 @@ import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendente;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.*;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -71,17 +70,17 @@ public class Casotto {
         Connection con = null;
         try {
             con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Clienti");
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Cliente");
             this.clienti.clear();
             while (rs.next()) {
                 Cliente cl = new Cliente(
-                        rs.getString("Id"),
+                        rs.getString("ID"),
                         rs.getString("Nome"),
                         rs.getString("Cognome"),
                         rs.getString("Residenza"),
                         rs.getString("Telefono"),
                         rs.getString("nomeUtente"),
-                        rs.getString("email"),
+                        rs.getString("Email"),
                         rs.getFloat("Conto")
                 );
                 this.clienti.add(cl);
@@ -103,7 +102,7 @@ public class Casotto {
     public float getTariffa(int fila) {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT distinct Tariffa as prezzo FROM Ombrelloni WHERE Fila = " + fila + ";";
+            String query = "SELECT distinct Tariffa as prezzo FROM Ombrellone WHERE Fila = " + fila + ";";
             ResultSet rs = con.createStatement().executeQuery(query);
             return rs.getInt("prezzo");
         } catch (SQLException e) {
@@ -118,12 +117,12 @@ public class Casotto {
     public ArrayList<Ombrellone> getOmbrelloni() {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT * FROM Ombrelloni ORDER BY Numero";
+            String query = "SELECT * FROM Ombrellone ORDER BY Numero";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (this.ombrelloni != null)
                 this.ombrelloni.clear();
             while (rs.next()) {
-                Ombrellone o = new Ombrellone(rs.getString("Id"),
+                Ombrellone o = new Ombrellone(rs.getString("ID"),
                         rs.getInt("Fila"),
                         rs.getFloat("Tariffa"),
                         rs.getInt("Numero"),
@@ -135,7 +134,7 @@ public class Casotto {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return this.ombrelloni;
     }
 
     /**
@@ -145,11 +144,15 @@ public class Casotto {
         this.prenotazioni.clear();
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT * FROM Prenotazioni";
+            String query = "SELECT * FROM Prenotazione";
             ResultSet rs = con.createStatement().executeQuery(query);
             while (rs.next()) {
-                this.prenotazioni.add(new PrenotazioneOmbrellone(rs.getString("Id"), rs.getString("idCliente"),
-                        rs.getString("idOmbrellone"), rs.getTimestamp("fine"), rs.getTimestamp("inizio")));
+                this.prenotazioni.add(new PrenotazioneOmbrellone(
+                        rs.getString("ID"),
+                        rs.getString("idCliente"),
+                        rs.getString("idOmbrellone"),
+                        rs.getTimestamp("Fine"),
+                        rs.getTimestamp("Inizio")));
             }
             return this.prenotazioni;
         } catch (SQLException e) {
@@ -168,12 +171,13 @@ public class Casotto {
             ResultSet rs = con.createStatement().executeQuery(query);
             this.attivita.clear();
             while (rs.next()) {
-                Attivita a = new Attivita(rs.getString("Id"),
-                        rs.getString("nome"),
+                Attivita a = new Attivita(rs.getString("ID"),
+                        rs.getString("Nome"),
                         rs.getInt("postiMax"),
                         rs.getInt("postiMin"),
-                        rs.getFloat("costo"),
-                        rs.getTimestamp("orario"));
+                        rs.getFloat("Costo"),
+                        rs.getTimestamp("Orario"),
+                        rs.getInt("Componenti"));
                 this.attivita.add(a);
             }
 
@@ -190,14 +194,14 @@ public class Casotto {
     public ArrayList<Materiale> getMagazzino() {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT * FROM Materiali WHERE Quantita > 0";
+            String query = "SELECT * FROM Materiale WHERE Quantita > 0";
             ResultSet rs = con.createStatement().executeQuery(query);
             this.magazzino.clear();
             while (rs.next()) {
                 Materiale m = new Materiale(
-                        rs.getString("idMateriale"),
+                        rs.getString("IdMateriale"),
                         rs.getString("Nome"),
-                        rs.getFloat("costo"),
+                        rs.getFloat("Costo"),
                         rs.getInt("Quantita")
                 );
                 this.magazzino.add(m);
@@ -216,12 +220,12 @@ public class Casotto {
         this.personale.clear();
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT * FROM Dipendenti";
+            String query = "SELECT * FROM Dipendente";
             ResultSet rs = con.createStatement().executeQuery(query);
 
             while (rs.next()) {
                 Dipendente d = new Dipendente(
-                        rs.getString("Id"),
+                        rs.getString("ID"),
                         rs.getString("Nome"),
                         rs.getString("Cognome"),
                         rs.getString("Residenza"),
@@ -267,19 +271,28 @@ public class Casotto {
      *
      * @param o ombrellone da aggiungere
      */
-    public void aggiungiOmbrellone(Ombrellone o) {
+    public Boolean aggiungiOmbrellone(Ombrellone o) {
+        Alert alert;
         try {
             Connection con = Database.getConnection();
-            String query = "INSERT INTO Ombrelloni(Id, Numero, Fila, Tariffa, Fine `Disponibilita`) VALUES (" +
-                    o.getId() + "," +
+            String query = "INSERT INTO Ombrellone(ID, Numero, Fila, Tariffa,Disponibilita) VALUES (" +
+                    "'" + o.getId() + "'," +
                     o.getNumero() + "," +
+                    o.getFila() + "," +
                     o.getTariffa() + "," +
-                    o.getFine() + "," +
-                    this.setDiponibilita(o.getIsDisponibile()) +
+                    "'" + o.getTariffa() + "'" +
                     ");";
             con.createStatement().executeUpdate(query);
+
+            alert = new Alert(Alert.AlertType.CONFIRMATION, "Ombrellone aggiunto al magazzino");
+            alert.show();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            alert = new Alert(Alert.AlertType.ERROR, "[ERRORE SISTEMA] Aggiunta ombrellone:Fallito");
+            alert.show();
+            return false;
+
         }
 
     }
@@ -308,7 +321,7 @@ public class Casotto {
     public void aggiungiAttivita(Attivita a) {
         try {
             Connection con = Database.getConnection();
-            String query = "INSERT INTO Attivita(id, nome, postimax, postimin, costo, orario) VALUES (" +
+            String query = "INSERT INTO Attivita(ID, Nome, postiMax, postiMin, Costo, Orario) VALUES (" +
                     "'" + a.getId() + "'," +
                     "'" + a.getNome() + "'," +
                     "'" + a.getPostiMax() + "'," +
@@ -329,16 +342,16 @@ public class Casotto {
     public void aggiungiMateriale(Materiale m, Integer v) {
         try {
             Connection con = Database.getConnection();
-            String query = "select * from Materiali where idMateriale= '" + m.getId() + "'";
+            String query = "select * from Materiale where idMateriale= '" + m.getId() + "'";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next()) {
                 //il materiale è presente aggiorno
-                String subquery = "UPDATE Materiali SET 'Quantità' =' Quantità' + " + m.getQuantita() +
-                        " WHERE idMateriale = '" + m.getId() + "'; ";
+                String subquery = "UPDATE Materiale SET Quantita = Quantita + " + m.getQuantita() +
+                        " WHERE IdMateriale = '" + m.getId() + "'; ";
                 con.createStatement().executeUpdate(subquery);
             } else {
                 //aggiungo il materiale
-                String subquery = "INSERT INTO Materiali (idMateriale, Nome, Quantita, costo) +" +
+                String subquery = "INSERT INTO Materiale (IdMateriale, Nome, Quantita, Costo) +" +
                         "VALUES ('" + m.getId() + "'," +
                         "'" + m.getNome() + "'," +
                         "'" + m.getQuantita() + "'," +
@@ -359,7 +372,13 @@ public class Casotto {
     public void aggiungiCLiente(Cliente cliente) {
         try {
             Connection con = Database.getConnection();
-            String query = "INSERT INTO Clienti(Id, Nome, Cognome, Residenza, Telefono, Email, Conto, nomeUtente) VALUEs ('" +
+            String query;
+
+            query = "INSERT INTO Utente(Username,Password,Ruolo) Values('" +
+                    cliente.getNomeUtente()
+                    + "', '1234','Cliente')";
+            con.createStatement().executeUpdate(query);
+            query = " INSERT INTO Cliente(ID, Nome, Cognome, Residenza, Telefono, Email, Conto, nomeUtente) VALUES ('" +
                     cliente.getId() + "'," +
                     "'" + cliente.getNome() + "'," +
                     "'" + cliente.getCognome() + "'," +
@@ -367,15 +386,29 @@ public class Casotto {
                     "'" + cliente.getTelefono() + "'," +
                     "'" + cliente.getEmail() + "'," +
                     +cliente.getSaldo() + "," +
-                    "'" + cliente.getEmail() +
+                    "'" + cliente.getNomeUtente() +
                     "');";
+
+
             con.createStatement().executeUpdate(query);
+        /*    query = "INSERT INTO Cliente(ID, Nome, Cognome, Residenza, Telefono, Email, Conto, nomeUtente) VALUEs ('" +
+                    cliente.getId() + "'," +
+                    "'" + cliente.getNome() + "'," +
+                    "'" + cliente.getCognome() + "'," +
+                    "'" + cliente.getResidenza() + "'," +
+                    "'" + cliente.getTelefono() + "'," +
+                    "'" + cliente.getEmail() + "'," +
+                    +cliente.getSaldo() + "," +
+                    "'" + cliente.getNomeUtente() +
+                    "');";
+            con.createStatement().executeUpdate(query);*/
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
     }
+
 
     /**
      * permette di aggiungere una prenotazione alla lista
@@ -389,11 +422,12 @@ public class Casotto {
             throw new IllegalArgumentException("la prenotazione è null");
         try {
             Connection con = Database.getConnection();
-            String query = "INSERT INTO Prenotazioni(id, idCliente, idombrellone, inizio) VALUES ('" +
+            String query = "INSERT INTO Prenotazione(ID, idCliente, idOmbrellone, Inizio, Fine) VALUES ('" +
                     p.getIdComanda() + "'," +
                     "'" + p.getC().getId() + "'," +
                     "'" + p.getO().getId() + "'," +
-                    p.getDataFine() + ");";
+                    "'" + p.getDataInizio() + "'," +
+                    "'" + p.getDataFine() + "');";
             con.createStatement().executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -413,7 +447,13 @@ public class Casotto {
 
         try {
             Connection con = Database.getConnection();
-            String query = "INSERT INTO Dipendenti(Id, Nome, Cognome, Residenza, Telefono, Ruolo, Email, nomeUtente) VALUES ('" +
+            String nomeUtente;
+            if (dipendente.getNomeUtente() == null) {
+                nomeUtente = dipendente.getNome() + dipendente.getCognome();
+            } else
+                nomeUtente = dipendente.getNomeUtente();
+
+            String query = "INSERT INTO Dipendente(ID, Nome, Cognome, Residenza, Telefono, Ruolo, Email, nomeUtente) VALUES ('" +
                     dipendente.getId() + "'," +
                     "'" + dipendente.getNome() + "'," +
                     "'" + dipendente.getCognome() + "'," +
@@ -421,7 +461,7 @@ public class Casotto {
                     "'" + dipendente.getTelefono() + "'," +
                     "'" + dipendente.getRuolo() + "'," +
                     "'" + dipendente.getEmail() + "'," +
-                    "null);";
+                    "'" + nomeUtente + "');";
             con.createStatement().executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -448,8 +488,8 @@ public class Casotto {
         try {
             con = Database.getConnection();
             //rivedere query
-            String query = "select id from Prenotazioni where idCliente='" + c.getId() + "' && idOmbrellone='" + o.getId() + "'" +
-                    " && 0>(SELECT datediff(fine,'" + Timestamp.valueOf(LocalDateTime.now()) + "')";
+            String query = "select ID from Prenotazione where idCliente='" + c.getId() + "' && idOmbrellone='" + o.getId() + "'" +
+                    " && 0>(SELECT datediff(Fine,'" + Timestamp.valueOf(LocalDateTime.now()) + "')";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next()) {
                 return true;
@@ -473,11 +513,11 @@ public class Casotto {
         Connection con = null;
         try {
             con = Database.getConnection();
-            String query = "UPDATE Ombrelloni SET Numero=" + ombrellone.getNumero() + ", Fila=" + ombrellone.getFila() +
-                    ",Tariffa=" + ombrellone.getTariffa() + "," +
+            String query = "UPDATE Ombrellone SET Numero =" + ombrellone.getNumero() + ", Fila =" + ombrellone.getFila() +
+                    ",Tariffa =" + ombrellone.getTariffa() + "," +
                     "Fine =" + ombrellone.getFine() + "," +
-                    "'Disponibilita' =" + this.setDiponibilita(ombrellone.getIsDisponibile()) +
-                    " WHERE id='" + ombrellone.getId() + "';";
+                    "Disponibilita =" + this.setDiponibilita(ombrellone.getIsDisponibile()) +
+                    " WHERE ID='" + ombrellone.getId() + "';";
             con.createStatement().executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -508,10 +548,10 @@ public class Casotto {
             throw new IllegalArgumentException("posti min errati");
         try {
             Connection con = Database.getConnection();
-            String query = "UPDATE Attivita SET nome=" + nome + ", postiMax=" + postiMax +
-                    ",postiMin=" + postiMin + ", orario" +
+            String query = "UPDATE Attivita SET Nome=" + nome + ", postiMax=" + postiMax +
+                    ",postiMin=" + postiMin + ", Orario" +
                     " =" + orario + "," +
-                    " WHERE id='" + idAttivita + "';";
+                    " WHERE ID='" + idAttivita + "';";
             con.createStatement().executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -522,7 +562,7 @@ public class Casotto {
     public String getNomeMateriale(String idmateriale) {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT nome FROM Materiali WHERE idMateriale='" + idmateriale + "';";
+            String query = "SELECT Nome FROM Materiale WHERE idMateriale='" + idmateriale + "';";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next())
                 return rs.getString("nome");
@@ -535,11 +575,11 @@ public class Casotto {
     public Ombrellone getOmbrellone(String ombrellone) {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT * FROM Ombrelloni WHERE Id='" + ombrellone + "';";
+            String query = "SELECT * FROM Ombrellone WHERE ID='" + ombrellone + "';";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next())
                 return new Ombrellone(
-                        rs.getString("Id"),
+                        rs.getString("ID"),
                         rs.getInt("Fila"),
                         rs.getFloat("Tariffa"),
                         rs.getInt("Numero"),
@@ -557,10 +597,10 @@ public class Casotto {
         ArrayList<String> out = new ArrayList<>();
         try {
             Connection con = Database.getConnection();
-            String query = "select distinct nome from Attivita WHERE postiMax-Attivita.Componenti>0;";
+            String query = "SELECT DISTINCT Nome FROM Attivita WHERE postiMax-Componenti>0;";
             ResultSet rs = con.createStatement().executeQuery(query);
             while (rs.next())
-                out.add(rs.getString("nome"));
+                out.add(rs.getString("Nome"));
             return out;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -572,10 +612,10 @@ public class Casotto {
         ArrayList<Timestamp> out = new ArrayList<>();
         try {
             Connection con = Database.getConnection();
-            String query = "select orario from Attivita where nome='" + value + "'and Componenti<Attivita.postiMax;";
+            String query = "select Orario from Attivita where Nome='" + value + "'and Componenti<postiMax;";
             ResultSet rs = con.createStatement().executeQuery(query);
             while (rs.next())
-                out.add(rs.getTimestamp("orario"));
+                out.add(rs.getTimestamp("Orario"));
             return out;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -583,29 +623,36 @@ public class Casotto {
         return out;
     }
 
-    public String getOmbrelloneIdCliente(String idCliente) throws SQLException {
-        Connection con = Database.getConnection();
-        String query = "select idOmbrellone from Prenotazioni where idCliente='" + idCliente + "' && fine > '" + Timestamp.valueOf(LocalDateTime.now()) + "'";
-        ResultSet rs = con.createStatement().executeQuery(query);
-        if (rs.next()) {
-            return rs.getString("idOmbrellone");
+    public String getOmbrelloneIdCliente(String idCliente) {
+        Connection con = null;
+        try {
+            con = Database.getConnection();
+            String query = "select DATEDIFF(HOUR ,' " + Timestamp.valueOf(LocalDateTime.now()) + "',Fine) as d, idOmbrellone from Prenotazione where idCliente='" + idCliente + "'";
+            ResultSet rs = con.createStatement().executeQuery(query);
+            rs.next();
+            if (rs.getInt("d") > 0) {
+                return rs.getString("idOmbrellone");
+            }
+            throw new IllegalArgumentException("cliente non prenotato");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         throw new IllegalArgumentException("cliente non prenotato");
     }
 
     public String getIdAttivita(String nome, Timestamp data) throws SQLException {
         Connection con = Database.getConnection();
-        String query = "SELECT Id from Attivita WHERE nome='" + nome + "' && orario='" + data + "';";
+        String query = "SELECT ID from Attivita WHERE Nome='" + nome + "' AND Orario='" + data + "';";
         ResultSet rs = con.createStatement().executeQuery(query);
         if (rs.next()) {
-            return rs.getString("Id");
+            return rs.getString("ID");
         }
         throw new IllegalArgumentException("cliente non prenotato");
     }
 
     public ArrayList<Integer> getOmbrelloniDisponibili() throws SQLException {
         Connection con = Database.getConnection();
-        String query = "SELECT * from Ombrelloni WHERE Disponibilita='Disponibile' ORDER BY Numero;";
+        String query = "SELECT * FROM Ombrellone WHERE Disponibilita='Disponibile' ORDER BY Numero;";
         ResultSet rs = con.createStatement().executeQuery(query);
         ArrayList<Integer> NumOm = new ArrayList<>();
         while (rs.next()) {
@@ -617,7 +664,7 @@ public class Casotto {
 
     public ArrayList<Integer> getNumeroOmbrelloni() throws SQLException {
         Connection con = Database.getConnection();
-        String query = "SELECT * from Ombrelloni ORDER BY Numero;";
+        String query = "SELECT * from Ombrellone ORDER BY Numero;";
         ResultSet rs = con.createStatement().executeQuery(query);
         ArrayList<Integer> NumOm = new ArrayList<>();
         while (rs.next()) {
@@ -627,12 +674,19 @@ public class Casotto {
 
     }
 
-    public String getidOmbrellone(Integer value) throws SQLException {
-        Connection con = Database.getConnection();
-        String query = "SELECT Id from Ombrelloni WHERE Numero=" + value + ";";
-        ResultSet rs = con.createStatement().executeQuery(query);
-        if (rs.next())
-            return rs.getString("Id");
+    public String getidOmbrellone(Integer value) {
+        Connection con = null;
+        try {
+            con = Database.getConnection();
+
+            String query = "SELECT ID from Ombrellone WHERE Numero=" + value + ";";
+            ResultSet rs = con.createStatement().executeQuery(query);
+            if (rs.next())
+                return rs.getString("ID");
+            throw new IllegalArgumentException("errore ombrellone non esiste");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         throw new IllegalArgumentException("errore ombrellone non esiste");
     }
 
@@ -640,17 +694,17 @@ public class Casotto {
         Connection con = null;
         try {
             con = Database.getConnection();
-            String query = "SELECT * from Clienti WHERE Id='" + idCliente + "';";
+            String query = "SELECT * from Cliente WHERE ID='" + idCliente + "';";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next()) {
                 return new Cliente(
-                        rs.getString("Id"),
+                        rs.getString("ID"),
                         rs.getString("Nome"),
                         rs.getString("Cognome"),
                         rs.getString("Residenza"),
                         rs.getString("Telefono"),
                         rs.getString("nomeUtente"),
-                        rs.getString("email"),
+                        rs.getString("Email"),
                         rs.getFloat("Conto"));
             }
             Alert alert = new Alert(Alert.AlertType.ERROR, "il cliente non esiste", ButtonType.OK);
@@ -665,15 +719,16 @@ public class Casotto {
     public Attivita getAttivitaSingola(String idAttivita) {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT * FROM Attivita WHERE Id='" + idAttivita + "';";
+            String query = "SELECT * FROM Attivita WHERE ID='" + idAttivita + "';";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next()) {
-                return new Attivita(rs.getString("Id"),
-                        rs.getString("nome"),
+                return new Attivita(rs.getString("ID"),
+                        rs.getString("Nome"),
                         rs.getInt("postiMax"),
                         rs.getInt("postiMin"),
-                        rs.getFloat("costo"),
-                        rs.getTimestamp("orario"));
+                        rs.getFloat("Costo"),
+                        rs.getTimestamp("Orario"),
+                        rs.getInt("Componenti"));
             }
             return null;
 
@@ -686,17 +741,17 @@ public class Casotto {
     public Cliente getClienteToNomeUtente(String NomeUtente) {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT * FROM Clienti WHERE nomeUtente='" + NomeUtente + "';";
+            String query = "SELECT * FROM Cliente WHERE nomeUtente='" + NomeUtente + "';";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next()) {
                 return new Cliente(
-                        rs.getString("Id"),
+                        rs.getString("ID"),
                         rs.getString("Nome"),
                         rs.getString("Cognome"),
                         rs.getString("Residenza"),
                         rs.getString("Telefono"),
                         rs.getString("nomeUtente"),
-                        rs.getString("email"),
+                        rs.getString("Email"),
                         rs.getFloat("Conto"));
             }
             Alert alert = new Alert(Alert.AlertType.ERROR, "il cliente non esiste", ButtonType.OK);
@@ -713,11 +768,11 @@ public class Casotto {
     public Bagnino getBagnino(String text) {
         try {
             Connection connection = Database.getConnection();
-            String query = "SELECT * FROM Dipendenti WHERE nomeUtente='" + text + "';";
+            String query = "SELECT * FROM Dipendente WHERE nomeUtente='" + text + "';";
             ResultSet rs = connection.createStatement().executeQuery(query);
             if (rs.next()) {
                 return new Bagnino(
-                        rs.getString("Id"),
+                        rs.getString("ID"),
                         rs.getString("Nome"),
                         rs.getString("Cognome"),
                         rs.getString("Residenza"),
@@ -737,7 +792,7 @@ public class Casotto {
         Connection con = null;
         try {
             con = Database.getConnection();
-            String query = "UPDATE Attivita SET Componenti = Componenti + " + numeroPersone + " WHERE Id='" + idAttivita + "';";
+            String query = "UPDATE Attivita SET Componenti = Componenti + " + numeroPersone + " WHERE ID='" + idAttivita + "';";
             con.createStatement().executeUpdate(query);
 
         } catch (SQLException e) {
@@ -747,18 +802,20 @@ public class Casotto {
 
     }
 
+
     public ArrayList<Ombrellone> getOmbrelloniCliente(String idCliente) {
         ArrayList<Ombrellone> out = new ArrayList<>();
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT idOmbrellone FROM Prenotazioni WHERE idCliente='" + idCliente + "' && fine > '" + Timestamp.valueOf(LocalDateTime.now()) + "';";
+            String query =
+                    "Select DISTINCT DATEDIFF(HOUR ,'" + Timestamp.valueOf(LocalDateTime.now()) + "',Fine) as d ,  idOmbrellone from Prenotazione where idCliente='" + idCliente + "'";
             ResultSet rs = con.createStatement().executeQuery(query);
             while (rs.next()) {
-                query = "SELECT * FROM Ombrelloni WHERE Id='" + rs.getString("idOmbrellone") + "';";
+                query = "SELECT * FROM Ombrellone WHERE ID='" + rs.getString("idOmbrellone") + "';";
                 ResultSet om = con.createStatement().executeQuery(query);
                 while (om.next()) {
                     out.add(new Ombrellone(
-                            om.getString("Id"),
+                            om.getString("ID"),
                             om.getInt("Fila"),
                             om.getFloat("Tariffa"),
                             om.getInt("Numero"),
@@ -775,10 +832,11 @@ public class Casotto {
         return out;
     }
 
+
     public int getQuantitaMateriale(String nomeMateriale) {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT Quantita FROM Materiali WHERE Nome='" + nomeMateriale + "'";
+            String query = "SELECT Quantita FROM Materiale WHERE Nome='" + nomeMateriale + "'";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next()) {
                 return rs.getInt("Quantita");
@@ -793,11 +851,11 @@ public class Casotto {
     public Cassiere getCassiereToNomeUtente(String nomeUtente) {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT * FROM Dipendenti WHERE nomeUtente='" + nomeUtente + "'";
+            String query = "SELECT * FROM Dipendente WHERE nomeUtente='" + nomeUtente + "'";
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next()) {
                 return new Cassiere(
-                        rs.getString("Id"),
+                        rs.getString("ID"),
                         rs.getString("Nome"),
                         rs.getString("Cognome"),
                         rs.getString("Residenza"),
@@ -816,10 +874,10 @@ public class Casotto {
     public String getOmbrelloneToNumero(int numero) {
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT Id FROM Ombrelloni WHERE Numero=" + numero;
+            String query = "SELECT ID FROM Ombrellone WHERE Numero=" + numero;
             ResultSet rs = con.createStatement().executeQuery(query);
             if (rs.next())
-                return rs.getString("Id");
+                return rs.getString("ID");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -832,9 +890,9 @@ public class Casotto {
             Connection con = Database.getConnection();
             ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Prodotto");
             while (rs.next()) {
-                Prodotto p = new Prodotto(rs.getString("Id"),
-                        rs.getString("nome"),
-                        rs.getFloat("Costo"),
+                Prodotto p = new Prodotto(rs.getString("ID"),
+                        rs.getString("Nome"),
+                        rs.getFloat("Prezzo"),
                         rs.getString("Descrizione"));
                 out.add(p);
             }
@@ -851,11 +909,11 @@ public class Casotto {
         Connection con = null;
         try {
             con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Prodotto where nome= '" + nome + "'");
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Prodotto where Nome= '" + nome + "'");
             while (rs.next()) {
-                return new Prodotto(rs.getString("Id"),
-                        rs.getString("nome"),
-                        rs.getFloat("Costo"),
+                return new Prodotto(rs.getString("ID"),
+                        rs.getString("Nome"),
+                        rs.getFloat("Prezzo"),
                         rs.getString("Descrizione"));
             }
         } catch (SQLException e) {
@@ -867,17 +925,17 @@ public class Casotto {
     }
 
 
-    public  ArrayList<ComandaRistorazione> getComandeRistorazione() {
+    public ArrayList<ComandaRistorazione> getComandeRistorazione() {
         ArrayList<ComandaRistorazione> Lcr = new ArrayList<>();
         ComandaRistorazione cr;
         try {
             Connection con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM comandaRistorazione Where not Status='Consegnato'");
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM ComandaRistorazione Where not Status='Consegnato'");
             while (rs.next()) {
-                cr = new ComandaRistorazione(rs.getString("id"),
+                cr = new ComandaRistorazione(rs.getString("ID"),
                         rs.getString("idCliente"),
                         rs.getString("idOmbrellone"),
-                        rs.getString("prodotti"),
+                        rs.getString("Prodotti"),
                         rs.getString("Status"));
                 Lcr.add(cr);
             }
@@ -892,15 +950,102 @@ public class Casotto {
         ArrayList<String> om = new ArrayList<>();
         try {
             Connection con = Database.getConnection();
-            String query = "SELECT idOmbrellone from Prenotazioni where idCliente='"+c.getId()+"'";
-           ResultSet rs = con.createStatement().executeQuery(query);
-           while(rs.next()){
-               om.add(rs.getString("idOmbrellone"));
-           }
-           return om;
+            String query = "SELECT idOmbrellone from Prenotazione where idCliente='" + c.getId() + "'";
+            ResultSet rs = con.createStatement().executeQuery(query);
+            while (rs.next()) {
+                om.add(rs.getString("idOmbrellone"));
+            }
+            return om;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return om;
     }
+
+    public int getFilaMax() {
+        try {
+            Connection con = Database.getConnection();
+            String query = "SELECT Max(Fila) as n from Ombrellone ";
+            ResultSet rs = con.createStatement().executeQuery(query);
+            if (rs.next()) {
+                return rs.getInt("n");
+            } else return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public boolean rimuoviCliente(Cliente cliente) {
+        Connection con = null;
+        try {
+            con = Database.getConnection();
+            String query = " DELETE FROM Cliente WHERE ID = '" + cliente.getId() + "';";
+            con.createStatement().executeUpdate(query);
+            query = "DELETE FROM Utente WHERE Username='" + cliente.getNomeUtente() + "'";
+            con.createStatement().executeUpdate(query);
+            return true;
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Errore Sistema");
+            alert.show();
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Boolean aggiungiProdotto(Prodotto p) {
+        try {
+            Connection con = Database.getConnection();
+            String query = "INSERT INTO Prodotto(ID, Nome, Prezzo, Descrizione) VALUES (" +
+                    "'" + p.getIdProdotto() + "'," +
+                    "'" + p.getNome() + "',"
+                    + p.getPrezzo() + "," +
+                    "'" + p.getDescrizione() + "'" +
+                    ");";
+            con.createStatement().executeUpdate(query);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public ArrayList<ComandaRistorazione> getComandeRistorazioneCliente(String cl) {
+        ArrayList<ComandaRistorazione> Lcr = new ArrayList<>();
+        ComandaRistorazione cr;
+        try {
+            Connection con = Database.getConnection();
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM ComandaRistorazione Where idCliente='" + cl + "'");
+            while (rs.next()) {
+                cr = new ComandaRistorazione(rs.getString("ID"),
+                        rs.getString("idCliente"),
+                        rs.getString("idOmbrellone"),
+                        rs.getString("Prodotti"),
+                        rs.getString("Status"));
+                Lcr.add(cr);
+            }
+            return Lcr;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getIdClientetoOmbrellone(String om) {
+        try {
+            Connection con = Database.getConnection();
+            String query = "Select idCliente from ComandaRistorazione where idOmbrellone='" + om + "';";
+            ResultSet rs = con.createStatement().executeQuery(query);
+            rs.next();
+            return rs.getString("idCliente");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Errore");
+            alert.show();
+            throw new IllegalArgumentException("errore ricerca cliente");
+        }
+    }
+
 }

@@ -1,9 +1,5 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi;
 
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.UUID;
 
 /**
@@ -31,9 +27,6 @@ public class Prodotto {
             throw new IllegalArgumentException("il nome non è corretto");
         if (prezzo < 0)
             throw new IllegalArgumentException("presso miunore di 0");
-        if (descrizione.isEmpty())
-            throw new IllegalArgumentException("descrizione errata");
-
         this.nome = nome;
         this.prezzo = prezzo;
         this.descrizione = descrizione;
@@ -116,6 +109,16 @@ public class Prodotto {
     }
 
     public int getQuantita() {
-    return this.quantita;
+        return this.quantita;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "nome: " + nome +"\n"+
+                        "prezzo:" + prezzo + " €" +"\n"+
+                        "descrizione=: " + descrizione +"\n"+
+                        "idProdotto: " + idProdotto +"\n"+
+                        "quantita: " + quantita;
     }
 }

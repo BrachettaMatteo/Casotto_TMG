@@ -4,6 +4,7 @@ import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -68,6 +69,7 @@ public class ComandaRistorazione extends Comanda {
 
     @Override
     public void chiudiComanda() {
+        Alert alert;
         if (this.getC().paga(this.calcolaConto())) {
             //creo comanda Lista prodotti
             StringBuilder out = new StringBuilder();
@@ -76,20 +78,24 @@ public class ComandaRistorazione extends Comanda {
             }
             try {
                 Connection con = Database.getConnection();
-                String query = "insert into comandaRistorazione(id, idCliente, idOmbrellone, prodotti, Status) VALUES (" +
+                String query = "insert into ComandaRistorazione(ID, idCliente, idOmbrellone, Prodotti) VALUES (" +
                         "'" + this.getIdComanda() + "' ," +
                         "'" + this.getC().getId() + "' ,"
                         + "'" + this.getO().getId() + "' ,"
-                        + "'" + out.toString() + "' ," +
-                        "'daElaborare'"
+                        + "'" + out.toString() + "'"
                         + ");";
                 con.createStatement().executeUpdate(query);
-
+            alert= new Alert(Alert.AlertType.CONFIRMATION,"prenotazione effettuata");
+            alert.show();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } else
+        } else {
+            alert = new Alert(Alert.AlertType.ERROR, "credito insufficiente");
+            alert.setTitle("ERRORE");
+            alert.show();
             throw new IllegalArgumentException("errore credito");
+        }
     }
 
     /**
@@ -142,10 +148,7 @@ public class ComandaRistorazione extends Comanda {
         out.append("ComandaRistorazione:\n" + "Cliente: ")
                 .append(this.getC().getId()).append("\n")
                 .append("Ombrellone: "
-                ).append(this.getO().getNumero()).append("\n").append("Lista Prodotti: \n");
-        for (Prodotto p : prodottiOrdinati) {
-            out.append(p.getNome()).append(" x").append(p.getQuantita()).append("\n");
-        }
+                ).append(this.getO().getNumero()).append("\n").append("Lista Prodotti: \n").append(listaProdotti);
         out.append("Status : ").append(this.getStatus());
 
         return out.toString();

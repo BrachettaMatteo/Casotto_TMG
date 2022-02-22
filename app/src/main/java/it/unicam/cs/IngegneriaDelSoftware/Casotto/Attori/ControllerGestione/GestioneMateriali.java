@@ -84,9 +84,9 @@ public class GestioneMateriali implements Initializable {
         alert.setTitle("Conferma aggiunta Materiale");
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.YES)) {
-            Materiale materiale = new Materiale(materialeNome.getText(), spNuvoCosto.getValue().floatValue(), spNuovaQauntita.getValue());
+            Materiale materiale = new Materiale(tfNuovoMateriale.getText(), spNuvoCosto.getValue().floatValue(), spNuovaQauntita.getValue());
             Connection con = Database.getConnection();
-            String Query = "INSERT INTO Materiali (idMateriale, Nome, Quantita, costo) VALUES (" +
+            String Query = "INSERT INTO Materiale(Idmateriale, Nome, Quantita, Costo)  VALUES (" +
                     "'" + materiale.getId() + "'," +
                     "'" + materiale.getNome() + "',"
                     + "'" + materiale.getQuantita() + "'," +
@@ -105,7 +105,7 @@ public class GestioneMateriali implements Initializable {
         if (alert.getResult() == ButtonType.YES) {
             //rimuovo il maeriale dal db
             Connection con = Database.getConnection();
-            String Query = "DELETE FROM Materiali WHERE idMateriale = '" +
+            String Query = "DELETE FROM Materiale WHERE IdMateriale = '" +
                     materiale.getId() + "';";
             con.createStatement().executeUpdate(Query);
 
@@ -122,7 +122,7 @@ public class GestioneMateriali implements Initializable {
         alert.showAndWait();
         if (alert.getResult() == ButtonType.APPLY) {
             Connection con = Database.getConnection();
-            String query = "UPDATE Materiali SET Quantita = Quantita +" + spModificaQuantita.getValue() + " Where idMateriale='" + materiale.getId() + "'";
+            String query = "UPDATE Materiale SET Quantita = Quantita +" + spModificaQuantita.getValue() + " Where IdMateriale='" + materiale.getId() + "'";
             con.createStatement().executeUpdate(query);
             this.listaMateriali.clear();
             this.listaMateriali.addAll(Casotto.getInstance().getMagazzino());

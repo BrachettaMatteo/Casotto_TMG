@@ -120,8 +120,15 @@ public class GestionePersonale implements Initializable {
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.YES)) {
 
+
             Connection con = Database.getConnection();
-            String query = "INSERT INTO Dipendenti (Id, Nome, Cognome, Residenza, Telefono, Ruolo, Email,nomeUtente) VALUES (" +
+            //todo: creare generatore password e invio mail.
+            //Aggiungo utente
+            String query="Insert Into  Utente(Username, Password, Ruolo) Values ('"+dipendente.getNomeUtente()+"'," +
+                    "'1234' , '"+dipendente.getRuolo()+"')";
+            con.createStatement().executeUpdate(query);
+
+             query = "Insert Into Dipendente(ID, Nome, Cognome, Residenza, Telefono, Ruolo, Email, nomeUtente)  VALUES (" +
                     "'" + dipendente.getId() + "',"
                     + "'" + dipendente.getNome() + "',"
                     + "'" + dipendente.getCognome() + "',"
@@ -130,7 +137,6 @@ public class GestionePersonale implements Initializable {
                     + "'" + dipendente.getRuolo() + "',"
                     + "'" + dipendente.getEmail() + "',"
                     + "'" + dipendente.getNomeUtente() + "');";
-
             con.createStatement().executeUpdate(query);
 
             ListaPersonale.add(dipendente);
@@ -154,7 +160,10 @@ public class GestionePersonale implements Initializable {
             Connection con = null;
             try {
                 con = Database.getConnection();
-                String query = "DELETE from Dipendenti where Id='" + i.getId() + "'";
+                String query;
+                query= "DELETE from Dipendente where ID='" + i.getId() + "'";
+                con.createStatement().executeUpdate(query);
+                 query = "DELETE from Utente where Username='" + i.getNomeUtente() + "'";
                 con.createStatement().executeUpdate(query);
                 ListaPersonale.remove(i);
             } catch (SQLException e) {

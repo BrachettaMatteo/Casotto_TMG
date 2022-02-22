@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class comnadaAttivitaController implements Initializable {
@@ -55,8 +56,8 @@ public class comnadaAttivitaController implements Initializable {
         Connection con = null;
         try {
             con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("select  postiMax-Attivita.Componenti as num from Attivita where nome='" + this.texAttivita.getValue() + "' && orario='" + this.comboOrario.getValue() + "';");
-            rs.next();
+            ResultSet rs = con.createStatement().executeQuery("select  postiMax-Componenti as num from Attivita where Nome='" + this.texAttivita.getValue() + "' AND Orario= '" + this.comboOrario.getValue()+ "';");
+            rs. next();
             if (rs.getInt("num") >= 1) {
                 SpinnerValueFactory<Integer> in = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, rs.getInt("num"), 1, 1);
                 this.nPartecipanti.setValueFactory(in);
@@ -81,8 +82,21 @@ public class comnadaAttivitaController implements Initializable {
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.OK)) {
             bozza.chiudiComanda();
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Prenotaione effettuta");
+            alert.show();
+            this.preparanuovaComanda();
         }
+    }
+
+    private void preparanuovaComanda() {
         bozza = null;
+        ob.clear();
+        ob.addAll(Casotto.getInstance().getNomiAttivita());
+        or.clear();
+        texAttivita.setItems(ob);
+        comboOrario.setItems(or);
+        this.nPartecipanti.getEditor().clear();
+
     }
 
 

@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Timestamp;
@@ -50,8 +51,32 @@ public class prenotazioneBalneareController implements Initializable {
             nomeMateriale.add(m.getNome());
         }
         comboMateriali.setItems(nomeMateriale);
+        dataFine.setDayCellFactory(rimuovidate());
         dataFine.setValue(LocalDate.now());
 
+    }
+
+    private Callback<DatePicker, DateCell> rimuovidate() {
+        Callback<DatePicker, DateCell> callB = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker param) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        LocalDate today = LocalDate.now();
+                        if (empty || item.compareTo(today) < 0) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }
+
+                    }
+
+                };
+            }
+
+        };
+        return callB;
     }
 
     public void setQuantita(ActionEvent event) {
@@ -86,11 +111,7 @@ public class prenotazioneBalneareController implements Initializable {
         alert.showAndWait();
         if (alert.getResult() == ButtonType.APPLY) {
             bozza.chiudiComanda();
-            alert = new Alert(Alert.AlertType.INFORMATION, "Prenotazione effettuata");
-            alert.show();
-        } else
-            alert = new Alert(Alert.AlertType.ERROR, "Errore prenotazione non effettuata");
-
+        }
     }
 
 }

@@ -15,6 +15,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -54,7 +55,7 @@ public class GestioneAttivita implements Initializable {
     private Button btnRimuoviAttivita;
 
     @FXML
-    private Spinner<Float> costonuovaAttivita;
+    private Spinner<Double> costonuovaAttivita;
 
     @FXML
     private Spinner<Integer> hNuovaAttivita;
@@ -99,7 +100,17 @@ public class GestioneAttivita implements Initializable {
         m.setValue(LocalDateTime.now().getMinute());
         mNuovaAttivita.setValueFactory(m);
 
+        SpinnerValueFactory<Integer> PostiMax =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1, 1);
+        postiMaxNuovaAttivita.setValueFactory(PostiMax);
 
+        SpinnerValueFactory<Integer> PostiMin =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1, 1);
+        postiMinNuovaAttivita.setValueFactory(PostiMin);
+        SpinnerValueFactory<Double> Costo =
+                new SpinnerValueFactory.DoubleSpinnerValueFactory(1.0, 100, 1, 0.5);
+        costonuovaAttivita.setValueFactory(Costo);
+        OrarioNuovaAttivita.setValue(LocalDate.now());
     }
 
     @FXML
@@ -119,13 +130,13 @@ public class GestioneAttivita implements Initializable {
             try {
                 con = Database.getConnection();
                 int comp = a.getComponenti() != null ? a.getComponenti().size() : 0;
-                String Query = "INSERT INTO Casotto.Attivita (Id, Nome, postiMax, postiMin, costo, orario, Componenti) VALUES (" +
+                String Query = "insert into Attivita(ID, Nome, postiMax, postiMin, Costo, Orario, Componenti)  VALUES (" +
                         "'" + a.getIdAttivita() + "'," +
                         "'" + a.getNome() + "',"
                         + "'" + a.getPostiMax() + "'," +
                         "'" + a.getPostiMin() + "'," +
                         "'" + a.getCosto() + "'," +
-                        "'" + a.getOrario() + "'," +
+                        "'" + Timestamp.valueOf(a.getOrario() )+ "'," +
                         "'" + comp + "');";
 
                 con.createStatement().executeUpdate(Query);
@@ -150,7 +161,7 @@ public class GestioneAttivita implements Initializable {
             Connection con = null;
             try {
                 con = Database.getConnection();
-                String Query = "DELETE FROM Casotto.Attivita WHERE (Id = '" +
+                String Query = "DELETE FROM Attivita WHERE (ID = '" +
                         attivita.getId() + "');";
                 con.createStatement().executeUpdate(Query);
 
@@ -158,7 +169,7 @@ public class GestioneAttivita implements Initializable {
                 e.printStackTrace();
             }
             ListaAttivita.remove(attivita);
-            alert= new Alert(Alert.AlertType.INFORMATION, "Attivita Rimossa",ButtonType.OK);
+            alert = new Alert(Alert.AlertType.INFORMATION, "Attivita Rimossa", ButtonType.OK);
             alert.setTitle("conferam Eliminazione");
             alert.show();
         }

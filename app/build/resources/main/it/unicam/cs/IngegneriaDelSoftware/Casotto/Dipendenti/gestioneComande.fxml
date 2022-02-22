@@ -33,7 +33,7 @@
             <Button fx:id="btnCambiaStatus" mnemonicParsing="false" onAction="#cambiaStatus" text="CambiaStatus" />
          </children>
       </VBox>
-      <Button layoutX="500.0" layoutY="212.0" mnemonicParsing="false" text="Elimina Comanda" AnchorPane.rightAnchor="10.0" />
+      <Button layoutX="500.0" layoutY="212.0" mnemonicParsing="false" text="Elimina Comanda" AnchorPane.rightAnchor="10.0" onAction="#eliminaComanda" />
       <Button fx:id="btnCreaNuovComanda" layoutX="361.0" layoutY="308.0" mnemonicParsing="false" onAction="#creaNuovaComnda" prefHeight="67.0" prefWidth="126.0" text="crea nuova comanda" textAlignment="CENTER" wrapText="true" />
       <TextField fx:id="tdCLiente" layoutX="257.0" layoutY="283.0" promptText="cliente" />
       <TextField fx:id="tfOmbrellone" layoutX="424.0" layoutY="283.0" promptText="ombrellone" />

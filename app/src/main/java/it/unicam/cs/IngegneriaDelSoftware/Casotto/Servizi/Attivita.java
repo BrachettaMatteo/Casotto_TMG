@@ -31,6 +31,7 @@ public class Attivita {
     private float costo;
 
     private LocalDateTime Orario;
+    private int partecipanti;
 
     /**
      * permette di creare una nuova Attivit&agrave;
@@ -71,6 +72,19 @@ public class Attivita {
         this.postiMax = postiMax;
         this.postiMin = postiMin;
         this.costo = costo;
+        if (orario != null)
+            this.Orario = orario.toLocalDateTime();
+        else
+            this.Orario = null;
+    }
+
+    public Attivita(String idAttivita, String nome, int postiMax, int postiMin, float costo, Timestamp orario, int partecipanti) {
+        this.idAttivita = UUID.fromString(idAttivita);
+        this.nome = nome;
+        this.postiMax = postiMax;
+        this.postiMin = postiMin;
+        this.costo = costo;
+        this.partecipanti = partecipanti;
         if (orario != null)
             this.Orario = orario.toLocalDateTime();
         else

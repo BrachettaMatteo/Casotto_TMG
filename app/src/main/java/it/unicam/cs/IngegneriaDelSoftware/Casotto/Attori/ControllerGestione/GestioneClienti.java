@@ -12,8 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class GestioneClienti implements Initializable {
@@ -76,12 +74,15 @@ public class GestioneClienti implements Initializable {
 
     @FXML
     void aggiungiCliente(ActionEvent event) {
-        String descrizione = "Cliente: \n nome: " + nomeNuovoCliente.getText() + "\n Cognome:" + cognomeNuovoCliente.getText() + "\nResidenza: " + residenzaNuovoCliente.getText() + "\n Telefono:" + Integer.valueOf(telefonoNuovoCliente.getText()) + "\n Email" + emailNuovoCliente.getText();
+        String descrizione = "Cliente: \n nome: " + nomeNuovoCliente.getText() + "\n Cognome:" + cognomeNuovoCliente.getText() + "\nResidenza: " + residenzaNuovoCliente.getText() + "\n Telefono:" + telefonoNuovoCliente.getText() + "\n Email" + emailNuovoCliente.getText();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, descrizione + " \n procedi con l'aggiunta del Cliente?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Creazione nuovo  Cliente");
         alert.showAndWait();
         if (alert.getResult().equals(ButtonType.YES)) {
             String nomeUtente = nomeNuovoCliente.getText() + cognomeNuovoCliente.getText();
+            while (Database.checkUsername(nomeUtente)) {
+                nomeUtente = nomeUtente + "1";
+            }
             Cliente cliente = new Cliente(nomeNuovoCliente.getText(),
                     cognomeNuovoCliente.getText(),
                     residenzaNuovoCliente.getText(),
@@ -89,9 +90,13 @@ public class GestioneClienti implements Initializable {
                     nomeUtente,
                     emailNuovoCliente.getText());
 
-            Casotto.getInstance().aggiungiCLiente(cliente);
-            ListaCliente.add(cliente);
+            aggiornaListaCLienti();
         }
+    }
+
+    private void aggiornaListaCLienti() {
+        ListaCliente.clear();
+        ListaCliente.addAll(Casotto.getInstance().getClienti());
     }
 
     @FXML
@@ -101,16 +106,8 @@ public class GestioneClienti implements Initializable {
         alert.setTitle("Eliminazione Cliente");
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
-            Connection con = null;
-            try {
-                con = Database.getConnection();
-                String query = " DELETE FROM Casotto.Clienti WHERE (Id = '" + cliente.getId() + "');";
-                con.createStatement().executeUpdate(query);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            ListaCliente.remove(cliente);
-
+            Casotto.getInstance().rimuoviCliente(cliente);
+            this.aggiornaListaCLienti();
         }
     }
 

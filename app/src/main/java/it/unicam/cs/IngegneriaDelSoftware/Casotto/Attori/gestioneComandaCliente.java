@@ -34,7 +34,7 @@ public class gestioneComandaCliente implements Initializable {
     public TableColumn<ComandaRistorazione, String> clStatus;
     public TableColumn<ComandaRistorazione, String> clListaProdotti;
 
-    private ObservableList<ComandaRistorazione> listaComande = FXCollections.observableArrayList();
+    private static ObservableList<ComandaRistorazione> listaComande = FXCollections.observableArrayList();
     private ObservableList<Integer> numeroOmbrelloni = FXCollections.observableArrayList();
     @FXML
     private Button btnNuovaComandaRisorazione;
@@ -44,7 +44,9 @@ public class gestioneComandaCliente implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        listaComande.addAll(Casotto.getInstance().getComandeRistorazione());
+        String ombrellone = Casotto.getInstance().getOmbrelloneToNumero(cbNumeroOmbrellone.getValue());
+        String cl = Casotto.getInstance().getIdClientetoOmbrellone(ombrellone);
+        listaComande.addAll(Casotto.getInstance().getComandeRistorazioneCliente(cl));
 
         clComanda.setCellValueFactory(new PropertyValueFactory<>("Id"));
         clCliente.setCellValueFactory(new PropertyValueFactory<>("IdCliente"));
@@ -71,12 +73,15 @@ public class gestioneComandaCliente implements Initializable {
         CreaNuovaComanda.setCr(cr);
         FXMLLoader fxmlLoader = new FXMLLoader(Chalet.class.getResource("Dipendenti/creaNuovaComanda.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = Chalet.getCurrentStage();
-        stage.setTitle("Casotto!");
+        Stage stage = new Stage();
+        stage.setTitle("Prenotazione risotrazione!");
         stage.setScene(scene);
         stage.show();
-        Chalet.setCurrentStage(stage);
 
+    }
+    public static void  aggiornaComande(){
+        listaComande.clear();
+        listaComande.addAll(Casotto.getInstance().getComandeRistorazioneCliente(ClienteController.getC().getId()));
     }
 
 }

@@ -6,7 +6,6 @@ import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Chalet;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.ComandaRistorazione;
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Status;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,7 +51,7 @@ public class gestioneComande implements Initializable {
 
     @FXML
     private TableColumn<ComandaRistorazione, String> clStatus;
-    private ObservableList<ComandaRistorazione> listaComande = FXCollections.observableArrayList();
+    private static ObservableList<ComandaRistorazione> listaComande = FXCollections.observableArrayList();
     private ObservableList<String> listaStatus = FXCollections.observableArrayList();
 
     @FXML
@@ -63,12 +62,9 @@ public class gestioneComande implements Initializable {
         if (alert.getResult() == ButtonType.APPLY) {
             try {
                 Connection con = Database.getConnection();
-                String query = "UPDATE comandaRistorazione SET Status='" + cbCambiaStatus.getValue() + "'WHERE id='" + cr.getId() + "'";
+                String query = "UPDATE ComandaRistorazione set Status='" + cbCambiaStatus.getValue() + "'WHERE ID='" + cr.getId() + "'";
                 con.createStatement().executeUpdate(query);
-                int index = listaComande.indexOf(cr);
-                listaComande.remove(cr);
-                cr.setStatus(Status.valueOf("daElaborare"));
-                listaComande.add(cr);
+                aggiornaComande();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -91,11 +87,17 @@ public class gestioneComande implements Initializable {
         CreaNuovaComanda.setCr(cr);
         FXMLLoader fxmlLoader = new FXMLLoader(Chalet.class.getResource("Dipendenti/creaNuovaComanda.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = Chalet.getCurrentStage();
-        stage.setTitle("Casotto!");
+        Stage stage = new Stage();
+        stage.setTitle("Comanda Ristorazione!");
         stage.setScene(scene);
         stage.show();
         Chalet.setCurrentStage(stage);
+    }
+
+    public static void aggiornaComande() {
+        listaComande.clear();
+        listaComande.addAll(Casotto.getInstance().getComandeRistorazione());
+
     }
 
     @Override
@@ -112,5 +114,23 @@ public class gestioneComande implements Initializable {
 
         listaStatus.addAll("Consegnato", "daElaborare", "InLavorazione", "ProntaPerIlRitiro");
         cbCambiaStatus.setItems(listaStatus);
+    }
+
+    public void eliminaComanda(ActionEvent event) {
+        ComandaRistorazione cr = tabcomande.getSelectionModel().getSelectedItem();
+        Alert alert;
+        alert= new Alert(Alert.AlertType.CONFIRMATION,"eliminare comanda:"+cr.toString(),ButtonType.APPLY);
+        alert.showAndWait();
+        if(alert.getResult()==ButtonType.APPLY){
+            try {
+                Connection con = Database.getConnection();
+                String query = "DELETE FROM ComandaRistorazione where ID='"+cr.getId()+"'";
+                con.createStatement().executeUpdate(query);
+                aggiornaComande();
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            }
+        }
     }
 }

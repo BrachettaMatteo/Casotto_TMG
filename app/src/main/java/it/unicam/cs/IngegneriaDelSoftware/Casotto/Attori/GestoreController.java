@@ -73,7 +73,15 @@ public class GestoreController implements Initializable {
 
     @FXML
     void gestioneRistorazione(ActionEvent event) {
-        lbLocation.setText("Gestione Ristorazione");
+        AnchorPane Tab = null;
+        try {
+            Tab = (AnchorPane) FXMLLoader.load(Chalet.class.getResource("Dipendenti/gestioneComande.fxml"));
+            board.getChildren().clear();
+            board.getChildren().add(Tab);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        lbLocation.setText("Gestione Prenotazioni");
     }
 
     public void gestioneSpiaggia(ActionEvent event) {
@@ -138,7 +146,7 @@ public class GestoreController implements Initializable {
     public void Home() {
         AnchorPane Tab = null;
         try {
-            Tab = (AnchorPane) FXMLLoader.load(Chalet.class.getResource("gestoreHome.fxml"));
+            Tab = (AnchorPane) FXMLLoader.load(Chalet.class.getResource("Dipendenti/gestoreHome.fxml"));
             board.getChildren().clear();
             board.getChildren().add(Tab);
         } catch (IOException e) {

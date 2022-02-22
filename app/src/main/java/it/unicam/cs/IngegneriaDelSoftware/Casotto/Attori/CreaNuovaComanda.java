@@ -1,5 +1,6 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori;
 
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ControllerGestione.gestioneComande;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.ComandaRistorazione;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Prodotto;
@@ -41,10 +42,11 @@ public class CreaNuovaComanda implements Initializable {
 
     @FXML
     void prenotaComanda(ActionEvent event) {
-        Alert alert= new Alert(Alert.AlertType.CONFIRMATION,"riepilogo:\n"+cr.toString(),ButtonType.APPLY);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "riepilogo:\n" + cr.toString(), ButtonType.APPLY);
         alert.showAndWait();
-        if(alert.getResult()== ButtonType.APPLY){
+        if (alert.getResult() == ButtonType.APPLY) {
             cr.chiudiComanda();
+            gestioneComande.aggiornaComande();
             cr.rimuoviProdotti();
             this.lbDettagliComanda.setText("");
         }
@@ -53,13 +55,16 @@ public class CreaNuovaComanda implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        for (Prodotto p : Casotto.getInstance().getMenu()) {
-            ListaProdotti.add(p.getNome());
-        }
-        comboNomeProdotto.setItems(ListaProdotti);
+        if (Casotto.getInstance().getMenu() != null) {
+            for (Prodotto p : Casotto.getInstance().getMenu()) {
+                ListaProdotti.add(p.getNome());
+            }
+            comboNomeProdotto.setItems(ListaProdotti);
 
-        SpinnerValueFactory<Integer> quantita = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1, 1);
-        spQuantita.setValueFactory(quantita);
+            SpinnerValueFactory<Integer> quantita = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1, 1);
+            spQuantita.setValueFactory(quantita);
+
+        }
 
     }
 
@@ -68,10 +73,10 @@ public class CreaNuovaComanda implements Initializable {
         p.setQuantita(spQuantita.getValue());
         cr.aggiungiProdotto(p);
         String text = lbDettagliComanda.getText();
-        if(text.isEmpty()){
-            lbDettagliComanda.setText(comboNomeProdotto.getValue()+" "+spQuantita.getValue()+" ,\n ");
-        }else
-            lbDettagliComanda.setText(text+comboNomeProdotto.getValue()+" "+spQuantita.getValue()+" ,\n ");
+        if (text.isEmpty()) {
+            lbDettagliComanda.setText(comboNomeProdotto.getValue() + " " + spQuantita.getValue() + " ,\n ");
+        } else
+            lbDettagliComanda.setText(text + comboNomeProdotto.getValue() + " " + spQuantita.getValue() + " ,\n ");
         comboNomeProdotto.setItems(ListaProdotti);
         SpinnerValueFactory<Integer> quantita = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1, 1);
         spQuantita.setValueFactory(quantita);
@@ -79,20 +84,8 @@ public class CreaNuovaComanda implements Initializable {
 
     public void setCosto(ActionEvent event) throws SQLException {
 
-        lbcosto.setText(String.valueOf(Casotto.getInstance().getProdotto(comboNomeProdotto.getValue()).getPrezzo())+"€");
+        lbcosto.setText(String.valueOf(Casotto.getInstance().getProdotto(comboNomeProdotto.getValue()).getPrezzo()) + "€");
 
     }
 
-    @Override
-    public String toString() {
-        return "CreaNuovaComanda{" +
-                "spQuantita=" + spQuantita +
-                ", comboNomeProdotto=" + comboNomeProdotto +
-                ", btnAggiungi=" + btnAggiungi +
-                ", lbcosto=" + lbcosto +
-                ", lbDettagliComanda=" + lbDettagliComanda +
-                ", btnPrenota=" + btnPrenota +
-                ", ListaProdotti=" + ListaProdotti +
-                '}';
-    }
 }

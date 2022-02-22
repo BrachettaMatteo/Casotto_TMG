@@ -12,7 +12,7 @@
    <children>
       <Text layoutX="130.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ombrellone" />
       <ComboBox fx:id="numOmbrellone" layoutX="204.0" layoutY="78.0" onAction="#setDate" prefHeight="26.0" prefWidth="186.0" />
-      <DatePicker fx:id="dataInizio" layoutX="205.0" layoutY="126.0" promptText="data inzio" />
+      <DatePicker fx:id="dataInizio" layoutX="205.0" layoutY="126.0" onAction="#setDateFine" promptText="data inzio" />
       <DatePicker fx:id="dataFine" layoutX="205.0" layoutY="162.0" onAction="#calolaConto" promptText="data fine" />
       <Text layoutX="195.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="costo:" />
       <Label fx:id="lbPrezzo" layoutX="236.0" layoutY="211.0" text="" />

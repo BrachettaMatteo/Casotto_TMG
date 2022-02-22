@@ -1,7 +1,8 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori;
 
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Chalet;
-
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.ComandaRistorazione;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClienteController implements Initializable {
-    static Cliente c ;
+    static Cliente c;
 
     public static void setC(Cliente c) {
         ClienteController.c = c;
@@ -53,8 +54,8 @@ public class ClienteController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        labInt.setText(c.getCognome()+" "+c.getNome());
-        lbNomeCliente.setText(c.getCognome()+" "+c.getNome());
+        labInt.setText(c.getCognome() + " " + c.getNome());
+        lbNomeCliente.setText(c.getCognome() + " " + c.getNome());
         lbResidenza.setText(c.getResidenza());
         lbTelefono.setText(c.getTelefono());
         lbEmailCliente.setText(c.getEmail());
@@ -67,7 +68,7 @@ public class ClienteController implements Initializable {
         try {
             Tabombrelloni = (AnchorPane) FXMLLoader.load(Chalet.class.getResource("prenotazioneOmbrellone-view.fxml"));
             tabcenter.getChildren().clear();
-           tabcenter.getChildren().add(Tabombrelloni);
+            tabcenter.getChildren().add(Tabombrelloni);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,7 +125,11 @@ public class ClienteController implements Initializable {
     public void prenotaRistorazione(ActionEvent event) {
         AnchorPane tabAttivita = null;
         try {
-            tabAttivita = (AnchorPane) FXMLLoader.load(Chalet.class.getResource("clienteComande-view.fxml"));
+            String om = Casotto.getInstance().getOmbrelloneIdCliente(c.getId());
+            Ombrellone ombrellone = Casotto.getInstance().getOmbrellone(om);
+            ComandaRistorazione cr = new ComandaRistorazione(ombrellone, c);
+            CreaNuovaComanda.setCr(cr);
+            tabAttivita = (AnchorPane) FXMLLoader.load(Chalet.class.getResource("Dipendenti/creaNuovaComanda.fxml"));
             tabcenter.getChildren().clear();
             tabcenter.getChildren().add(tabAttivita);
         } catch (IOException e) {

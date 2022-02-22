@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.prenotazioneBalneareController">
    <children>
-      <VBox layoutX="122.0" layoutY="41.0" prefHeight="124.0" prefWidth="275.0">
+      <VBox alignment="TOP_CENTER" layoutX="122.0" layoutY="41.0" prefHeight="124.0" prefWidth="275.0" spacing="10.0">
          <children>
             <HBox prefHeight="33.0" prefWidth="261.0" spacing="20.0">
                <children>
@@ -31,15 +31,11 @@
                   <Spinner fx:id="spinnereQuantita" prefHeight="26.0" prefWidth="71.0" />
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="62.0" prefHeight="33.0" prefWidth="261.0" spacing="115.0">
-               <children>
-                  <DatePicker fx:id="dataFine" onAction="#calcolaConto" promptText="dataFine" />
-               </children>
-            </HBox>
+            <DatePicker fx:id="dataFine" onAction="#calcolaConto" promptText="dataFine" />
             <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="103.0" prefHeight="33.0" prefWidth="261.0">
                <children>
                   <Label text="Totale:" />
-                  <Label fx:id="lbTotale" text="Label" />
+                  <Label fx:id="lbTotale" />
                   <Label text="€" />
                </children>
             </HBox>

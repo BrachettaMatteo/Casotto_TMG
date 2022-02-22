@@ -65,7 +65,7 @@ public class Bagnino extends Dipendente {
                 ombrellone.libera();
                 try {
                     Connection con = Database.getConnection();
-                    con.createStatement().executeUpdate("Update Ombrelloni SET 'Dipsonibilità'='Disponibile' Where id='" + ombrellone.getId() + "'");
+                    con.createStatement().executeUpdate("UPDATE Ombrellone SET Disponibilita = 'disponibile' WHERE ID='" + ombrellone.getId() + "'");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -122,8 +122,7 @@ public class Bagnino extends Dipendente {
     public void evadiComanda(String idcomanda) {
         try {
             Connection con = Database.getConnection();
-            con.createStatement().executeUpdate("Update comandeBalneare Set Status= 'Consegnato'" +
-                    "WHERE id='" + idcomanda + "';");
+            con.createStatement().executeUpdate("UPDATE ComandaBalneare  Set Status = 'Consegnato' WHERE ID='" + idcomanda + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -138,18 +137,18 @@ public class Bagnino extends Dipendente {
         this.listaOrdini.clear();
         try {
             Connection con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM comandeBalneare WHERE NOT Status='Consegnato';");
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM ComandaBalneare WHERE NOT Status = 'Consegnato';");
 
             while (rs.next()) {
                 ComandaBalneare cm = new ComandaBalneare(
-                        rs.getString("id"),
+                        rs.getString("ID"),
                         rs.getString("idOmbrellone"),
                         rs.getString("idCliente"),
                         //ottieniMateriale(rs.getString("idMateriale")),
-                        rs.getString("idMateriali"),
-                        rs.getTimestamp("durata"),
+                        rs.getString("idMateriale"),
+                        rs.getTimestamp("Durata"),
                         rs.getString("Status"),
-                        rs.getInt("quantita")
+                        rs.getInt("Quantita")
                 );
                 listaOrdini.add(cm);
             }
@@ -159,18 +158,6 @@ public class Bagnino extends Dipendente {
 
         return listaOrdini;
     }
-
-   /* private Materiale ottieniMateriale(String idMateriale) {
-        try {
-            Connection con = Database.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM comandaBalneare WHERE  id='" + idMateriale + "'");
-            rs.next();
-            return new Materiale(rs.getString("idMateriale"), rs.getString("Nome"), rs.getFloat("costo"), rs.getInt("Quantità"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
 
     @FXML
     public void gestioneOmbrelloni(ActionEvent event) {

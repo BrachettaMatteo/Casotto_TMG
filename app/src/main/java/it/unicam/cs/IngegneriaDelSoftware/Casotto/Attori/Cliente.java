@@ -101,7 +101,7 @@ public class Cliente extends Persona {
 
         try {
             Connection con=Database.getConnection();
-            con.createStatement().executeUpdate("UPDATE Clienti SET Conto= Conto+"+f+"Where Id='"+this.getId()+"'");
+            con.createStatement().executeUpdate("UPDATE Cliente SET Conto= Conto+"+f+"Where ID='"+this.getId()+"'");
             this.credito += f;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,7 +123,7 @@ public class Cliente extends Persona {
             Connection connection = null;
             try {
                 connection = Database.getConnection();
-                String query = "UPDATE Clienti SET Conto=" + this.credito + " WHERE Id='" + this.getId() + "';";
+                String query = "UPDATE Cliente SET Conto=" + this.credito + " WHERE ID='" + this.getId() + "';";
                 connection.createStatement().executeUpdate(query);
                 return true;
             } catch (SQLException e) {
@@ -137,7 +137,7 @@ public class Cliente extends Persona {
     private void aggiornacredito() {
         try {
             Connection connection = Database.getConnection();
-            String query = "SELECT Conto FROM Clienti WHERE Id='"+this.getId()+"';";
+            String query = "SELECT Conto FROM Cliente WHERE ID='"+this.getId()+"';";
             ResultSet rs =connection.createStatement().executeQuery(query);
             if(rs.next()){
                 this.credito = rs.getFloat("Conto");

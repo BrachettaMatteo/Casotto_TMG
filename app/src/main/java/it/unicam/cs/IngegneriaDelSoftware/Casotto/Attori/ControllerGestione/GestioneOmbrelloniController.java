@@ -10,14 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 
@@ -72,16 +69,9 @@ public class GestioneOmbrelloniController implements Initializable {
         ombrelloneTariffa.setCellValueFactory(new PropertyValueFactory<>("Tariffa"));
         ombrelloneFine.setCellValueFactory(new PropertyValueFactory<>("Fine"));
         tableOmbrelloni.setItems(ListaOmbrelloni);
+        if (Casotto.getInstance().getOmbrelloni().size() != 0)
+            this.aggiornaValori();
 
-        SpinnerValueFactory<Double> costo = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, 1, 0.5);
-        spinCostoNuovoOmbrellone.setValueFactory(costo);
-
-        int max = Casotto.getInstance().getOmbrelloni().size() + 1;
-        SpinnerValueFactory<Integer> numero = new SpinnerValueFactory.IntegerSpinnerValueFactory(max, max+100, max, 1);
-        spinNumeroNuovoOmbrellone.setValueFactory(numero);
-
-        SpinnerValueFactory<Integer> fila = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1, 1);
-        spinFilaNuovoOmbrellone.setValueFactory(fila);
     }
 
     @FXML
@@ -93,11 +83,24 @@ public class GestioneOmbrelloniController implements Initializable {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.APPLY) {
-            Casotto.getInstance().aggiungiOmbrellone(o);
-            ListaOmbrelloni.add(o);
-            alert = new Alert(Alert.AlertType.INFORMATION, "ombrellone aggiunto correttamente al magazzino", ButtonType.OK);
-            alert.setTitle("Conferma aggiunta ombrellone");
-            alert.show();
+            if (Casotto.getInstance().aggiungiOmbrellone(o))
+                ListaOmbrelloni.add(o);
+
+        }
+    }
+
+    private void aggiornaValori() {
+        if (Casotto.getInstance().getOmbrelloni().size() != 0) {
+            SpinnerValueFactory<Double> costo = new SpinnerValueFactory.DoubleSpinnerValueFactory(0, 100, 1, 0.5);
+            spinCostoNuovoOmbrellone.setValueFactory(costo);
+
+            int max = Casotto.getInstance().getOmbrelloni().size() + 1;
+            SpinnerValueFactory<Integer> numero = new SpinnerValueFactory.IntegerSpinnerValueFactory(max, max + 100, max, 1);
+            spinNumeroNuovoOmbrellone.setValueFactory(numero);
+
+            int maxFila = Casotto.getInstance().getFilaMax();
+            SpinnerValueFactory<Integer> fila = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, maxFila, 1, 1);
+            spinFilaNuovoOmbrellone.setValueFactory(fila);
         }
     }
 
@@ -115,9 +118,11 @@ public class GestioneOmbrelloniController implements Initializable {
             try {
                 con = Database.getConnection();
 
-                String Query = "DELETE FROM Casotto.Ombrelloni WHERE (Id = '" +
+                String Query = "DELETE FROM Ombrellone WHERE (ID = '" +
                         ombrellone.getId() + "');";
                 con.createStatement().executeUpdate(Query);
+                //set tariffe
+                this.aggiornaValori();
             } catch (SQLException e) {
                 alert = new Alert(Alert.AlertType.ERROR, "errore sitema", ButtonType.OK);
                 alert.show();

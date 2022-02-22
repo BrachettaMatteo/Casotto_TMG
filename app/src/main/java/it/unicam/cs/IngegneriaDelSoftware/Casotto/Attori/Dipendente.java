@@ -41,6 +41,7 @@ public class Dipendente extends Persona {
         return ruolo;
     }
 
+
     @Override
     public String toString() {
         return "Dipendente:\n" +

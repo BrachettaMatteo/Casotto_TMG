@@ -156,7 +156,7 @@ public class ComandaBalneare extends Comanda {
         if (Casotto.getInstance().getCliente(this.idCliente()).paga(this.calcolaConto())) {
             try {
                 Connection con = Database.getConnection();
-                String query = "INSERT INTO comandeBalneare(id, idOmbrellone, idCliente, durata, idMateriali, Status, quantita) VALUES ('" +
+                String query = "INSERT INTO ComandaBalneare(ID, idOmbrellone, idCliente, Durata, idMateriale, Status, Quantita) VALUES ('" +
                         this.getId() + "', " +
                         "'" + this.getIdOmbrellone() + "', " +
                         "'" + this.getIdCliente() + "', " +

@@ -50,25 +50,28 @@ public class ComandaAttivita extends Comanda {
         //salvo comanda nel db
         Connection con = null;
         Cliente cliente = Casotto.getInstance().getCliente(this.getIdCliente());
-            //pago conto
-            if (cliente.paga(this.calcolaConto())) {
-                try {
-                    con = Database.getConnection();
-                    String query = "INSERT INTO ComandeAttivita(id, idOmbrellone, idCliente, idAttivita) VALUES ('" +
-                            this.getIdComanda().toString() + "', '"
-                            + this.getIdOmbrellone() + "', '"
-                            + this.getIdCliente() + "', '"
-                            + this.a.getIdAttivita() + "');";
-                    con.createStatement().executeUpdate(query);
-                    //aggiungi partecipanti all'attivita
-                    Casotto.getInstance().aggiungiPertecipantiAttivita(a.getIdAttivita(), numeroPersone);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+        //pago conto
+        if (cliente.paga(this.calcolaConto())) {
+            try {
+                con = Database.getConnection();
+                String query = "INSERT INTO ComandaAttivita(ID, idOmbrellone, idCliente, idAttivita) VALUES ('" +
+                        this.getIdComanda().toString() + "', '"
+                        + this.getIdOmbrellone() + "', '"
+                        + this.getIdCliente() + "', '"
+                        + this.a.getIdAttivita() + "');";
+                con.createStatement().executeUpdate(query);
+                //aggiungi partecipanti all'attivita
+                Casotto.getInstance().aggiungiPertecipantiAttivita(a.getIdAttivita(), numeroPersone);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Prenotazione effettuata", ButtonType.OK);
+                alert.show();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-        //erorre
-        Alert alert = new Alert(Alert.AlertType.ERROR,"Credito insufficiente", ButtonType.OK);
+        } else {
+            //erorre
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Credito insufficiente", ButtonType.OK);
+            alert.show();
+        }
     }
 
     @Override
@@ -76,7 +79,7 @@ public class ComandaAttivita extends Comanda {
         return "ComandaAttivita \n" +
                 "Attivita: " + a.getNome() + "\n" +
                 "Posti prenotati: " + numeroPersone + "\n" +
-                "Costo: " + a.getCosto()+ "\n" +
-                "Totale: "+this.calcolaConto();
+                "Costo: " + a.getCosto() + "\n" +
+                "Totale: " + this.calcolaConto();
     }
 }
