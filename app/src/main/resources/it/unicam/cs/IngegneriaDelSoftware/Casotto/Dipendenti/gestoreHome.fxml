@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.GestoreControllerHome">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.GestoreControllerHome">
 
     <VBox alignment="TOP_CENTER" layoutX="49.0" layoutY="24.0" prefHeight="400.0" prefWidth="600.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
@@ -27,9 +27,9 @@
             <Spinner fx:id="spNumeroFileSpiaggia" layoutX="112.0" layoutY="10.0" prefHeight="26.0" prefWidth="74.0" />
 
         </HBox>
-        <Button fx:id="btnCreaSpiaggia" mnemonicParsing="false" onAction="#creaSpiaggia" text="Crea Spiaggia" />
+        <Button  mnemonicParsing="false" onAction="#creaSpiaggia" text="Crea Spiaggia" />
       <VBox fx:id="boxSetTariffe" alignment="TOP_CENTER" prefHeight="122.0" prefWidth="600.0">
-         <children>
+       
               <Label text="Modfica tariffe">
                <font>
                   <Font size="18.0" />
@@ -43,32 +43,32 @@
                   <Spinner fx:id="spTariffa" layoutX="112.0" layoutY="10.0" prefHeight="26.0" prefWidth="74.0" />
       
               </HBox>
-              <Button fx:id="btnModificaSpiaggia" mnemonicParsing="false" onAction="#modificaTariffa" text="Modifica tariffa" />
-         </children>
+              <Button  mnemonicParsing="false" onAction="#modificaTariffa" text="Modifica tariffa" />
+       
       </VBox>
       <VBox fx:id="boxMenu" alignment="TOP_CENTER" layoutX="10.0" layoutY="99.0" prefHeight="223.0" prefWidth="600.0">
-         <children>
+       
             <Label text="Crea menu">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" spacing="5.0">
-               <children>
+             
                   <Label text="nome Prodotto" />
                   <TextField fx:id="tfNomeProdotto" />
                   <Label text="prezzo" />
                   <Spinner fx:id="spPrezzoProdotto" prefHeight="26.0" prefWidth="73.0" />
-               </children>
+               
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="33.0" prefHeight="87.0" prefWidth="600.0" spacing="5.0">
-               <children>
+             
                   <Label text="Descrizione prodotto" />
                   <TextArea fx:id="taDescrizioneProdotto" prefHeight="65.0" prefWidth="175.0" />
                   <Button fx:id="btnCreaProdotto" mnemonicParsing="false" onAction="#creaProdotto" text="crea Prodotto" />
-               </children>
+               
             </HBox>
-         </children>
+         
       </VBox>
 
     </VBox>

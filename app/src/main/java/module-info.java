@@ -18,7 +18,21 @@ module Casotto.app.main {
 
     opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Service to javafx.fxml;
     exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Service;
-    exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ControllerGestione;
-    opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ControllerGestione to javafx.fxml;
+    exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.ControllerGestione;
+    opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.ControllerGestione to javafx.fxml;
+    exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Cassiere;
+    opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Cassiere to javafx.fxml;
+    exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Bagnino;
+    opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Bagnino to javafx.fxml;
+    exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
+    opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente to javafx.fxml;
+    exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete;
+    opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete to javafx.fxml;
+    exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Attivita;
+    opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Attivita to javafx.fxml;
+    exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Ristorazione;
+    opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Ristorazione to javafx.fxml;
+    exports it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Balneare;
+    opens it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Balneare to javafx.fxml;
 
 }

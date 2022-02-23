@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.prenotazioneOmbrelloneController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Balneare.prenotazioneOmbrelloneController">
    <children>
       <Text layoutX="130.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ombrellone" />
       <ComboBox fx:id="numOmbrellone" layoutX="204.0" layoutY="78.0" onAction="#setDate" prefHeight="26.0" prefWidth="186.0" />

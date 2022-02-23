@@ -1,6 +1,6 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare;
 
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Materiale;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Ristorazione.Materiale;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -48,9 +48,7 @@ public class Ombrellone {
         this.fila = fila;
         this.tariffa = tariffa;
         this.numero = numero;
-        if (dispo.equals("Disponibile"))
-            this.disponibilita = true;
-        else this.disponibilita = false;
+        this.disponibilita = dispo.equals("Disponibile");
         if (fine != null)
             this.fine = fine.toLocalDateTime();
         else

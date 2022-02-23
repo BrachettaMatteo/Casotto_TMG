@@ -7,12 +7,12 @@ import java.util.UUID;
  */
 public class Persona {
 
-    private UUID id;
-    private String nome;
-    private String cognome;
+    private final UUID id;
+    private final String nome;
+    private final String cognome;
     private String residenza;
     private String telefono;
-    private String nomeUtente;
+    private final String nomeUtente;
     private String email;
 
     /**
@@ -36,8 +36,7 @@ public class Persona {
             throw new IllegalArgumentException("email errata");
         if (!email.contains("."))
             throw new IllegalArgumentException("email errata");
-        //TODO - controllare nome utente.
-        this.id= UUID.randomUUID();
+        this.id = UUID.randomUUID();
         this.nome = nome;
         this.cognome = cognome;
         this.residenza = residenza;
@@ -57,7 +56,6 @@ public class Persona {
             throw new IllegalArgumentException("email errata");
         if (!email.contains("."))
             throw new IllegalArgumentException("email errata");
-        //TODO - controllare nome utente.
         this.id = UUID.fromString(id);
         this.nome = nome;
         this.cognome = cognome;

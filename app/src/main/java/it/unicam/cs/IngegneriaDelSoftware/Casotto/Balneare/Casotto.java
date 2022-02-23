@@ -1,11 +1,16 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare;
 
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Bagnino;
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cassiere;
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendente;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente.Cliente;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Bagnino.Bagnino;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Cassiere.Cassiere;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Dipendente;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Gestore;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.*;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Attivita.Attivita;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Balneare.PrenotazioneOmbrellone;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Ristorazione.ComandaRistorazione;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Ristorazione.Materiale;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi.Ristorazione.Prodotto;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -15,7 +20,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Rappresenta un Casotto, ovvero una digitalizzazione di uno chalet
@@ -25,16 +29,16 @@ public class Casotto {
     private static Casotto instance;
 
 
-    private ArrayList<Dipendente> personale;
+    private final ArrayList<Dipendente> personale;
 
-    private ArrayList<Ombrellone> ombrelloni;
+    private final ArrayList<Ombrellone> ombrelloni;
 
-    private ArrayList<Cliente> clienti;
+    private final ArrayList<Cliente> clienti;
 
-    private ArrayList<PrenotazioneOmbrellone> prenotazioni;
-    private ArrayList<Materiale> magazzino;
+    private final ArrayList<PrenotazioneOmbrellone> prenotazioni;
+    private final ArrayList<Materiale> magazzino;
 
-    private ArrayList<Attivita> attivita;
+    private final ArrayList<Attivita> attivita;
 
 
     //!-----------costruttore & instance----------!
@@ -67,7 +71,7 @@ public class Casotto {
      * @return La lista dei clienti del casotto
      */
     public ArrayList<Cliente> getClienti() {
-        Connection con = null;
+        Connection con;
         try {
             con = Database.getConnection();
             ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Cliente");
@@ -119,8 +123,8 @@ public class Casotto {
             Connection con = Database.getConnection();
             String query = "SELECT * FROM Ombrellone ORDER BY Numero";
             ResultSet rs = con.createStatement().executeQuery(query);
-            if (this.ombrelloni != null)
-                this.ombrelloni.clear();
+            this.ombrelloni.clear();
+
             while (rs.next()) {
                 Ombrellone o = new Ombrellone(rs.getString("ID"),
                         rs.getInt("Fila"),
@@ -244,27 +248,6 @@ public class Casotto {
     }
     //!------------------------SET----------------------!
 
-    /**
-     * permette di aggiornare tutta la lista dei Clienti
-     *
-     * @param Clienti lista di clienti
-     */
-    public void setClienti(ArrayList<Cliente> Clienti) {
-        for (Cliente cl : Clienti)
-            this.aggiungiCLiente(cl);
-    }
-
-    /**
-     * permette di insirire una lista di ombrelloni
-     *
-     * @param Ombrelloni lista ombrelloni da aggiungere
-     * @throws IllegalArgumentException se la lista è vuota
-     */
-    public void setOmbrelloni(ArrayList<Ombrellone> Ombrelloni) {
-        for (Ombrellone o : Ombrelloni)
-            this.aggiungiOmbrellone(o);
-
-    }
 
     /**
      * aggiunge un ombrellone al Casotto
@@ -301,15 +284,6 @@ public class Casotto {
         return disponibilita ? "Disponibile" : "Non Disponibile";
     }
 
-    /**
-     * permette di rimpiazzare il magazzino
-     *
-     * @param magazzino nuovo magazzino
-     */
-    public void setMagazzino(Map<Materiale, Integer> magazzino) {
-        magazzino.forEach(this::aggiungiMateriale);
-    }
-
 
     //!----------------SERVIZI----------------!
 
@@ -321,14 +295,15 @@ public class Casotto {
     public void aggiungiAttivita(Attivita a) {
         try {
             Connection con = Database.getConnection();
-            String query = "INSERT INTO Attivita(ID, Nome, postiMax, postiMin, Costo, Orario) VALUES (" +
-                    "'" + a.getId() + "'," +
-                    "'" + a.getNome() + "'," +
-                    "'" + a.getPostiMax() + "'," +
+            String Query = "insert into Attivita(ID, Nome, postiMax, postiMin, Costo, Orario, Componenti)  VALUES (" +
+                    "'" + a.getIdAttivita() + "'," +
+                    "'" + a.getNome() + "',"
+                    + "'" + a.getPostiMax() + "'," +
+                    "'" + a.getPostiMin() + "'," +
                     "'" + a.getCosto() + "'," +
-                    "'" + a.getOrario() + "'" +
+                    "'" + Timestamp.valueOf(a.getOrario()) + "'," + 0 +
                     ");";
-            con.createStatement().executeUpdate(query);
+            con.createStatement().executeUpdate(Query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -385,23 +360,12 @@ public class Casotto {
                     "'" + cliente.getResidenza() + "'," +
                     "'" + cliente.getTelefono() + "'," +
                     "'" + cliente.getEmail() + "'," +
-                    +cliente.getSaldo() + "," +
+                    cliente.getSaldo() + "," +
                     "'" + cliente.getNomeUtente() +
                     "');";
 
 
             con.createStatement().executeUpdate(query);
-        /*    query = "INSERT INTO Cliente(ID, Nome, Cognome, Residenza, Telefono, Email, Conto, nomeUtente) VALUEs ('" +
-                    cliente.getId() + "'," +
-                    "'" + cliente.getNome() + "'," +
-                    "'" + cliente.getCognome() + "'," +
-                    "'" + cliente.getResidenza() + "'," +
-                    "'" + cliente.getTelefono() + "'," +
-                    "'" + cliente.getEmail() + "'," +
-                    +cliente.getSaldo() + "," +
-                    "'" + cliente.getNomeUtente() +
-                    "');";
-            con.createStatement().executeUpdate(query);*/
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -479,22 +443,17 @@ public class Casotto {
      * @throws IllegalArgumentException se l'ombrellone non &egrave; contenuto.
      * @throws IllegalArgumentException se il cliente non &egrave; contenuto.
      */
-    public boolean verificaPrenotazione(Ombrellone o, Cliente c) {/*
-        if (!this.getOmbrelloni().contains(o))
-            throw new IllegalArgumentException("L'ombrellone non è contenuto");
-        if (!this.getClienti().contains(c))
-            throw new IllegalArgumentException("il cliente non è contenuto");*/
-        Connection con = null;
+    public boolean verificaPrenotazione(Ombrellone o, Cliente c) {
+        Connection con;
         try {
             con = Database.getConnection();
             //rivedere query
             String query = "select ID from Prenotazione where idCliente='" + c.getId() + "' && idOmbrellone='" + o.getId() + "'" +
                     " && 0>(SELECT datediff(Fine,'" + Timestamp.valueOf(LocalDateTime.now()) + "')";
             ResultSet rs = con.createStatement().executeQuery(query);
-            if (rs.next()) {
-                return true;
-            }
-            return false;
+
+            return rs.next();
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -510,7 +469,7 @@ public class Casotto {
     public void aggiornaOmbrellone(Ombrellone ombrellone) {
         if (this.getOmbrelloni().contains(ombrellone))
             throw new IllegalArgumentException("Ombrellone non contenuto");
-        Connection con = null;
+        Connection con;
         try {
             con = Database.getConnection();
             String query = "UPDATE Ombrellone SET Numero =" + ombrellone.getNumero() + ", Fila =" + ombrellone.getFila() +
@@ -624,7 +583,7 @@ public class Casotto {
     }
 
     public String getOmbrelloneIdCliente(String idCliente) {
-        Connection con = null;
+        Connection con;
         try {
             con = Database.getConnection();
             String query = "select DATEDIFF(HOUR ,' " + Timestamp.valueOf(LocalDateTime.now()) + "',Fine) as d, idOmbrellone from Prenotazione where idCliente='" + idCliente + "'";
@@ -675,7 +634,7 @@ public class Casotto {
     }
 
     public String getidOmbrellone(Integer value) {
-        Connection con = null;
+        Connection con;
         try {
             con = Database.getConnection();
 
@@ -691,7 +650,7 @@ public class Casotto {
     }
 
     public Cliente getCliente(String idCliente) {
-        Connection con = null;
+        Connection con;
         try {
             con = Database.getConnection();
             String query = "SELECT * from Cliente WHERE ID='" + idCliente + "';";
@@ -789,7 +748,7 @@ public class Casotto {
     }
 
     public void aggiungiPertecipantiAttivita(String idAttivita, int numeroPersone) {
-        Connection con = null;
+        Connection con;
         try {
             con = Database.getConnection();
             String query = "UPDATE Attivita SET Componenti = Componenti + " + numeroPersone + " WHERE ID='" + idAttivita + "';";
@@ -905,12 +864,11 @@ public class Casotto {
     }
 
     public Prodotto getProdotto(String nome) {
-        ArrayList<Prodotto> out = new ArrayList<>();
-        Connection con = null;
+        Connection con;
         try {
             con = Database.getConnection();
             ResultSet rs = con.createStatement().executeQuery("SELECT * FROM Prodotto where Nome= '" + nome + "'");
-            while (rs.next()) {
+            if (rs.next()) {
                 return new Prodotto(rs.getString("ID"),
                         rs.getString("Nome"),
                         rs.getFloat("Prezzo"),
@@ -977,7 +935,7 @@ public class Casotto {
     }
 
     public boolean rimuoviCliente(Cliente cliente) {
-        Connection con = null;
+        Connection con;
         try {
             con = Database.getConnection();
             String query = " DELETE FROM Cliente WHERE ID = '" + cliente.getId() + "';";
@@ -1048,4 +1006,25 @@ public class Casotto {
         }
     }
 
+    public Gestore getGestore(String text) {
+        try {
+            Connection connection = Database.getConnection();
+            String query = "SELECT * FROM Dipendente WHERE nomeUtente='" + text + "';";
+            ResultSet rs = connection.createStatement().executeQuery(query);
+            if (rs.next()) {
+                return new Gestore(
+                        rs.getString("ID"),
+                        rs.getString("Nome"),
+                        rs.getString("Cognome"),
+                        rs.getString("Residenza"),
+                        rs.getString("Telefono"),
+                        rs.getString("nomeUtente"),
+                        rs.getString("Email")
+                );
+            } else throw new IllegalArgumentException("Errore ricomposizione Gestore");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("Errore ricomposizione bagnino");
+    }
 }

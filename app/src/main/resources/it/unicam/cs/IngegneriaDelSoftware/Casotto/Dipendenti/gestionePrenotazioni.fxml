@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="388.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.ControllerGestione.GestionePrenotazioni">
 
-<AnchorPane prefHeight="388.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ControllerGestione.GestionePrenotazioni">
-    <children>
-        <TableView fx:id="tablePrenotazione" layoutY="33.0" prefHeight="295.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columns>
-                <TableColumn fx:id="prenotazioneId" prefWidth="270.0" text="Id" />
-                <TableColumn fx:id="prenotazioneCliente" prefWidth="120.0" text="id Cliente" />
-                <TableColumn fx:id="prenotazioneOmbrellone" prefWidth="120.0" text="id Ombrellone" />
-                <TableColumn fx:id="prenotazioneDataFine" prefWidth="120.0" text="data Fine" />
-                <TableColumn fx:id="prenotazioneDataInizio" prefWidth="120.0" text="data Inizio" />
+    <TableView fx:id="tablePrenotazione" layoutY="33.0" prefHeight="295.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+            <TableColumn fx:id="prenotazioneId" prefWidth="270.0" text="Id"/>
+            <TableColumn fx:id="prenotazioneCliente" prefWidth="120.0" text="id Cliente"/>
+            <TableColumn fx:id="prenotazioneOmbrellone" prefWidth="120.0" text="id Ombrellone"/>
+            <TableColumn fx:id="prenotazioneDataFine" prefWidth="120.0" text="data Fine"/>
+            <TableColumn fx:id="prenotazioneDataInizio" prefWidth="120.0" text="data Inizio"/>
 
-            </columns>
-        </TableView>
-    </children>
+        </columns>
+    </TableView>
+
 </AnchorPane>

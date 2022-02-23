@@ -1,6 +1,6 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto.Servizi;
 
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente.Cliente;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Ombrellone;
 
@@ -13,12 +13,12 @@ public abstract class Comanda {
 
     private static Casotto casotto;
 
-    private String idOmbrellone;
-    private String idCliente;
+    private final String idOmbrellone;
+    private final String idCliente;
 
     private Ombrellone o;
     private Cliente c;
-    private UUID idComanda;
+    private final UUID idComanda;
     private Status status;
 
     /**

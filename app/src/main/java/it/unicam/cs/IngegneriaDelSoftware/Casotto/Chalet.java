@@ -14,8 +14,8 @@ public class Chalet extends Application {
         return currentStage;
     }
 
-    public static void setCurrentStage(Stage currentStage) {
-        currentStage = currentStage;
+    public static void setCurrentStage(Stage stage) {
+        currentStage = stage;
     }
 
     @Override

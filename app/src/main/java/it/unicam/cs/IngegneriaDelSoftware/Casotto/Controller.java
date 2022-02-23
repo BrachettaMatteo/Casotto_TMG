@@ -1,6 +1,10 @@
 package it.unicam.cs.IngegneriaDelSoftware.Casotto;
 
-import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.*;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Bagnino.bagninoController;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Cassiere.CassiereController;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Cliente.ClienteController;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Gestore;
+import it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.GestoreController;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Balneare.Casotto;
 import it.unicam.cs.IngegneriaDelSoftware.Casotto.Service.Database;
 import javafx.event.ActionEvent;
@@ -48,6 +52,7 @@ public class Controller {
                 break;
             }
             case "Gestore": {
+                GestoreController.setG(Casotto.getInstance().getGestore(Username.getText()));
                 root = FXMLLoader.load(Chalet.class.getResource("gestore-view.fxml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);

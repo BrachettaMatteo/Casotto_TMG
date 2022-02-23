@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.ControllerGestione.gestioneComande">
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.ControllerGestione.gestioneComande">
-   <children>
-      <TableView fx:id="tabcomande" layoutX="139.0" layoutY="21.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <TableView fx:id="tabcomande" layoutX="139.0" layoutY="21.0" prefHeight="200.0" prefWidth="200.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn fx:id="clComanda" prefWidth="150.0" text="idComanda" />
-          <TableColumn fx:id="clCliente" prefWidth="150.0" text="idCLiente" />
-            <TableColumn fx:id="clOmbrellone" prefWidth="150.0" text="Ombrellone" />
-            <TableColumn fx:id="clStatus" prefWidth="75.0" text="Status" />
-            <TableColumn fx:id="clListaProdotti" prefWidth="279.0" text="Lista Prodotti" />
+            <TableColumn fx:id="clComanda" prefWidth="150.0" text="idComanda"/>
+            <TableColumn fx:id="clCliente" prefWidth="150.0" text="idCLiente"/>
+            <TableColumn fx:id="clOmbrellone" prefWidth="150.0" text="Ombrellone"/>
+            <TableColumn fx:id="clStatus" prefWidth="75.0" text="Status"/>
+            <TableColumn fx:id="clListaProdotti" prefWidth="279.0" text="Lista Prodotti"/>
         </columns>
-      </TableView>
-      <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="238.0" prefHeight="69.0" prefWidth="230.0" spacing="10.0" AnchorPane.leftAnchor="10.0">
-         <children>
-            <Label text="Modifica Statsus" />
-            <HBox alignment="CENTER" prefHeight="29.0" prefWidth="270.0" spacing="10.0">
-               <children>
-                  <Label text="status:" />
-                  <ComboBox fx:id="cbCambiaStatus" prefWidth="150.0" />
-               </children>
-            </HBox>
-            <Button fx:id="btnCambiaStatus" mnemonicParsing="false" onAction="#cambiaStatus" text="CambiaStatus" />
-         </children>
-      </VBox>
-      <Button layoutX="500.0" layoutY="212.0" mnemonicParsing="false" text="Elimina Comanda" AnchorPane.rightAnchor="10.0" onAction="#eliminaComanda" />
-      <Button fx:id="btnCreaNuovComanda" layoutX="361.0" layoutY="308.0" mnemonicParsing="false" onAction="#creaNuovaComnda" prefHeight="67.0" prefWidth="126.0" text="crea nuova comanda" textAlignment="CENTER" wrapText="true" />
-      <TextField fx:id="tdCLiente" layoutX="257.0" layoutY="283.0" promptText="cliente" />
-      <TextField fx:id="tfOmbrellone" layoutX="424.0" layoutY="283.0" promptText="ombrellone" />
-   </children>
+    </TableView>
+    <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="238.0" prefHeight="69.0" prefWidth="230.0" spacing="10.0"
+          AnchorPane.leftAnchor="10.0">
+
+        <Label text="Modifica Statsus"/>
+        <HBox alignment="CENTER" prefHeight="29.0" prefWidth="270.0" spacing="10.0">
+
+            <Label text="status:"/>
+            <ComboBox fx:id="cbCambiaStatus" prefWidth="150.0"/>
+
+        </HBox>
+        <Button mnemonicParsing="false" onAction="#cambiaStatus" text="CambiaStatus"/>
+
+    </VBox>
+    <Button layoutX="500.0" layoutY="212.0" mnemonicParsing="false" text="Elimina Comanda" AnchorPane.rightAnchor="10.0"
+            onAction="#eliminaComanda"/>
+    <Button layoutX="361.0" layoutY="308.0" mnemonicParsing="false" onAction="#creaNuovaComnda" prefHeight="67.0"
+            prefWidth="126.0" text="crea nuova comanda" textAlignment="CENTER" wrapText="true"/>
+    <TextField fx:id="tdCLiente" layoutX="257.0" layoutY="283.0" promptText="cliente"/>
+    <TextField fx:id="tfOmbrellone" layoutX="424.0" layoutY="283.0" promptText="ombrellone"/>
+
 </AnchorPane>
