@@ -22,8 +22,8 @@ import java.util.ResourceBundle;
 public class ClienteController implements Initializable {
     static Cliente c;
 
-    public static void setC(Cliente c) {
-        ClienteController.c = c;
+    public static void setC(Cliente cliente) {
+        c = cliente;
     }
 
     @FXML

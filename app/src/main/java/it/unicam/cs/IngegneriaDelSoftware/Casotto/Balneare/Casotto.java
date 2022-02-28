@@ -586,13 +586,18 @@ public class Casotto {
         Connection con;
         try {
             con = Database.getConnection();
-            String query = "select DATEDIFF(HOUR ,' " + Timestamp.valueOf(LocalDateTime.now()) + "',Fine) as d, idOmbrellone from Prenotazione where idCliente='" + idCliente + "'";
+            //String query = "select DATEDIFF(MINUTE ,' " + Timestamp.valueOf(LocalDateTime.now()) + "',Fine) as d, idOmbrellone from Prenotazione where idCliente='" + idCliente + "'";
+            String query = "select idOmbrellone from Prenotazione where idCliente='" + idCliente + "'";
+
             ResultSet rs = con.createStatement().executeQuery(query);
-            rs.next();
+            if (rs.next())
+                return rs.getString("idOmbrellone");
+            else
+            /*rs.next();
             if (rs.getInt("d") > 0) {
                 return rs.getString("idOmbrellone");
-            }
-            throw new IllegalArgumentException("cliente non prenotato");
+            } else*/
+                throw new IllegalArgumentException("cliente NON prenotato");
         } catch (SQLException e) {
             e.printStackTrace();
         }

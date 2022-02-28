@@ -19,39 +19,39 @@
    </top>
    <left>
       <VBox prefHeight="377.0" prefWidth="193.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
-         <children>
+        
             <Label text="dati perosnali:" />
             <HBox prefHeight="19.0" prefWidth="100.0">
-               <children>
+              
                   <Label text="Nome: " />
                   <Label fx:id="lbNomeCliente" layoutX="10.0" layoutY="10.0" text="nome CLiente" />
-               </children>
+               
             </HBox>
             <HBox layoutX="10.0" layoutY="27.0" prefHeight="23.0" prefWidth="100.0">
-               <children>
+              
                   <Label text="Residenza: " />
                   <Label fx:id="lbResidenza" layoutX="10.0" layoutY="10.0" text="residenza cliente" />
-               </children>
+               
             </HBox>
             <HBox layoutX="10.0" layoutY="127.0" prefHeight="20.0" prefWidth="100.0">
-               <children>
+              
                   <Label text="Telefono: " />
                   <Label fx:id="lbTelefono" layoutX="10.0" layoutY="10.0" text="Telefono Cliente" />
-               </children>
+               
             </HBox>
             <HBox layoutX="10.0" layoutY="69.0" prefHeight="20.0" prefWidth="100.0">
-               <children>
+              
                   <Label text="Email: " />
                   <Label fx:id="lbEmailCliente" layoutX="10.0" layoutY="10.0" text="Email Cliente" />
-               </children>
+               
             </HBox>
             <Separator prefWidth="200.0" />
-            <Button id="int" fx:id="btnPrenotaOmbrellone" mnemonicParsing="false" onAction="#prenotaOmbrellone" prefHeight="26.0" prefWidth="197.0" text="Prenota ombrellone" />
-            <Button id="int" fx:id="btnPrenotaAttività" layoutX="10.0" layoutY="112.0" mnemonicParsing="false" onAction="#prenotaAttivita" prefHeight="26.0" prefWidth="198.0" text="Prenota Attivita" />
-            <Button id="int" fx:id="btnPrenotaMateriale" layoutX="10.0" layoutY="138.0" mnemonicParsing="false" onAction="#prenotaMateriale" prefHeight="26.0" prefWidth="194.0" text="Prenota Materiale " />
-            <Button id="int" fx:id="btnRistorazione" layoutX="10.0" layoutY="164.0" mnemonicParsing="false" onAction="#prenotaRistorazione" prefHeight="26.0" prefWidth="194.0" text="Prenota Ristorazione " />
-            <Button id="int" fx:id="btnLogout" layoutX="10.0" layoutY="171.0" mnemonicParsing="false" onAction="#Logout" prefHeight="30.0" prefWidth="210.0" text="Logout" />
-         </children>
+            <Button id="int" mnemonicParsing="false" onAction="#prenotaOmbrellone" prefHeight="26.0" prefWidth="197.0" text="Prenota ombrellone" />
+            <Button id="int" layoutX="10.0" layoutY="112.0" mnemonicParsing="false" onAction="#prenotaAttivita" prefHeight="26.0" prefWidth="198.0" text="Prenota Attivita" />
+            <Button id="int"  layoutX="10.0" layoutY="138.0" mnemonicParsing="false" onAction="#prenotaMateriale" prefHeight="26.0" prefWidth="194.0" text="Prenota Materiale " />
+            <Button id="int"  layoutX="10.0" layoutY="164.0" mnemonicParsing="false" onAction="#prenotaRistorazione" prefHeight="26.0" prefWidth="194.0" text="Prenota Ristorazione " />
+            <Button id="int" layoutX="10.0" layoutY="171.0" mnemonicParsing="false" onAction="#Logout" prefHeight="30.0" prefWidth="210.0" text="Logout" />
+         
       </VBox>
    </left>
    <center>

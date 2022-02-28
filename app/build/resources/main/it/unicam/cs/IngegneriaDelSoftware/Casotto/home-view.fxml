@@ -12,10 +12,10 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.Cassiere.CassiereController">
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="47.0" prefWidth="600.0" spacing="200.0">
-         <children>
+
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Casotto TMG" />
             <Button mnemonicParsing="false" text="Login" />
-         </children>
+        
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -26,33 +26,33 @@
    </top>
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
+         
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recapiti" />
             <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="100.0" spacing="5.0">
-               <children>
+               
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="citta" />
-                  <Label fx:id="nome" text="Label" />
-               </children>
+                  <Label  text="Label" />
+              
             </HBox>
             <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="26.0" prefHeight="0.0" prefWidth="100.0" spacing="5.0">
-               <children>
+               
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="provincia" />
-                  <Label fx:id="nome1" text="Label" />
-               </children>
+                  <Label  text="Label" />
+              
             </HBox>
             <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="43.0" prefHeight="0.0" prefWidth="100.0" spacing="5.0">
-               <children>
+               
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono" />
-                  <Label fx:id="nome11" text="Label" />
-               </children>
+                  <Label  text="Label" />
+              
             </HBox>
             <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="61.0" prefHeight="0.0" prefWidth="100.0" spacing="5.0">
-               <children>
+               
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mail" />
-                  <Label fx:id="nome111" text="Label" />
-               </children>
+                  <Label  text="Label" />
+              
             </HBox>
-         </children>
+
       </VBox>
    </left>
 </BorderPane>

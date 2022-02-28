@@ -1,42 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.ControllerGestione.GestioneOmbrelloniController">
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.Attori.Dipendete.ControllerGestione.GestioneOmbrelloniController">
-    <children>
-        <TableView fx:id="tableOmbrelloni" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columns>
-                <TableColumn fx:id="ombrelloneID" prefWidth="270.0" text="Id" />
-                <TableColumn fx:id="ombrelloneNumero" prefWidth="40.0" text="N°" />
-                <TableColumn fx:id="ombrelloneFila" prefWidth="40.0" text="Fila" />
-                <TableColumn fx:id="ombrelloneTariffa" prefWidth="40.0" text="Tariffa" />
-                <TableColumn fx:id="ombrelloneDipso" text="Dispoinibilità" />
-                <TableColumn fx:id="ombrelloneFine" text="data-Fine" />
-            </columns>
-        </TableView>
-        <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="272.0" prefHeight="101.0" prefWidth="361.0">
-            <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Aggiungi Ombellone" />
-                <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="346.0" spacing="10.0">
-                    <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="numero" />
-                        <Spinner fx:id="spinNumeroNuovoOmbrellone" prefHeight="26.0" prefWidth="80.0" />
-                        <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="fila" />
-                        <Spinner fx:id="spinFilaNuovoOmbrellone" layoutX="52.0" layoutY="10.0" prefHeight="26.0" prefWidth="80.0" />
-                        <Text layoutX="99.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="costo" />
-                        <Spinner fx:id="spinCostoNuovoOmbrellone" layoutX="115.0" layoutY="10.0" prefHeight="26.0" prefWidth="80.0" />
-                    </children>
-                </HBox>
-                <Button fx:id="btnAggiungiOmbrellone" mnemonicParsing="false" onAction="#aggiungiOmbrellone" text="Aggiungi Ombrellone" />
-            </children>
-        </VBox>
-        <Button fx:id="btnRimuoviOmbrellone" layoutX="459.0" layoutY="225.0" mnemonicParsing="false" onAction="#rimuoviOmbrellone" text="Rimuovi Ombrellone" />
-    </children>
+    <TableView fx:id="tableOmbrelloni" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+            <TableColumn fx:id="ombrelloneID" prefWidth="270.0" text="Id"/>
+            <TableColumn fx:id="ombrelloneNumero" prefWidth="40.0" text="N°"/>
+            <TableColumn fx:id="ombrelloneFila" prefWidth="40.0" text="Fila"/>
+            <TableColumn fx:id="ombrelloneTariffa" prefWidth="40.0" text="Tariffa"/>
+            <TableColumn fx:id="ombrelloneDipso" text="Dispoinibilità"/>
+            <TableColumn fx:id="ombrelloneFine" text="data-Fine"/>
+        </columns>
+    </TableView>
+    <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="272.0" prefHeight="101.0" prefWidth="361.0">
+
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Aggiungi Ombellone"/>
+        <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="346.0" spacing="10.0">
+
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="numero"/>
+            <Spinner fx:id="spinNumeroNuovoOmbrellone" prefHeight="26.0" prefWidth="80.0"/>
+            <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="fila"/>
+            <Spinner fx:id="spinFilaNuovoOmbrellone" layoutX="52.0" layoutY="10.0" prefHeight="26.0" prefWidth="80.0"/>
+            <Text layoutX="99.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="costo"/>
+            <Spinner fx:id="spinCostoNuovoOmbrellone" layoutX="115.0" layoutY="10.0" prefHeight="26.0"
+                     prefWidth="80.0"/>
+
+        </HBox>
+        <Button mnemonicParsing="false" onAction="#aggiungiOmbrellone" text="Aggiungi Ombrellone"/>
+
+    </VBox>
+    <Button layoutX="459.0" layoutY="225.0" mnemonicParsing="false" onAction="#rimuoviOmbrellone"
+            text="Rimuovi Ombrellone"/>
+
 </AnchorPane>
