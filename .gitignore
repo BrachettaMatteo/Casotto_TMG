@@ -1,2 +1,9 @@
 .gradle
+**/build/
+!src/**/build/
+gradle/
+.gr
+.DS_Store
 .idea
+.gradlew.bat
+gradlew

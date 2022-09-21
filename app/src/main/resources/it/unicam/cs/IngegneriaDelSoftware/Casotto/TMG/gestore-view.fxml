@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.TMG.Attori.Dipendete.GestoreController">
+    <left>
+        <VBox prefHeight="400.0" prefWidth="142.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
+
+            <Button id="int" layoutX="10.0" layoutY="171.0" mnemonicParsing="false" onAction="#Home"
+                    prefHeight="30.0" prefWidth="210.0" text="Home"/>
+            <Button id="int" mnemonicParsing="false" onAction="#gestioneSpiaggia"
+                    prefHeight="26.0" prefWidth="176.0" text="Gestione Spiaggia"/>
+            <Button id="int" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                    onAction="#gestioneMateriali" prefHeight="26.0" prefWidth="176.0" text="Gestione Materiali"/>
+            <Button id="int" layoutX="10.0" layoutY="36.0" mnemonicParsing="false"
+                    onAction="#gestioneRistorazione" prefHeight="26.0" prefWidth="176.0" text="Gestione Ristorazione"/>
+            <Button id="int" fx:id="btnGestioneDipendenti" layoutX="10.0" layoutY="62.0" mnemonicParsing="false"
+                    onAction="#btnGestioneDipendenti" prefHeight="26.0" prefWidth="176.0" text="Gestione Dipendenti"/>
+            <Button id="int" fx:id="btnGestioneClienti" layoutX="10.0" layoutY="62.0" mnemonicParsing="false"
+                    onAction="#btnGestioneClienti" prefHeight="26.0" prefWidth="176.0" text="Gestione Clienti"/>
+            <Button id="int" fx:id="btnGestionePrenotazioni" layoutX="10.0" layoutY="62.0" mnemonicParsing="false"
+                    onAction="#btnGestionePrenotazioni" prefHeight="26.0" prefWidth="176.0"
+                    text="Gestione Prenotazioni"/>
+            <Button id="int" fx:id="btnGestioneAttivita" layoutX="10.0" layoutY="62.0" mnemonicParsing="false"
+                    onAction="#btnGestioneAttivita" prefHeight="26.0" prefWidth="176.0" text="Gestione Attività"/>
+            <Button id="int" layoutX="10.0" layoutY="171.0" mnemonicParsing="false" onAction="#Logout"
+                    prefHeight="30.0" prefWidth="210.0" text="Logout"/>
+
+        </VBox>
+    </left>
+    <center>
+        <StackPane fx:id="board" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets left="3.0"/>
+            </BorderPane.margin>
+
+        </StackPane>
+    </center>
+    <top>
+        <Label fx:id="lbLocation" text="Home" textFill="PURPLE" BorderPane.alignment="CENTER">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+    </top>
+</BorderPane>

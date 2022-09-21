@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.TMG.Attori.Cliente.gestioneComandaCliente">
+
+    <TableView fx:id="tabcomande" layoutX="139.0" layoutY="21.0" prefHeight="200.0" prefWidth="200.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+            <TableColumn fx:id="clComanda" prefWidth="150.0" text="idComanda"/>
+            <TableColumn fx:id="clCliente" prefWidth="150.0" text="idCLiente"/>
+            <TableColumn fx:id="clOmbrellone" prefWidth="150.0" text="Ombrellone"/>
+            <TableColumn fx:id="clStatus" prefWidth="75.0" text="Status"/>
+            <TableColumn fx:id="clListaProdotti" prefWidth="279.0" text="Lista Prodotti"/>
+        </columns>
+    </TableView>
+    <Button layoutX="300.0" layoutY="286.0" mnemonicParsing="false"
+            onAction="#creaNuovaComandaRistorazione" prefHeight="26.0" prefWidth="117.0" text="crea nuova comanda"/>
+    <ComboBox fx:id="cbNumeroOmbrellone" layoutX="144.0" layoutY="287.0" prefWidth="150.0" promptText="ombrellone"/>
+
+</AnchorPane>

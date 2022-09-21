@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.TMG.Servizi.Attivita.comnadaAttivitaController">
+
+    <Button layoutX="273.0" layoutY="289.0" mnemonicParsing="false" onAction="#prenota" text="Prenota"/>
+    <Text layoutX="107.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="attività"/>
+    <ComboBox fx:id="texAttivita" layoutX="208.0" layoutY="60.0" onAction="#cercaOrari" prefHeight="26.0"
+              prefWidth="157.0"/>
+    <Text layoutX="113.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="orario"/>
+    <ComboBox fx:id="comboOrario" layoutX="207.0" layoutY="108.0" onAction="#cercaPartecipanti" prefHeight="26.0"
+              prefWidth="157.0"/>
+    <Text layoutX="113.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="partecipanti"/>
+    <Spinner fx:id="nPartecipanti" layoutX="206.0" layoutY="154.0"/>
+    <HBox layoutX="144.0" layoutY="198.0" prefHeight="23.0" prefWidth="200.0">
+
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Totale : "/>
+        <Label fx:id="lbprezzo"/>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="€"/>
+
+    </HBox>
+    <Button layoutX="315.0" layoutY="193.0" mnemonicParsing="false" onAction="#creaConto" text="Calcola conto"/>
+
+</AnchorPane>

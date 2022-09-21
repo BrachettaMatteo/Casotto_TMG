@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unicam.cs.IngegneriaDelSoftware.Casotto.TMG.Attori.Dipendete.ControllerGestione.GestioneClienti"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <TableView fx:id="tableClienti" layoutX="138.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+            <TableColumn fx:id="clienteId" prefWidth="270.0" text="ID"/>
+            <TableColumn fx:id="clienteNome" prefWidth="100.0" text="Nome"/>
+            <TableColumn fx:id="clienteCognome" prefWidth="100.0" text="Cognome"/>
+            <TableColumn fx:id="clienteResidenza" prefWidth="100.0" text="Residenza"/>
+            <TableColumn fx:id="clienteTelefono" prefWidth="100.0" text="Telefono"/>
+            <TableColumn fx:id="clienteEmail" prefWidth="120.0" text="Email"/>
+        </columns>
+    </TableView>
+    <VBox layoutX="227.0" layoutY="238.0" prefHeight="118.0" prefWidth="448.0">
+
+        <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome"/>
+            <TextField fx:id="nomeNuovoCliente" maxWidth="150.0"/>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cognome"/>
+            <TextField fx:id="cognomeNuovoCliente"/>
+
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Residenza"/>
+            <TextField fx:id="residenzaNuovoCliente" maxWidth="150.0"/>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono"/>
+            <TextField fx:id="telefonoNuovoCliente"/>
+
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="31.0" prefWidth="448.0" spacing="5.0">
+
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email"/>
+            <TextField fx:id="emailNuovoCliente"/>
+
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+        </HBox>
+
+    </VBox>
+    <Button fx:id="aggiungiCliente" layoutX="681.0" layoutY="297.0" mnemonicParsing="false" onAction="#aggiungiCliente"
+            text="aggiungi Cliente"/>
+    <Button layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#rimuoviCliente" text="rimuovi Cliente"/>
+
+</AnchorPane>
